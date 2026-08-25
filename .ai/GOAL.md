@@ -15,7 +15,7 @@ authenticated key/value trees whose nodes are bound by vector commitments and
 whose openings can be aggregated into compact proofs.
 
 The module path MUST be
-`github.com/faustbrian/golib/pkg/verkle-tree`. The root package identifier MUST
+`github.com/faustbrian/go-verkle-tree`. The root package identifier MUST
 be `verkletree`. Go support MUST follow the repository-wide minimum toolchain
 policy.
 

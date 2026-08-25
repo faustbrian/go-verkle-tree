@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/backend"
+	"github.com/faustbrian/go-verkle-tree/internal/backend"
 )
 
 // RootSize is the exact canonical root-container length.

@@ -7,7 +7,7 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/statemodel"
+	"github.com/faustbrian/go-verkle-tree/internal/statemodel"
 )
 
 const fuzzUpdateBytes = 65

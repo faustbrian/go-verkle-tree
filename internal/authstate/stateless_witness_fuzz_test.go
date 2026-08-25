@@ -5,7 +5,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/backend"
+	"github.com/faustbrian/go-verkle-tree/internal/backend"
 )
 
 func FuzzDecodeStatelessWitness(f *testing.F) {

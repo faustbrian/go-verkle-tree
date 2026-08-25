@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/authstate"
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/backend"
+	"github.com/faustbrian/go-verkle-tree/internal/authstate"
+	"github.com/faustbrian/go-verkle-tree/internal/backend"
 )
 
 const (

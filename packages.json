@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "repository": "github.com/faustbrian/go-verkle-tree",
+  "packages": [
+    {
+      "module_directory": ".",
+      "directory": ".",
+      "name": "verkletree",
+      "import_path": "github.com/faustbrian/go-verkle-tree",
+      "kind": "public",
+      "production": true,
+      "executable": true,
+      "coverage_required": true,
+      "build_required": true,
+      "build_tags": []
+    },
+    {
+      "module_directory": ".",
+      "directory": "internal/authstate",
+      "name": "authstate",
+      "import_path": "github.com/faustbrian/go-verkle-tree/internal/authstate",
+      "kind": "internal",
+      "production": true,
+      "executable": true,
+      "coverage_required": true,
+      "build_required": true,
+      "build_tags": []
+    },
+    {
+      "module_directory": ".",
+      "directory": "internal/backend",
+      "name": "backend",
+      "import_path": "github.com/faustbrian/go-verkle-tree/internal/backend",
+      "kind": "internal",
+      "production": true,
+      "executable": true,
+      "coverage_required": true,
+      "build_required": true,
+      "build_tags": []
+    },
+    {
+      "module_directory": ".",
+      "directory": "internal/committedtree",
+      "name": "committedtree",
+      "import_path": "github.com/faustbrian/go-verkle-tree/internal/committedtree",
+      "kind": "internal",
+      "production": true,
+      "executable": true,
+      "coverage_required": true,
+      "build_required": true,
+      "build_tags": []
+    },
+    {
+      "module_directory": ".",
+      "directory": "internal/leafvector",
+      "name": "leafvector",
+      "import_path": "github.com/faustbrian/go-verkle-tree/internal/leafvector",
+      "kind": "internal",
+      "production": true,
+      "executable": true,
+      "coverage_required": true,
+      "build_required": true,
+      "build_tags": []
+    },
+    {
+      "module_directory": ".",
+      "directory": "internal/profile",
+      "name": "profile",
+      "import_path": "github.com/faustbrian/go-verkle-tree/internal/profile",
+      "kind": "internal",
+      "production": true,
+      "executable": true,
+      "coverage_required": true,
+      "build_required": true,
+      "build_tags": []
+    },
+    {
+      "module_directory": ".",
+      "directory": "internal/statemodel",
+      "name": "statemodel",
+      "import_path": "github.com/faustbrian/go-verkle-tree/internal/statemodel",
+      "kind": "internal",
+      "production": true,
+      "executable": true,
+      "coverage_required": true,
+      "build_required": true,
+      "build_tags": []
+    },
+    {
+      "module_directory": ".",
+      "directory": "internal/treelayout",
+      "name": "treelayout",
+      "import_path": "github.com/faustbrian/go-verkle-tree/internal/treelayout",
+      "kind": "internal",
+      "production": true,
+      "executable": true,
+      "coverage_required": true,
+      "build_required": true,
+      "build_tags": []
+    }
+  ]
+}

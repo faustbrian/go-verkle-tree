@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/backend"
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/committedtree"
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/statemodel"
+	"github.com/faustbrian/go-verkle-tree/internal/backend"
+	"github.com/faustbrian/go-verkle-tree/internal/committedtree"
+	"github.com/faustbrian/go-verkle-tree/internal/statemodel"
 )
 
 func TestApplyMatchesPinnedIndependentPreAndPostRoots(t *testing.T) {

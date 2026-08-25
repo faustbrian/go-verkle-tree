@@ -6,7 +6,7 @@ import (
 	"errors"
 	"testing"
 
-	internalprofile "github.com/faustbrian/golib/pkg/verkle-tree/internal/profile"
+	internalprofile "github.com/faustbrian/go-verkle-tree/internal/profile"
 )
 
 func TestSnapshotRootContainerBindsProfileAndCommitment(t *testing.T) {

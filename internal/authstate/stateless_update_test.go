@@ -7,9 +7,9 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/backend"
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/leafvector"
-	internalprofile "github.com/faustbrian/golib/pkg/verkle-tree/internal/profile"
+	"github.com/faustbrian/go-verkle-tree/internal/backend"
+	"github.com/faustbrian/go-verkle-tree/internal/leafvector"
+	internalprofile "github.com/faustbrian/go-verkle-tree/internal/profile"
 )
 
 func TestStatelessUpdaterDerivesPinnedPostStateRoot(t *testing.T) {

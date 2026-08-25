@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	verkletree "github.com/faustbrian/golib/pkg/verkle-tree"
+	verkletree "github.com/faustbrian/go-verkle-tree"
 )
 
 var benchmarkPublicStatelessEngine verkletree.StatelessEngine

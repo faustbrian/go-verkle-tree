@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/committedtree"
+	"github.com/faustbrian/go-verkle-tree/internal/committedtree"
 )
 
 // NodeIDSize is the exact byte length of a stored-node content address.

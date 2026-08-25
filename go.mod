@@ -1,4 +1,4 @@
-module github.com/faustbrian/golib/pkg/verkle-tree
+module github.com/faustbrian/go-verkle-tree
 
 go 1.26.6
 

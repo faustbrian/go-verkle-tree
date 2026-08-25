@@ -6,7 +6,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/backend"
+	"github.com/faustbrian/go-verkle-tree/internal/backend"
 )
 
 func FuzzDecodeTreeProof(f *testing.F) {

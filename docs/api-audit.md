@@ -3,7 +3,7 @@
 ## Scope and status
 
 This audit covers the complete exported surface of package
-`github.com/faustbrian/golib/pkg/verkle-tree` as represented by
+`github.com/faustbrian/go-verkle-tree` as represented by
 `api/baseline.txt` with SHA-256
 `d81bd44905c845176d48fa477de54b30fadeffb115f9084d41b81a79a5bbb5c6`.
 It reviews semantics, ownership, error classification, concurrency, resource

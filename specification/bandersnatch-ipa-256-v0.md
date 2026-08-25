@@ -953,7 +953,7 @@ are therefore REQUIRED to prevent ambiguous composition.
 Package-owned tree proofs MUST compute a statement binding as SHA-256 over the
 following concatenation, with no omitted or optional fields:
 
-1. ASCII `github.com/faustbrian/golib/pkg/verkle-tree/proof-statement/v0`;
+1. ASCII `github.com/faustbrian/go-verkle-tree/proof-statement/v0`;
 2. the 42-byte canonical root container;
 3. the claim count as unsigned 32-bit big-endian;
 4. each canonical claim's 32-byte key, one-byte kind, and 32-byte value;

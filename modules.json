@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "repository": "github.com/faustbrian/go-verkle-tree",
+  "go_version": "1.26.6",
+  "modules": [
+    {
+      "directory": ".",
+      "module_path": "github.com/faustbrian/go-verkle-tree",
+      "go_version": "1.26.6",
+      "packages": [
+        {
+          "module_directory": ".",
+          "directory": ".",
+          "name": "verkletree",
+          "import_path": "github.com/faustbrian/go-verkle-tree",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/authstate",
+          "name": "authstate",
+          "import_path": "github.com/faustbrian/go-verkle-tree/internal/authstate",
+          "kind": "internal",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/backend",
+          "name": "backend",
+          "import_path": "github.com/faustbrian/go-verkle-tree/internal/backend",
+          "kind": "internal",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/committedtree",
+          "name": "committedtree",
+          "import_path": "github.com/faustbrian/go-verkle-tree/internal/committedtree",
+          "kind": "internal",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/leafvector",
+          "name": "leafvector",
+          "import_path": "github.com/faustbrian/go-verkle-tree/internal/leafvector",
+          "kind": "internal",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/profile",
+          "name": "profile",
+          "import_path": "github.com/faustbrian/go-verkle-tree/internal/profile",
+          "kind": "internal",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/statemodel",
+          "name": "statemodel",
+          "import_path": "github.com/faustbrian/go-verkle-tree/internal/statemodel",
+          "kind": "internal",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/treelayout",
+          "name": "treelayout",
+          "import_path": "github.com/faustbrian/go-verkle-tree/internal/treelayout",
+          "kind": "internal",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        }
+      ],
+      "purpose": "`verkle-tree` is a storage-independent Go library for authenticated key/value trees backed by vector commitments.",
+      "lifecycle": "stable",
+      "kind": "public library",
+      "releasable": true,
+      "family": "domain-utilities",
+      "family_label": "Domain Utilities",
+      "family_description": "Domain-specific immutable values, algorithms, parsers, proofs, and calculations.",
+      "family_order": 8,
+      "version": "v1.0.0",
+      "tag_prefix": "v",
+      "owned_dependencies": [],
+      "reverse_owned_dependencies": [],
+      "external_runtime_dependencies": [
+        "github.com/crate-crypto/go-ipa",
+        "go.uber.org/goleak"
+      ],
+      "required_services": [],
+      "build_tags": [],
+      "test_tags": [],
+      "interoperability_tools": [
+        "ethereum/go-verkle at aa0a270c0ed03faa6c502e0d96bf26189d1d6542",
+        "crate-crypto/rust-verkle at e27b8b4edf1992b4afa636c2fc7983bcc27ddb88",
+        "Rust 1.97.0"
+      ],
+      "specifications": [
+        "verkletree-bandersnatch-ipa-256-v0 package-owned pre-v1 profile",
+        "Ethereum Verkle EIPs 4762, 6800, 7612, and 7748 at c55786f4242e5324afd14c6bca890a369a771d7f (research only; not implemented)"
+      ],
+      "conformance_corpora": [
+        "Pinned go-verkle tree and aggregate-proof corpus at aa0a270c0ed03faa6c502e0d96bf26189d1d6542",
+        "Pinned rust-verkle encoding, generator, vector-commitment, multiproof, tree-root, topology, and transition corpora at e27b8b4edf1992b4afa636c2fc7983bcc27ddb88",
+        "Package-owned verkletree-bandersnatch-ipa-256-v0 positive and hostile-input evidence"
+      ],
+      "provenance": [
+        "specification/sources.json"
+      ],
+      "goal_files": [
+        ".ai/GOAL.md",
+        ".ai/GOAL_HARDEN.md",
+        ".ai/GOAL_SECURITY.md"
+      ],
+      "goal_status": "implementation-evidence-inventoried",
+      "goal_evidence": [
+        {
+          "file": ".ai/GOAL.md",
+          "requirements_sha256": "69c8a5b0b5ef7719156f1184c3e45c17b96057d33318f22c421f1142c3ca3668",
+          "implementation_evidence": [
+            "CHANGELOG.md",
+            "README.md",
+            "docs/compatibility.md",
+            "docs/threat-model.md"
+          ],
+          "verification_gates": [
+            "format-check",
+            "tidy-check",
+            "safety",
+            "vet",
+            "test",
+            "race",
+            "coverage",
+            "lint",
+            "staticcheck",
+            "licenses",
+            "sbom",
+            "fuzz",
+            "mutation",
+            "nilaway",
+            "docs",
+            "api",
+            "conformance",
+            "interoperability",
+            "benchmark"
+          ],
+          "implementation_status": "implemented-requires-fresh-verification"
+        },
+        {
+          "file": ".ai/GOAL_HARDEN.md",
+          "requirements_sha256": "09ae7ce7eb8c942afb327c5d9251d9b26ef185d1d84aa88f49e2475100e61404",
+          "implementation_evidence": [
+            "CHANGELOG.md",
+            "README.md",
+            "docs/compatibility.md",
+            "docs/threat-model.md"
+          ],
+          "verification_gates": [
+            "format-check",
+            "tidy-check",
+            "safety",
+            "vet",
+            "test",
+            "race",
+            "coverage",
+            "lint",
+            "staticcheck",
+            "licenses",
+            "sbom",
+            "fuzz",
+            "mutation",
+            "nilaway",
+            "docs",
+            "api",
+            "conformance",
+            "interoperability",
+            "benchmark"
+          ],
+          "implementation_status": "implemented-requires-fresh-verification"
+        },
+        {
+          "file": ".ai/GOAL_SECURITY.md",
+          "requirements_sha256": "7f7bd387c5ef36ebbe92e1badbef74bced66a7d4665c7b016a23c560d0598f8a",
+          "implementation_evidence": [],
+          "verification_gates": [],
+          "implementation_status": "future-not-started"
+        }
+      ],
+      "gates": {
+        "api_compatibility": true,
+        "benchmarks": true,
+        "conformance": true,
+        "coverage": true,
+        "documentation": true,
+        "fuzz": true,
+        "lint": true,
+        "mutation": true,
+        "race": true,
+        "security": true,
+        "tests": true
+      }
+    }
+  ]
+}

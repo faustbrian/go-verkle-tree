@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/authstate"
+	"github.com/faustbrian/go-verkle-tree/internal/authstate"
 )
 
 type cancellingContext struct {

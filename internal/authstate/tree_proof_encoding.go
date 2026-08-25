@@ -7,8 +7,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/backend"
-	internalprofile "github.com/faustbrian/golib/pkg/verkle-tree/internal/profile"
+	"github.com/faustbrian/go-verkle-tree/internal/backend"
+	internalprofile "github.com/faustbrian/go-verkle-tree/internal/profile"
 )
 
 const (

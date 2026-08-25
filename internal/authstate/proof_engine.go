@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/backend"
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/committedtree"
+	"github.com/faustbrian/go-verkle-tree/internal/backend"
+	"github.com/faustbrian/go-verkle-tree/internal/committedtree"
 )
 
 var (
@@ -474,7 +474,7 @@ func proofStatementBinding(
 	queries []AggregateVerifierQuery,
 ) (backend.AggregateOpeningBinding, error) {
 	hash := sha256.New()
-	hash.Write([]byte("github.com/faustbrian/golib/pkg/verkle-tree/proof-statement/v0"))
+	hash.Write([]byte("github.com/faustbrian/go-verkle-tree/proof-statement/v0"))
 	rootBytes, err := root.Bytes()
 	if err != nil {
 		return backend.AggregateOpeningBinding{}, errInvalidTreeProof

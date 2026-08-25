@@ -7,7 +7,7 @@ import (
 	"errors"
 	"testing"
 
-	verkletree "github.com/faustbrian/golib/pkg/verkle-tree"
+	verkletree "github.com/faustbrian/go-verkle-tree"
 )
 
 const publicSnapshotHeaderBytes = 4 + 1 + 2 + 2 + int(verkletree.RootSize) + 4

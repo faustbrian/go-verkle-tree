@@ -1,6 +1,6 @@
 package verkletree
 
-import internalprofile "github.com/faustbrian/golib/pkg/verkle-tree/internal/profile"
+import internalprofile "github.com/faustbrian/go-verkle-tree/internal/profile"
 
 // ProfileID is the stable identity of a complete Verkle convention. It binds
 // the tree layout, commitment construction, generator set, transcript, and

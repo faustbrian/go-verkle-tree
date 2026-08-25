@@ -9,9 +9,9 @@ import (
 	"fmt"
 	"slices"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/backend"
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/committedtree"
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/profile"
+	"github.com/faustbrian/go-verkle-tree/internal/backend"
+	"github.com/faustbrian/go-verkle-tree/internal/committedtree"
+	"github.com/faustbrian/go-verkle-tree/internal/profile"
 )
 
 const (

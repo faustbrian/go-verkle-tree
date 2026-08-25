@@ -4,8 +4,11 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ## Unreleased
 
+## 1.0.0 - 2026-08-25
+
 ### Changed
 
+- Publish the module from its standalone `github.com/faustbrian/go-verkle-tree` identity while preserving its documented API and behavior.
 - Define `verkletree-bandersnatch-ipa-256-v0` as the normative package-owned
   pre-v1 profile and publish claim-by-claim conformance boundaries separately
   from production suitability, external audit, and Ethereum compatibility.

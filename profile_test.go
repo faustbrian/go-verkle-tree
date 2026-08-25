@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	verkletree "github.com/faustbrian/golib/pkg/verkle-tree"
+	verkletree "github.com/faustbrian/go-verkle-tree"
 )
 
 func TestBandersnatchIPA256V0(t *testing.T) {

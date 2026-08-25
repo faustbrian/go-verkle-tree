@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/crate-crypto/go-ipa/banderwagon"
-	internalprofile "github.com/faustbrian/golib/pkg/verkle-tree/internal/profile"
+	internalprofile "github.com/faustbrian/go-verkle-tree/internal/profile"
 )
 
 func TestRootContainerCanonicalRoundTrip(t *testing.T) {

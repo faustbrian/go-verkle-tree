@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/backend"
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/leafvector"
+	"github.com/faustbrian/go-verkle-tree/internal/backend"
+	"github.com/faustbrian/go-verkle-tree/internal/leafvector"
 )
 
 const (

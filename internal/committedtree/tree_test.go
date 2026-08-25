@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/faustbrian/golib/pkg/verkle-tree/internal/backend"
+	"github.com/faustbrian/go-verkle-tree/internal/backend"
 )
 
 func TestBuildMatchesPinnedIndependentTreeRoot(t *testing.T) {

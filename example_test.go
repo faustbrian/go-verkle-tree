@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	verkletree "github.com/faustbrian/golib/pkg/verkle-tree"
+	verkletree "github.com/faustbrian/go-verkle-tree"
 )
 
 func ExampleSnapshot() {

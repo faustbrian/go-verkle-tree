@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	internalprofile "github.com/faustbrian/golib/pkg/verkle-tree/internal/profile"
+	internalprofile "github.com/faustbrian/go-verkle-tree/internal/profile"
 )
 
 const benchmarkClaimBytes = 1 + len(Key{}) + len(Value{})
