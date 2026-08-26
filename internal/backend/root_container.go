@@ -21,7 +21,7 @@ const (
 	rootPayloadOffset  = rootKindIndex + rootKindSize
 
 	// RootSize is the exact canonical root-container length for the
-	// pre-v1 profile.
+	// research profile v0.
 	RootSize = rootPayloadOffset + commitmentSize
 )
 

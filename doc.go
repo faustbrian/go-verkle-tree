@@ -1,7 +1,7 @@
-// Package verkletree is the pre-v1 home of an explicitly profiled,
+// Package verkletree provides a stable v1 API for an explicitly profiled,
 // storage-independent Verkle tree.
 //
-// The package exposes one package-owned pre-v1 profile, immutable
+// The package exposes one package-owned research profile v0, immutable
 // snapshots and roots, canonical whole-snapshot bytes, canonical atomic
 // updates, and bounded aggregate membership and non-membership proofs. Every
 // expensive operation requires a
@@ -19,11 +19,11 @@
 // paths and Delete operations that are absent, leave a stem non-empty, or
 // remove stems and canonically collapse authenticated unary paths, then
 // independently derive and match the claimed post-state root. Restoration of
-// missing or corrupt published state, concrete storage adapters, and stable-v1
-// API guarantees remain unavailable.
+// missing or corrupt published state and concrete storage adapters remain
+// unavailable.
 //
-// The exported API is pre-v1 and exists to evaluate a pinned commitment
-// backend and complete tree semantics. Profile conformance does not imply
-// stable-v1 API compatibility, production suitability, external audit, or
+// The exported API is stable within v1 and exposes research profile v0 to
+// evaluate a pinned commitment backend and complete tree semantics. Profile
+// conformance does not imply production suitability, external audit, or
 // Ethereum protocol compatibility.
 package verkletree

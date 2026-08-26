@@ -42,8 +42,8 @@ stable:
 
 The exact evidence and consequences are recorded in
 [`specification/profile-freeze.md`](../specification/profile-freeze.md) and
-[`specification/sources.json`](../specification/sources.json). The pinned backend's
-accepted seam and release blockers are in
+[`specification/sources.json`](../specification/sources.json). The pinned
+backend's accepted seam and production-adoption blockers are in
 [`docs/backend-audit.md`](backend-audit.md).
 The complete current exported-surface review is in
 [`docs/api-audit.md`](api-audit.md).
@@ -221,7 +221,7 @@ checked against the package's independent stateful tree construction, not
 claimed as Rust updater agreement. Deletion and general
 cross-implementation update corpora remain unproven.
 
-## Pre-v1 profile
+## Research profile v0
 
 `BandersnatchIPA256V0` is the only constructible profile. Its
 identity fixes a 256-wide layout, 32-byte keys split into a 31-byte stem and
@@ -252,8 +252,9 @@ affected non-root ancestor. The stateless verifier reconstructs those
 authenticated vectors and removes empty nodes or collapses unary paths to the
 surviving stem before deriving the root. Canonical
 stored-node bytes, atomic write publication, isolated persisted reconstruction,
-and atomic retention/pruning now have one package-owned pre-v1 contract,
-but none is a stable interoperability surface.
+and atomic retention/pruning have one package-owned profile-v0 contract. That
+contract is stable within the v1 API but is not a general interoperability
+surface.
 The exact boundary is recorded in
 [`specification/bandersnatch-ipa-256-v0.md`](../specification/bandersnatch-ipa-256-v0.md).
 
@@ -311,7 +312,7 @@ broader state-transition behavior.
 An internal canonical claim-set boundary now fixes the ordered key/value
 assertions that a later tree proof must authenticate. It distinguishes a
 present all-zero value from absence, rejects duplicate or conflicting keys,
-binds the exact pre-v1 profile before allocation, and owns all accepted
+binds the exact research profile v0 before allocation, and owns all accepted
 claims under explicit count, scratch-memory, and cancellation limits. It does
 not authenticate any assertion by itself.
 
@@ -338,7 +339,7 @@ encoding and strict decoder bind the profile, root, ordered claims, topology,
 path commitments, and raw opening payload; reject alternate lengths, trailing
 bytes, nonzero padding, malformed points or scalars, and aggregate resource
 overruns before cryptographic decoding; and preserve cancellation and caller
-ownership. This remains a pre-v1 format and performs no verification
+ownership. This remains a profile-v0 format and performs no verification
 merely by construction or decoding.
 An empty-root proof requires only absence claims, one depth-one missing path per
 distinct stem, and no non-root tree commitment. Its aggregate opening proves
@@ -360,9 +361,9 @@ and a caller-bounded queue; queued cancellation is checked before dependency
 entry. Cancellation is checked throughout owned work and before and after
 dependency calls, but the pinned dependency cannot be interrupted during its
 aggregate proof operation; that remains a production backend blocker. The root
-package exposes this engine through a fixed-profile pre-v1 facade with
-opaque proofs and typed resource errors. It does not establish a stable proof
-API, witness semantics, storage durability, or Ethereum compatibility.
+package exposes this engine through a fixed research-profile-v0 facade with
+opaque proofs and typed resource errors. It does not establish general proof
+interoperability, storage durability, or Ethereum compatibility.
 
 The stateless engine composes that verified proof with sparse commitment
 changes. Every requested key must have an authenticated membership or absence
@@ -486,11 +487,13 @@ responsibilities.
 
 ## Development rule
 
-Implementation MAY proceed incrementally behind the named pre-v1 profile. Each
+Implementation MAY proceed incrementally behind the named research profile v0. Each
 tree, proof, witness, storage, or encoding surface MUST have normative semantics
-and conformance evidence before it is claimed as implemented. The module MUST
-remain pre-v1 until its public API and canonical formats are deliberately
-released as stable. It MUST NOT claim production suitability, external audit,
-or Ethereum protocol compatibility without separate evidence for those claims.
+and conformance evidence before it is claimed as implemented. The stable v1 API
+MUST preserve profile identity and canonical-format compatibility. An
+incompatible profile change requires a new identity and the appropriate
+semantic-versioning decision. The module MUST NOT claim production suitability,
+external audit, or Ethereum protocol compatibility without separate evidence
+for those claims.
 
 Detailed design, security, and operational material is indexed under `docs/`.

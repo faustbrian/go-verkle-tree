@@ -130,7 +130,7 @@
         "Rust 1.97.0"
       ],
       "specifications": [
-        "verkletree-bandersnatch-ipa-256-v0 package-owned pre-v1 profile",
+        "verkletree-bandersnatch-ipa-256-v0 package-owned research profile v0",
         "Ethereum Verkle EIPs 4762, 6800, 7612, and 7748 at c55786f4242e5324afd14c6bca890a369a771d7f (research only; not implemented)"
       ],
       "conformance_corpora": [

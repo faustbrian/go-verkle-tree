@@ -2,7 +2,7 @@
 
 ## Status and scope
 
-The public pre-v1 benchmark matrix exercises complete package entry points for
+The public profile-v0 benchmark matrix exercises complete package entry points for
 ordered 32-entry root construction, immutable lookup, insert, update, delete,
 mixed batch application, single membership and non-membership proof generation
 and verification, eight-key aggregate proof generation and verification,
@@ -23,17 +23,17 @@ stateless engine with constructing one from an already initialized proof
 engine. It isolates the explicit backend-ownership choice: the reuse path
 initializes commitment arithmetic but does not repeat aggregate-opening setup.
 
-The matrix uses the package-owned pre-v1 profile, an in-memory snapshot, and
+The matrix uses the package-owned research profile v0, an in-memory snapshot, and
 caller-owned in-memory storage. It includes separate warm-store reconstruction
 and cold-store materialization-plus-reconstruction tracks. It excludes durable
 database or filesystem I/O, an audited backend, cross-implementation equivalent
 workloads, latency distributions under stable load, and deployment-specific CPU
-feature controls. The matrix satisfies the pre-v1 descriptive benchmark
+feature controls. The matrix satisfies the profile-v0 descriptive benchmark
 boundary but does not support a production or comparative ranking claim.
 Parallel rows demonstrate a bounded harness workload on one machine; they are
 not scalability claims.
 
-The remaining pre-v1 component microbenchmarks cover the implemented
+The remaining profile-v0 component microbenchmarks cover the implemented
 cryptographic boundary: canonical Banderwagon commitment and scalar encoding,
 strict raw aggregate-opening-proof decoding, strict profile-bound root
 decoding, the commitment-to-field map, serial fixed-width vector commitment,

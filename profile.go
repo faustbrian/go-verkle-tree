@@ -8,7 +8,7 @@ import internalprofile "github.com/faustbrian/go-verkle-tree/internal/profile"
 type ProfileID = internalprofile.ID
 
 const (
-	// ProfileBandersnatchIPA256V0 identifies the package-owned pre-v1 256-wide
+	// ProfileBandersnatchIPA256V0 identifies the package-owned profile-v0 256-wide
 	// Bandersnatch/Banderwagon Pedersen-plus-IPA profile. It is not an Ethereum
 	// protocol profile.
 	ProfileBandersnatchIPA256V0 = internalprofile.BandersnatchIPA256V0
@@ -19,7 +19,7 @@ const (
 // compose widths, curves, generators, transcripts, or encodings at runtime.
 type Profile = internalprofile.Profile
 
-// BandersnatchIPA256V0 returns the package-owned pre-v1 profile. Its identity
+// BandersnatchIPA256V0 returns the package-owned research profile v0. Its identity
 // fixes a 256-wide tree, 32-byte keys split into a
 // 31-byte stem and one-byte suffix, 32-byte values, the Bandersnatch/
 // Banderwagon Pedersen-plus-IPA construction, the eth_verkle_oct_2021

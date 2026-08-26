@@ -1,5 +1,5 @@
-// Package authstate binds immutable key/value snapshots to pre-v1 profile
-// Verkle commitments. It remains an internal pre-v1 construction boundary.
+// Package authstate binds immutable key/value snapshots to research profile v0
+// Verkle commitments. It remains an internal profile-v0 construction boundary.
 package authstate
 
 import (
@@ -30,7 +30,7 @@ var (
 	errResource          = errors.New("authenticated-state resource limit exceeded")
 )
 
-// Key is one fixed-length raw key in the pre-v1 profile.
+// Key is one fixed-length raw key in the research profile v0.
 type Key = committedtree.Key
 
 // Value is one fixed-length raw value. Its zero value remains present.

@@ -2,9 +2,9 @@
 
 ## Stability first
 
-The only constructible profile is
-`BandersnatchIPA256V0`. It is pre-v1, may change incompatibly, and
-is not an Ethereum compatibility claim. New deployments must persist the exact
+The only constructible profile is `BandersnatchIPA256V0`. It is research
+profile v0 within the stable v1 API and is not an Ethereum compatibility claim.
+An incompatible profile change requires a new identity. Deployments must persist the exact
 profile identity with every root, proof, witness, and node namespace and must
 reject a different profile before cryptographic work.
 
@@ -110,7 +110,7 @@ durability by itself.
 ## Canonical bytes and ownership
 
 `Root.Bytes`, `Snapshot.Bytes`, `Proof.Bytes`, and `Witness.Bytes` produce the
-package-owned pre-v1 formats documented in the profile specification.
+package-owned profile-v0 formats documented in the profile specification.
 Returned byte arrays and slices are caller-owned. Decoders defensively own
 accepted input. These encodings are not `go-verkle`, Rust Verkle, Ethereum
 execution-witness, or network wire formats.
@@ -133,5 +133,5 @@ Important distinctions include:
 
 See [API boundaries](api-boundaries.md), the
 [threat model](threat-model.md), and the
-[pre-v1 profile specification](../specification/bandersnatch-ipa-256-v0.md)
+[research profile v0 specification](../specification/bandersnatch-ipa-256-v0.md)
 for the exact contracts.

@@ -96,7 +96,7 @@ func (err *StorageDecodingResourceError) Unwrap() error {
 	return ErrStorageDecodingResource
 }
 
-// StorageNodeKind is one fixed pre-v1 profile logical node kind.
+// StorageNodeKind is one fixed research profile v0 logical node kind.
 type StorageNodeKind uint8
 
 const (

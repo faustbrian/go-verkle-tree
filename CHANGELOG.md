@@ -6,6 +6,9 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ### Documentation
 
+- Separate the stable v1 Go API contract from the research-profile-v0 and
+  production-suitability boundaries.
+
 - Replace archived monorepo links and completed execution artifacts with a
   standalone, human-oriented documentation structure.
 

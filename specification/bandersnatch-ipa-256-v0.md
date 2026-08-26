@@ -10,8 +10,8 @@ shown here.
 
 ## Status
 
-`verkletree-bandersnatch-ipa-256-v0` is the package-owned pre-v1 profile. This
-document is its normative definition. Implementations conform only when they
+`verkletree-bandersnatch-ipa-256-v0` is the package-owned research profile v0.
+This document is its normative definition. Implementations conform only when they
 satisfy every applicable MUST and MUST NOT requirement for the surfaces they
 claim. Any incompatible revision MUST use another profile version or identity.
 
@@ -26,9 +26,10 @@ bounded atomic maintenance operation replaces the retained-publication set and
 prunes only nodes outside the current and desired retained roots. A bounded
 recovery operation preserves every publication and atomically prunes node-only
 debris outside them. Restoration of missing or corrupt published state,
-concrete storage adapters, and stable APIs remain out of scope. Profile
-conformance does not establish external audit, production suitability, or
-Ethereum protocol compatibility.
+concrete storage adapters, and general wire interoperability remain out of
+scope. The Go API is stable v1 around this profile. Profile conformance does
+not establish external audit, production suitability, or Ethereum protocol
+compatibility.
 
 ## Fixed Identity
 
@@ -39,7 +40,7 @@ The profile identity fixes the following values:
 | Name | `verkletree-bandersnatch-ipa-256-v0` |
 | Numeric identifier | `1` |
 | Profile version | `0` |
-| Release stage | pre-v1 |
+| Release stage | stable v1 API; research profile v0 |
 | Branching width | `256` |
 | Key length | `32` bytes |
 | Stem length | `31` bytes |
@@ -358,7 +359,7 @@ encoding, or Ethereum compatibility claim.
 
 ## Root Container Encoding
 
-The pre-v1 canonical root container MUST be exactly 42 bytes:
+The profile-v0 canonical root container MUST be exactly 42 bytes:
 
 | Offset | Size | Field |
 | ---: | ---: | --- |
@@ -387,7 +388,7 @@ non-membership, proof verification, persistence, or publication.
 
 ## Canonical Stored-Node Encoding And Publication
 
-The pre-v1 stored-node encoding MUST bind the complete logical node and
+The profile-v0 stored-node encoding MUST bind the complete logical node and
 profile. Every node MUST begin with this 44-byte header:
 
 | Offset | Size | Field |
@@ -622,7 +623,7 @@ verification.
 
 ## Canonical Tree Claims
 
-An internal canonical claim set MUST bind the exact pre-v1 profile and
+An internal canonical claim set MUST bind the exact research profile v0 and
 MUST contain at least one claim. Each claim MUST contain exactly one 32-byte
 key and one of:
 
@@ -654,7 +655,7 @@ proof container.
 ## Canonical Unverified Tree-Proof Container
 
 The internal tree-proof container MUST bind exactly one valid non-empty
-profile-bound root, one canonical claim set for the same fixed pre-v1
+profile-bound root, one canonical claim set for the same fixed profile-v0
 profile, one topology assertion for every distinct queried stem, every required
 non-root path commitment, and one canonical raw aggregate-opening payload.
 Construction MUST NOT report the container as cryptographically verified.
@@ -725,7 +726,7 @@ depth, or any non-root commitment MUST be rejected before verification.
 ## Canonical Tree-Proof Encoding
 
 The internal unverified tree-proof container MUST have exactly one
-package-owned canonical byte encoding. This encoding is pre-v1 and
+package-owned canonical byte encoding. This encoding is profile-v0 and
 internal; it MUST NOT be described as a public, stable, or independently
 compatible wire format.
 
@@ -805,7 +806,7 @@ a state transition.
 
 ## Internal Commitment Construction
 
-The pre-v1 internal engine MUST accept exactly one complete width-256
+The profile-v0 internal engine MUST accept exactly one complete width-256
 vector of canonical 32-byte little-endian scalars. It MUST reject a
 non-canonical scalar rather than reduce it into the field. The fixed array
 input MUST NOT permit a caller-selected vector length.
@@ -860,7 +861,7 @@ production-backend evidence.
 
 ## Raw Aggregate Opening Proof Encoding
 
-The internal pre-v1 raw aggregate-opening proof payload MUST contain, in
+The internal profile-v0 raw aggregate-opening proof payload MUST contain, in
 order:
 
 1. one canonical 32-byte Banderwagon point `D`;
@@ -889,7 +890,7 @@ Those bindings remain REQUIRED before a public verified proof API can exist.
 
 ## Aggregate Opening And Tree-Proof Verification
 
-The internal pre-v1 aggregate-opening engine MUST bind width 256, the
+The internal profile-v0 aggregate-opening engine MUST bind width 256, the
 `eth_verkle_oct_2021` generator set, and the transcript label `verkle`. Callers
 MUST NOT select or replace the curve, field, width, generators, transcript, or
 proof encoding at runtime.
@@ -1027,7 +1028,7 @@ This limitation prohibits production-backend approval.
 
 Successful verification establishes only that the canonical claims and absence
 statements are consistent with the committed root under this exact
-pre-v1 profile and proof system. It does not establish storage
+research profile v0 and proof system. It does not establish storage
 durability, snapshot retention, witness completeness for updates, execution
 validity, Ethereum protocol compatibility, or authorization to mutate state.
 
@@ -1177,7 +1178,7 @@ The independently generated Rust corpus fixes roots for empty, present-zero,
 single-value, suffix-half boundary, separate-root-branch, and maximum-depth
 collision states. Agreement proves only deterministic mathematical root
 construction for those exact states. The package-owned root container binds
-them to the pre-v1 profile, but it is not an external interoperability
+them to the research profile v0, but it is not an external interoperability
 claim and does not establish persisted-read compatibility, an incremental
 update algorithm, proof or witness compatibility, a production backend, or
 general Rust compatibility.
@@ -1264,7 +1265,7 @@ nodes unreachable from all of them.
 
 The public immutable snapshot MUST have one canonical, self-authenticating
 byte encoding. It contains the complete ordered present key/value state and an
-exact profile-bound root. The format is package-owned and pre-v1; it is
+exact profile-bound root. The format is package-owned and profile-v0; it is
 not a `go-verkle`, Rust Verkle, or Ethereum wire format.
 
 | Offset | Length | Field |
