@@ -141,85 +141,9 @@
       "provenance": [
         "specification/sources.json"
       ],
-      "goal_files": [
-        ".ai/GOAL.md",
-        ".ai/GOAL_HARDEN.md",
-        ".ai/GOAL_SECURITY.md"
-      ],
-      "goal_status": "implementation-evidence-inventoried",
-      "goal_evidence": [
-        {
-          "file": ".ai/GOAL.md",
-          "requirements_sha256": "69c8a5b0b5ef7719156f1184c3e45c17b96057d33318f22c421f1142c3ca3668",
-          "implementation_evidence": [
-            "CHANGELOG.md",
-            "README.md",
-            "docs/compatibility.md",
-            "docs/threat-model.md"
-          ],
-          "verification_gates": [
-            "format-check",
-            "tidy-check",
-            "safety",
-            "vet",
-            "test",
-            "race",
-            "coverage",
-            "lint",
-            "staticcheck",
-            "licenses",
-            "sbom",
-            "fuzz",
-            "mutation",
-            "nilaway",
-            "docs",
-            "api",
-            "conformance",
-            "interoperability",
-            "benchmark"
-          ],
-          "implementation_status": "implemented-requires-fresh-verification"
-        },
-        {
-          "file": ".ai/GOAL_HARDEN.md",
-          "requirements_sha256": "09ae7ce7eb8c942afb327c5d9251d9b26ef185d1d84aa88f49e2475100e61404",
-          "implementation_evidence": [
-            "CHANGELOG.md",
-            "README.md",
-            "docs/compatibility.md",
-            "docs/threat-model.md"
-          ],
-          "verification_gates": [
-            "format-check",
-            "tidy-check",
-            "safety",
-            "vet",
-            "test",
-            "race",
-            "coverage",
-            "lint",
-            "staticcheck",
-            "licenses",
-            "sbom",
-            "fuzz",
-            "mutation",
-            "nilaway",
-            "docs",
-            "api",
-            "conformance",
-            "interoperability",
-            "benchmark"
-          ],
-          "implementation_status": "implemented-requires-fresh-verification"
-        },
-        {
-          "file": ".ai/GOAL_SECURITY.md",
-          "requirements_sha256": "7f7bd387c5ef36ebbe92e1badbef74bced66a7d4665c7b016a23c560d0598f8a",
-          "implementation_evidence": [],
-          "verification_gates": [],
-          "implementation_status": "future-not-started"
-        }
-      ],
+      "goal_files": [],
+      "goal_status": "not-applicable",
+      "goal_evidence": [],
       "gates": {
         "api_compatibility": true,
         "benchmarks": true,

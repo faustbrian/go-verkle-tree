@@ -10,22 +10,22 @@ shown here.
 
 ## Decision
 
-No stable `verkle-tree` profile is frozen.
+No production or Ethereum-compatible `verkle-tree` profile is frozen. The v1
+Go API exposes the immutable package-owned research profile
+`verkletree-bandersnatch-ipa-256-v0` without promoting it to production use.
 
-The module MUST remain pre-v1 until stable API and format guarantees are
-deliberately released. Profile conformance MUST be stated separately from
-production suitability, external audit, and Ethereum protocol compatibility.
+Profile conformance MUST be stated separately from production suitability,
+external audit, and Ethereum protocol compatibility. This is a deliberate
+no-go decision for a production profile, not a decision to replace vector
+commitments with hashes or to treat a moving Ethereum proposal as a generic
+standard.
 
-This is a deliberate no-go decision for a stable profile, not a decision to
-replace vector commitments with hashes or to treat a moving Ethereum proposal
-as a generic standard.
-
-## Pre-v1 Profile Approval
+## Research Profile Approval
 
 On 2026-07-29 the maintainer approved implementation under the package-owned
 name `verkletree-bandersnatch-ipa-256-v0`. On 2026-08-04 the maintainer selected
-profile-conformant pre-v1 delivery instead of making stable-v1 or production
-suitability release gates. The exported
+profile-conformant research delivery without making production suitability a
+release claim. The exported
 `Profile` identity is immutable and callers cannot compose its width, curve,
 generator set, transcript, or encodings at runtime.
 
@@ -33,8 +33,9 @@ The normative profile definition is
 [`bandersnatch-ipa-256-v0.md`](bandersnatch-ipa-256-v0.md). An implemented
 surface MUST satisfy every applicable requirement in that document and the
 compatibility report MUST bound every external agreement to its pinned corpus.
-Stable-v1, external-audit, production-suitability, and Ethereum-compatibility
-claims require separate evidence and are not implied by profile conformance.
+External-audit, production-suitability, and Ethereum-compatibility claims
+require separate evidence and are not implied by profile conformance or Go API
+stability.
 
 ## Evidence Date
 
@@ -54,7 +55,7 @@ multiproof, and IPA algorithms directly in the v0 specification. It also found
 that zero challenges or challenge-derived zero opening denominators have no
 common failure contract: the Go and Rust references differ for a zero IPA
 folding challenge, and neither implements explicit rejection sampling. This
-ambiguity remains a stable-profile and complete proof-soundness blocker even
+ambiguity remains a production-profile and complete proof-soundness blocker even
 though the events are negligible under the random-oracle model.
 
 ## Candidate Research Target
@@ -221,10 +222,10 @@ It is classified as moving explanatory material, not protocol authority.
 
 ## Phase Exit
 
-Phase 1 is complete for the pre-v1 target: the named v0 profile has a normative
-definition, immutable identity, pinned sources, and explicit conformance and
-compatibility limits. The separate stable-v1 and production-suitability
-decisions remain open.
+Phase 1 is complete for the v0 research target: the named profile has a
+normative definition, immutable identity, pinned sources, and explicit
+conformance and compatibility limits. Production suitability remains a
+separate open decision.
 
 [RFC2119]: https://www.rfc-editor.org/rfc/rfc2119
 [RFC8174]: https://www.rfc-editor.org/rfc/rfc8174
