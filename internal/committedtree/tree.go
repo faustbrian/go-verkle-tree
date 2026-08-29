@@ -1,5 +1,5 @@
-// Package committedtree constructs immutable pre-v1 profile nodes and
-// their vector-commitment root. It is an internal pre-v1 construction seam.
+// Package committedtree constructs immutable research profile v0 nodes and
+// their vector-commitment root. It is an internal profile-v0 construction seam.
 package committedtree
 
 import (
@@ -34,7 +34,7 @@ var (
 	errResource       = errors.New("committed-tree resource limit exceeded")
 )
 
-// Key is one fixed-length raw key in the pre-v1 profile.
+// Key is one fixed-length raw key in the research profile v0.
 type Key [32]byte
 
 // Value is one fixed-length raw value. Its zero value is present, not absent.

@@ -2,12 +2,13 @@
 
 ## Adoption decision
 
-Adopt this module when a pre-v1 API and the documented backend qualifications
-are acceptable. The current package implements its named profile and is useful
+Adopt this module when its stable v1 API, research profile v0, and documented
+backend qualifications are acceptable. The current package implements its
+named profile and is useful
 for authenticated application state, pinned interoperability work, and
-caller-owned storage integration. It does not claim a stable public wire
-protocol, external cryptographic audit, production suitability, or Ethereum
-mainnet compatibility.
+caller-owned storage integration. It does not claim a public wire protocol
+beyond its named profile, external cryptographic audit, production suitability,
+or Ethereum mainnet compatibility.
 
 Before a deployment, record:
 
@@ -48,9 +49,11 @@ There is no supported in-place conversion from a Merkle tree, `go-verkle`
 database, Rust Verkle database, or Ethereum state database. Rebuild from the
 authoritative ordered key/value state into a separate namespace.
 
-## Pre-v1 upgrade policy
+## Profile-v0 upgrade policy
 
-Assume every pre-v1 release can change profile semantics or canonical bytes.
+Profile semantics and canonical bytes are compatibility surfaces. An
+incompatible change requires a new profile identity and a semantic-versioning
+decision; it cannot silently replace profile v0 within the stable v1 contract.
 Before upgrading:
 
 1. compare the profile specification and compatibility matrix;
@@ -80,7 +83,7 @@ Geth v1.17.0 describes binary-tree migration work as replacing its Verkle tree
 implementation, while EIP-7864 remains Draft and does not yet select its hash.
 The ethereum.org Verkle page is retained as moving background rather than an
 activation specification. Applications MUST NOT encode an assumed Ethereum
-transition into the package-owned pre-v1 profile.
+transition into the package-owned research profile v0.
 
 ## FAQ
 
@@ -140,8 +143,9 @@ Keys, persisted nodes, proofs, witnesses, inventories, and store responses are
 hostile inputs. Limits prevent attacker-controlled allocation, recursion,
 point decoding, multi-scalar multiplication, storage fan-out, and worker use.
 
-### When will v1 be stable?
+### Is v1 production-ready?
 
-Only after an exact profile and production-suitable backend satisfy the freeze,
-audit, provenance, canonical encoding, verification, interoperability, and
-release gates. Until then the correct version is pre-v1.
+No production-suitability claim is made until the backend satisfies the
+required audit, provenance, verification, interoperability, and release gates.
+The Go API is stable v1 while the implemented cryptographic profile remains
+the explicitly named research profile v0.

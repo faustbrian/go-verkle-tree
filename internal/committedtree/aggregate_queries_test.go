@@ -97,6 +97,37 @@ func aggregateProverQueryVector(query *AggregateProverQuery) *backend.Vector {
 	return query.Opening.Vector
 }
 
+func TestStemVectorsUseZeroVectorForAbsentC1Half(t *testing.T) {
+	t.Parallel()
+
+	tree, err := Build(
+		boundedTestContext(t),
+		[]Entry{{Key: testKey(0, 0xff), Value: testValue(1)}},
+		testLimits(),
+		testCommitmentLimits(),
+	)
+	if err != nil {
+		t.Fatalf("build single-half tree: %v", err)
+	}
+	root := tree.nodes[tree.root]
+	stemIndex := tree.edges[root.firstEdge].child
+	collector := newAggregateQueryTestCollector(&tree)
+	_, c1, c2, err := collector.stemVectors(
+		aggregateQueryPath{},
+		stemIndex,
+		tree.nodes[stemIndex],
+	)
+	if err != nil {
+		t.Fatalf("derive single-half vectors: %v", err)
+	}
+	if c1.vector == nil || *c1.vector != (backend.Vector{}) {
+		t.Fatal("absent C1 half was not represented by a zero vector")
+	}
+	if c2.vector == nil || *c2.vector == (backend.Vector{}) {
+		t.Fatal("present C2 half was represented by a zero vector")
+	}
+}
+
 func TestAggregateProverQueriesRejectInvalidInputsAndResources(t *testing.T) {
 	t.Parallel()
 

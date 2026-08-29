@@ -12,7 +12,7 @@ var ErrUnsupported = errors.New("unsupported Verkle profile")
 type ID uint8
 
 const (
-	// BandersnatchIPA256V0 identifies the package-owned pre-v1 profile.
+	// BandersnatchIPA256V0 identifies the package-owned research profile v0.
 	BandersnatchIPA256V0 ID = iota + 1
 )
 

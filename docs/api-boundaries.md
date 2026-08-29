@@ -1,11 +1,11 @@
-# Proposed API Boundaries
+# API boundaries
 
 This document records ownership boundaries for profile research. The exported
 profile, immutable snapshot/root/transition, update, aggregate proof, verifier,
 canonical whole-snapshot encoding, canonical storage-write and isolated
 storage-read, limit, resource, typed-error, read-only storage-audit, atomic
 storage-maintenance, and bounded storage-recovery identifiers form the current
-pre-v1 public contract. Canonical stateless witnesses and verified pre-
+stable v1 public contract. Canonical stateless witnesses and verified pre-
 state and post-state results are included.
 
 ## Public concepts
@@ -263,9 +263,9 @@ package exposes it through a fixed-profile facade that owns canonical proof
 bytes and independently verifies decoded proofs. `VerifyForKeys` additionally
 requires the caller's trusted root and exact unordered key set before proof
 arithmetic, so omission, surplus disclosure, and cross-root or cross-key replay
-fail closed inside the verifier boundary. The API remains pre-v1
-while the backend cannot stop proof arithmetic after cancellation and no
-concrete production storage adapter is supplied.
+fail closed inside the verifier boundary. The API is stable v1 around research
+profile v0. The backend still cannot stop proof arithmetic after cancellation,
+and no concrete production storage adapter is supplied.
 
 The internal stateless updater verifies that proof first and requires one exact
 authenticated old claim for every distinct update. A delete that removes a

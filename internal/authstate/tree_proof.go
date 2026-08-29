@@ -34,7 +34,7 @@ var (
 	errTreeProofResource  = errors.New("tree-proof resource limit exceeded")
 )
 
-// Stem is the fixed 31-byte path portion of one pre-v1 profile key.
+// Stem is the fixed 31-byte path portion of one research profile v0 key.
 type Stem [31]byte
 
 // StemPathKind identifies how one queried stem terminates in the committed
