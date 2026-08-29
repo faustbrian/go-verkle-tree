@@ -28,4 +28,5 @@
 ## Contributing
 
 - [Contribution guide](../CONTRIBUTING.md)
+- [Development and verification](development.md)
 - [Release history](../CHANGELOG.md)

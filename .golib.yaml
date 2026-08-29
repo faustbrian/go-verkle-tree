@@ -1,0 +1,165 @@
+schema_version: 1
+tool_version: v1.0.7
+tool_checksums_sha256: beb57df2dff76b4a0044af843398baecab55a3d420986d9be7c9b14ca88befef
+
+manifest:
+  modules: modules.json
+  packages: packages.json
+
+evidence:
+  root: ".verification"
+
+mutation:
+  root: ".verification/mutation"
+  imports:
+    - module: "."
+      archive: ".verification/mutation/bootstrap/root.zip"
+      ledger: ".verification/mutation/migration-ledger.json"
+
+api:
+  baselines:
+    - module: "."
+      mode: apidiff
+      path: api/baseline.txt
+
+operations:
+  - module: "."
+    gate: conformance
+    steps:
+      - type: make
+        makefile: verification/package.mk
+        target: conformance
+        timeout: 20m
+  - module: "."
+    gate: interoperability
+    steps:
+      - type: make
+        makefile: verification/package.mk
+        target: interoperability
+        timeout: 30m
+  - module: "."
+    gate: benchmark
+    steps:
+      - type: go-test
+        packages: ["./..."]
+        benchmark: "."
+        budget: 100ms
+        timeout: 20m
+  - module: "."
+    gate: fuzz
+    steps:
+      - type: go-test
+        packages: ["./internal/authstate"]
+        fuzz: '^FuzzClaimSetCanonicalization$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/authstate"]
+        fuzz: '^FuzzStatelessUpdaterMatchesStatefulTransition$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/authstate"]
+        fuzz: '^FuzzDecodeStatelessWitness$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/authstate"]
+        fuzz: '^FuzzApplyStatelessWitness$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/authstate"]
+        fuzz: '^FuzzSnapshotTransitions$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/authstate"]
+        fuzz: '^FuzzDecodeTreeProof$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/authstate"]
+        fuzz: '^FuzzVerifyTreeProof$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/authstate"]
+        fuzz: '^FuzzTreeProofCanonicalization$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/backend"]
+        fuzz: '^FuzzCommitmentEngine$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/backend"]
+        fuzz: '^FuzzDecodeCommitment$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/backend"]
+        fuzz: '^FuzzDecodeOpeningProof$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/backend"]
+        fuzz: '^FuzzDecodeRoot$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/backend"]
+        fuzz: '^FuzzDecodeScalar$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/committedtree"]
+        fuzz: '^FuzzBuildDeterministic$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/committedtree"]
+        fuzz: '^FuzzBuilderUpdateMatchesFullRebuild$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/committedtree"]
+        fuzz: '^FuzzDecodeStorageNode$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/statemodel"]
+        fuzz: '^FuzzSnapshotTransitions$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["./internal/treelayout"]
+        fuzz: '^FuzzLayoutTransitions$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["."]
+        fuzz: '^FuzzDecodeSnapshot$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["."]
+        fuzz: '^FuzzLoadSnapshotRootNode$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["."]
+        fuzz: '^FuzzPublicStatelessTransitionMatchesStatefulSnapshot$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["."]
+        fuzz: '^FuzzStorageAuditInventorySequence$'
+        budget: 10000x
+        timeout: 20m
+      - type: go-test
+        packages: ["."]
+        fuzz: '^FuzzStorageMaintenanceInventorySequence$'
+        budget: 10000x
+        timeout: 20m

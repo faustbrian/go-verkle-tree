@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "repository": "github.com/faustbrian/go-verkle-tree",
+  "module": ".",
+  "package": "internal/leafvector",
+  "gate": "mutation",
+  "input_digest": "sha256:26ce1f23e4832bf39333254bd1db3156fd7865185a3e82e2d8d040fd098c5430",
+  "verifier_digest": "sha256:9a9499ff68a8dfd49a0be7995590297a8ee563a1aa226bfd8b9361dc53058108",
+  "result": "passed",
+  "report_digest": "sha256:3a037bbcf8f10aba9a8c55bd7909fd22011a3641cd348f02e05d907701486f1e",
+  "environment": {
+    "CGO_ENABLED": "1",
+    "GOARCH": "arm64",
+    "GOOS": "darwin",
+    "GOVERSION": "go1.27.0",
+    "gremlins_binary_sha256": "sha256:6a2beddc477eb410f8a670b6c9049558563d3c4327498fe31604d31c773a959e"
+  },
+  "completed_at": "2026-08-29T18:48:46.122529Z"
+}
