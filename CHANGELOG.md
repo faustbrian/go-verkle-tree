@@ -6,11 +6,21 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ### Changed
 
-- Replace the repository-local verification implementation with the released
-  `go-library-tools` v1.0.13 contract while preserving package-owned mutation
+- Advance the shared workflow to `go-library-tools` commit
+  `3367371735ac409ba101778aafbdaf8e2560064c` so CI validates specification
+  decisions and monitored authorities while preserving package-owned mutation
   evidence and Verkle interoperability operations.
 
 ### Documentation
+
+- Add the [specification decision register](docs/specification-decisions.md),
+  machine conformance bindings, source monitoring, decision history, and a
+  maintained-peer assessment for the package-owned research profile. The four
+  pinned Ethereum Verkle EIPs remain separately labelled as unimplemented
+  research inputs rather than compliance targets.
+
+  - VERKLE-DEC-001 sha256:d2655a1126b6a1988c395b1039da74226ee9a63df39312760205c163313307e5
+  - VERKLE-DEC-002 sha256:7fddd9d9727bc33d1dc179cf4c55d125475681d8f3cf2013fac41cdcc86024d0
 
 - Separate the stable v1 Go API contract from the research-profile-v0 and
   production-suitability boundaries.

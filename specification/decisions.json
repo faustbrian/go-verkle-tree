@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "change_control": {
+    "readme": "README.md",
+    "conformance": "specification/README.md",
+    "compatibility": "COMPATIBILITY.md",
+    "contribution": "CONTRIBUTING.md",
+    "changelog": "CHANGELOG.md",
+    "pull_request_template": ".github/pull_request_template.md"
+  },
+  "decisions": [
+    {
+      "id": "VERKLE-DEC-001",
+      "title": "Package-owned research profile identity",
+      "status": "resolved",
+      "owner": "`go-verkle-tree` maintainers",
+      "classification": "interoperability policy",
+      "decision_scope": "normative",
+      "specification": "verkletree-bandersnatch-ipa-256-v0 package-owned research profile v0",
+      "version": "verkletree-bandersnatch-ipa-256-v0 at 79ab045f13f1ae8214bbbe10f12f434e944b5eee",
+      "source_authority": "verkle-profile-v0-source",
+      "section": "Complete document",
+      "requirement_strength": "MUST",
+      "issue": "No stable external specification selects one complete caller-composable Verkle tree profile with this package's curve, generator, transcript, encoding, tree, proof, witness, and state-transition semantics.",
+      "interpretations": [
+        "Claim compatibility with an external implementation from overlapping fixtures.",
+        "Expose independently configurable cryptographic components.",
+        "Freeze one package-owned research profile and limit interoperability claims to exact pinned evidence."
+      ],
+      "peer_behavior": "The pinned Go and Rust implementations overlap with different parts of the profile, but the maintained-peer assessment finds no currently maintained independent implementation of the complete package contract.",
+      "selected_behavior": "`verkletree-bandersnatch-ipa-256-v0` is the only implemented profile identity; its width, key and value layout, curve and quotient group, generator set, transcript, canonical encodings, tree topology, proof format, witness format, and state semantics are fixed and not caller-composable.",
+      "rationale": "A package-owned identity makes stored and exchanged bytes auditable without turning bounded corpus agreement into a general external compliance claim.",
+      "security_consequences": "Unknown or inconsistent profile identities are rejected before cryptographic work, preventing cross-profile replay and attacker-selected component combinations.",
+      "resource_consequences": "The selected profile retains the documented key, value, proof, witness, query, point-work, and temporary-memory limits; this decision introduces no new runtime input.",
+      "compatibility_consequences": "The stable Go API is compatible only with the exact package-owned profile; changing any profile component requires a new decision, compatibility review, and versioned migration.",
+      "wire_consequences": "Canonical package bytes carry the package profile identity and do not imply compatibility with generic Verkle, Ethereum, Go, Rust, database, or persistence formats.",
+      "executable_evidence": [
+        "TestProfileIsExactAndRejectsOtherValues",
+        "TestRustVerkleEncodingVectors",
+        "TestRustVerkleGeneratorSet",
+        "TestCommitmentEngineMatchesPinnedRustVectors",
+        "TestBuildMatchesPinnedRustTreeRoots",
+        "TestStatelessUpdaterMatchesPinnedRustRebuiltTransitions"
+      ],
+      "fixture_evidence": [
+        "internal/backend/testdata/rust-verkle-encoding.tsv",
+        "internal/backend/testdata/rust-verkle-generators.tsv",
+        "internal/backend/testdata/rust-verkle-vector-commitments.tsv",
+        "internal/committedtree/testdata/rust-verkle-tree-roots.tsv",
+        "internal/authstate/testdata/rust-verkle-transitions.tsv"
+      ],
+      "fuzz_evidence": [
+        "FuzzDecodeTreeProof",
+        "FuzzStatelessUpdaterMatchesStatefulTransition"
+      ],
+      "interoperability_evidence": [],
+      "differential_evidence": [],
+      "public_apis": [
+        "`Profile`",
+        "`BandersnatchIPA256V0`",
+        "roots, snapshots, proofs, witnesses, and their canonical encodings"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md",
+        "specification/bandersnatch-ipa-256-v0.md",
+        "specification/profile-freeze.md",
+        "specification/peer-assessment.json"
+      ],
+      "upstream_status": "No external standards body owns this package profile; the pinned Go implementation is in maintenance mode and the pinned Rust implementation has had no source update since 2024-10-25.",
+      "reconsider_when": "A deliberately versioned replacement package profile or maintained independent implementation covers the complete contract with normative, hostile-input, and reproducible differential evidence."
+    },
+    {
+      "id": "VERKLE-DEC-002",
+      "title": "Ethereum Verkle EIPs are research inputs, not implemented profiles",
+      "status": "resolved",
+      "owner": "`go-verkle-tree` maintainers",
+      "classification": "interoperability policy",
+      "decision_scope": "application-policy",
+      "specification": "Ethereum Verkle EIPs 4762, 6800, 7612, and 7748 at c55786f4242e5324afd14c6bca890a369a771d7f (research only; not implemented)",
+      "version": "EIPs c55786f4242e5324afd14c6bca890a369a771d7f (EIP-6800)",
+      "source_authority": "ethereum-eip-6800-source",
+      "section": "EIP-6800 complete document; related EIPs 4762, 7612, and 7748",
+      "requirement_strength": "informative",
+      "issue": "The cited Ethereum proposals describe protocol-specific state, gas, transition, and conversion work but do not constitute an activated stable profile implemented by this generic package.",
+      "interpretations": [
+        "Treat research lineage and overlapping tree primitives as Ethereum EIP compliance.",
+        "Implement the EIPs as one implicit package profile.",
+        "Record the exact proposals as monitored research authorities while explicitly excluding their protocol behavior from the implemented profile."
+      ],
+      "peer_behavior": "At the pinned EIPs revision, EIPs 4762 and 7748 are Draft while EIPs 6800 and 7612 are Stagnant; current Geth direction replaces its Verkle work with a binary-tree design.",
+      "selected_behavior": "EIPs 4762, 6800, 7612, and 7748 are unimplemented research inputs. The package does not implement their Ethereum state layout, gas accounting, overlay transition, historical conversion, activation, wire protocol, or mainnet compatibility.",
+      "rationale": "Separating research provenance from implemented behavior prevents cryptographic overlap and historical client work from being presented as protocol conformance.",
+      "security_consequences": "Callers cannot rely on this package to enforce Ethereum-specific witness, gas, transition, or activation rules; doing so without a separate verified protocol layer would be unsafe.",
+      "resource_consequences": "No Ethereum-specific gas schedule, state conversion, or protocol workload is accepted or budgeted by this package.",
+      "compatibility_consequences": "Adopters requiring an Ethereum profile need a separately versioned implementation and migration evidence; the package-owned profile cannot be relabeled as an Ethereum profile.",
+      "wire_consequences": "Package roots, proofs, witnesses, snapshots, and storage images are not Ethereum EIP wire objects and must not be exchanged as such.",
+      "executable_evidence": [
+        "TestProfileIsExactAndRejectsOtherValues"
+      ],
+      "fixture_evidence": [],
+      "fuzz_evidence": [],
+      "interoperability_evidence": [],
+      "differential_evidence": [],
+      "public_apis": [
+        "`Profile`",
+        "`BandersnatchIPA256V0`"
+      ],
+      "documentation": [
+        "docs/specification-decisions.md",
+        "docs/compatibility.md",
+        "docs/adoption.md",
+        "specification/peer-assessment.json"
+      ],
+      "upstream_status": "The four proposals remain Draft or Stagnant at the pinned authority revision and no activated Ethereum Verkle profile is claimed by this package.",
+      "reconsider_when": "Ethereum finalizes and activates a revision-pinned Verkle profile and a separately scoped implementation has complete normative, client, fixture, hostile-input, migration, and release evidence."
+    }
+  ]
+}
