@@ -7,7 +7,7 @@ All notable changes to `verkle-tree` will be documented in this file.
 ### Changed
 
 - Replace the repository-local verification implementation with the released
-  `go-library-tools` v1.0.7 contract while preserving package-owned mutation
+  `go-library-tools` v1.0.13 contract while preserving package-owned mutation
   evidence and Verkle interoperability operations.
 
 ### Documentation
