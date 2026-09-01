@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-08-30",
+  "review_interval_days": 30,
+  "authorities": [
+    {
+      "id": "verkle-profile-v0-source",
+      "kind": "specification",
+      "version": "verkletree-bandersnatch-ipa-256-v0 at 79ab045f13f1ae8214bbbe10f12f434e944b5eee",
+      "url": "https://raw.githubusercontent.com/faustbrian/go-verkle-tree/79ab045f13f1ae8214bbbe10f12f434e944b5eee/specification/bandersnatch-ipa-256-v0.md",
+      "sha256": "46479195be5f1b5019854ca862213cc2d0db107fb023274c9f2cb2595071fa64",
+      "specifications": ["verkletree-bandersnatch-ipa-256-v0 package-owned research profile v0"]
+    },
+    {
+      "id": "verkle-profile-releases",
+      "kind": "releases",
+      "url": "https://github.com/faustbrian/go-verkle-tree/releases.atom",
+      "sha256": "581c5f6751f81cac654efb6cf382b4ecc5aa8f071175d850ab47fa3b00b1611d",
+      "specifications": ["verkletree-bandersnatch-ipa-256-v0 package-owned research profile v0"]
+    },
+    {
+      "id": "ethereum-eip-4762-source",
+      "kind": "specification",
+      "version": "EIPs c55786f4242e5324afd14c6bca890a369a771d7f (EIP-4762)",
+      "url": "https://raw.githubusercontent.com/ethereum/EIPs/c55786f4242e5324afd14c6bca890a369a771d7f/EIPS/eip-4762.md",
+      "sha256": "667d54203f68be7cf66709e2179642f0e8938ea2d4a8080b95438890354b74f3",
+      "specifications": ["Ethereum Verkle EIPs 4762, 6800, 7612, and 7748 at c55786f4242e5324afd14c6bca890a369a771d7f (research only; not implemented)"]
+    },
+    {
+      "id": "ethereum-eip-6800-source",
+      "kind": "specification",
+      "version": "EIPs c55786f4242e5324afd14c6bca890a369a771d7f (EIP-6800)",
+      "url": "https://raw.githubusercontent.com/ethereum/EIPs/c55786f4242e5324afd14c6bca890a369a771d7f/EIPS/eip-6800.md",
+      "sha256": "41dc40c62e4e2034d95a5762d0ed40339356bba4757efb123ff124279767aab9",
+      "specifications": ["Ethereum Verkle EIPs 4762, 6800, 7612, and 7748 at c55786f4242e5324afd14c6bca890a369a771d7f (research only; not implemented)"]
+    },
+    {
+      "id": "ethereum-eip-7612-source",
+      "kind": "specification",
+      "version": "EIPs c55786f4242e5324afd14c6bca890a369a771d7f (EIP-7612)",
+      "url": "https://raw.githubusercontent.com/ethereum/EIPs/c55786f4242e5324afd14c6bca890a369a771d7f/EIPS/eip-7612.md",
+      "sha256": "8afb0c5802da3a1b5d2d3474804aa9b0ac2ea7c0834d9255a0f8238b4735384d",
+      "specifications": ["Ethereum Verkle EIPs 4762, 6800, 7612, and 7748 at c55786f4242e5324afd14c6bca890a369a771d7f (research only; not implemented)"]
+    },
+    {
+      "id": "ethereum-eip-7748-source",
+      "kind": "specification",
+      "version": "EIPs c55786f4242e5324afd14c6bca890a369a771d7f (EIP-7748)",
+      "url": "https://raw.githubusercontent.com/ethereum/EIPs/c55786f4242e5324afd14c6bca890a369a771d7f/EIPS/eip-7748.md",
+      "sha256": "23dfbf7b6b96857fe99cf924bb82fbc0b761774ee33ff71ee2913cb84921531d",
+      "specifications": ["Ethereum Verkle EIPs 4762, 6800, 7612, and 7748 at c55786f4242e5324afd14c6bca890a369a771d7f (research only; not implemented)"]
+    },
+    {
+      "id": "ethereum-eips-changes",
+      "kind": "releases",
+      "url": "https://github.com/ethereum/EIPs/commits/master.atom",
+      "sha256": "3918d28406c7bebb7fa87b352defdd4aa8a8f0afe197bf38c4db0792b7e42ee5",
+      "specifications": ["Ethereum Verkle EIPs 4762, 6800, 7612, and 7748 at c55786f4242e5324afd14c6bca890a369a771d7f (research only; not implemented)"]
+    }
+  ]
+}

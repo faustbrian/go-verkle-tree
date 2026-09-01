@@ -74,7 +74,9 @@ if err != nil {
 
 ## Documentation
 
-Use the [documentation index](docs/README.md), [profile freeze](specification/profile-freeze.md),
+Use the [documentation index](docs/README.md),
+[specification decision register](docs/specification-decisions.md),
+[profile freeze](specification/profile-freeze.md),
 [backend audit](docs/backend-audit.md), and [threat model](docs/threat-model.md)
 before adoption. The [detailed reference](docs/reference.md) preserves the full
 proof, storage, witness, recovery, and profile contracts.

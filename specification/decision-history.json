@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "id": "VERKLE-DEC-001",
+      "digests": ["d2655a1126b6a1988c395b1039da74226ee9a63df39312760205c163313307e5"]
+    },
+    {
+      "id": "VERKLE-DEC-002",
+      "digests": ["7fddd9d9727bc33d1dc179cf4c55d125475681d8f3cf2013fac41cdcc86024d0"]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-08-30",
+  "assessment": "no-maintained-complete-peer",
+  "candidates": [
+    {
+      "id": "ethereum-go-verkle",
+      "revision": "aa0a270c0ed03faa6c502e0d96bf26189d1d6542",
+      "repository": "https://github.com/ethereum/go-verkle",
+      "latest_source_commit_at": "2026-01-02T08:11:49Z",
+      "repository_archived": false,
+      "maintenance_status": "maintenance-mode-no-longer-used",
+      "overlap": "Tree and aggregate-proof corpus only; transcript and external proof representation differ from parts of the package-owned profile.",
+      "evidence": ["internal/backend/testdata/go-verkle-tree-proof.json"],
+      "classification": "Pinned interoperability source, not a maintained complete differential peer."
+    },
+    {
+      "id": "crate-crypto-rust-verkle",
+      "revision": "e27b8b4edf1992b4afa636c2fc7983bcc27ddb88",
+      "repository": "https://github.com/crate-crypto/rust-verkle",
+      "latest_source_commit_at": "2024-10-25T12:55:46Z",
+      "repository_archived": false,
+      "maintenance_status": "inactive-source-candidate",
+      "overlap": "Independent encoding, generator, commitment, multiproof, tree-root, topology, and rebuilt-transition corpora with a known absent-stem updater gap.",
+      "evidence": ["internal/backend/testdata/rust-verkle-encoding.tsv", "internal/backend/testdata/rust-verkle-generators.tsv", "internal/backend/testdata/rust-verkle-vector-commitments.tsv", "internal/committedtree/testdata/rust-verkle-tree-roots.tsv", "internal/authstate/testdata/rust-verkle-transitions.tsv"],
+      "classification": "Pinned independent research source, not a currently maintained complete differential peer."
+    }
+  ],
+  "conclusion": "The package retains reproducible pinned corpus checks but records differential conformance as not assessed. A maintained-peer agreement claim requires an actively maintained independent implementation covering the complete selected profile."
+}

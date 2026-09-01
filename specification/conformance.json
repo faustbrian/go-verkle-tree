@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "decisions": [
+    {
+      "id": "VERKLE-DEC-001",
+      "authoritative_sources": ["verkle-profile-v0-source"],
+      "executable_evidence": ["TestProfileIsExactAndRejectsOtherValues", "TestRustVerkleEncodingVectors", "TestRustVerkleGeneratorSet", "TestCommitmentEngineMatchesPinnedRustVectors", "TestBuildMatchesPinnedRustTreeRoots", "TestStatelessUpdaterMatchesPinnedRustRebuiltTransitions"],
+      "fixtures": ["internal/backend/testdata/rust-verkle-encoding.tsv", "internal/backend/testdata/rust-verkle-generators.tsv", "internal/backend/testdata/rust-verkle-vector-commitments.tsv", "internal/committedtree/testdata/rust-verkle-tree-roots.tsv", "internal/authstate/testdata/rust-verkle-transitions.tsv"],
+      "fuzz": ["FuzzDecodeTreeProof", "FuzzStatelessUpdaterMatchesStatefulTransition"],
+      "interoperability_evidence": [],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [],
+      "differential_classification": "not assessed",
+      "public_behavior": ["The only implemented identity is the fixed package-owned `verkletree-bandersnatch-ipa-256-v0` research profile, with interoperability limited to the named pinned fixtures."]
+    },
+    {
+      "id": "VERKLE-DEC-002",
+      "authoritative_sources": ["ethereum-eip-6800-source", "ethereum-eip-4762-source", "ethereum-eip-7612-source", "ethereum-eip-7748-source"],
+      "executable_evidence": ["TestProfileIsExactAndRejectsOtherValues"],
+      "fixtures": [],
+      "fuzz": [],
+      "interoperability_evidence": [],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [],
+      "differential_classification": "not assessed",
+      "public_behavior": ["Ethereum EIPs 4762, 6800, 7612, and 7748 remain monitored research inputs and are not implemented or claimed as package compliance targets."]
+    }
+  ]
+}
