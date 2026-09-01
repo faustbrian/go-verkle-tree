@@ -6,10 +6,10 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ### Changed
 
-- Advance the shared workflow to `go-library-tools` commit
-  `3367371735ac409ba101778aafbdaf8e2560064c` so CI validates specification
-  decisions and monitored authorities while preserving package-owned mutation
-  evidence and Verkle interoperability operations.
+- Adopt checksum-pinned `go-library-tools` v1.2.0 and its immutable workflow
+  so CI executes specification governance and fails closed on monitored
+  authority changes while preserving package-owned mutation evidence and
+  Verkle interoperability operations.
 
 ### Documentation
 
