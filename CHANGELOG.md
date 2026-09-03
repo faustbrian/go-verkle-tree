@@ -6,6 +6,10 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ### Changed
 
+- Adopt the checksum-verified `go-library-tools` v1.3.0 CLI, schema-v2 cohesion
+  metadata, and repository-local cohesion gate without changing the public API
+  or runtime behavior.
+- Pin reusable CI to the immutable v1.3.0 cohesion-enforcement workflow.
 - Adopt checksum-pinned `go-library-tools` v1.2.0 and its immutable workflow
   so CI executes specification governance and fails closed on monitored
   authority changes while preserving package-owned mutation evidence and
@@ -13,6 +17,9 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ### Documentation
 
+- Publish the module's family, capabilities, ownership, lifecycle, supported
+  environments, and package-selection metadata, with versioned ecosystem
+  navigation from the README.
 - Add the [specification decision register](docs/specification-decisions.md),
   machine conformance bindings, source monitoring, decision history, and a
   maintained-peer assessment for the package-owned research profile. The four
