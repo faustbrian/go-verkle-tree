@@ -82,8 +82,8 @@ before adoption. The [detailed reference](docs/reference.md) preserves the full
 proof, storage, witness, recovery, and profile contracts.
 
 For ecosystem-wide package selection and ownership conventions, see the
-[versioned Golib ecosystem index](https://github.com/faustbrian/go-library-tools/blob/v1.3.0/docs/ecosystem/README.md)
-and its [Domain utilities family](https://github.com/faustbrian/go-library-tools/blob/v1.3.0/docs/ecosystem/design-language.md#package-families-and-selection).
+[versioned Golib ecosystem index](https://github.com/faustbrian/go-library-tools/blob/v1.4.0/docs/ecosystem/README.md)
+and its [Domain utilities family](https://github.com/faustbrian/go-library-tools/blob/v1.4.0/docs/ecosystem/design-language.md#package-families-and-selection).
 
 ## Development
 
