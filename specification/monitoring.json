@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-08-30",
+  "reviewed_at": "2026-09-04",
   "review_interval_days": 30,
   "authorities": [
     {
@@ -54,7 +54,7 @@
       "id": "ethereum-eips-changes",
       "kind": "releases",
       "url": "https://github.com/ethereum/EIPs/commits/master.atom",
-      "sha256": "3918d28406c7bebb7fa87b352defdd4aa8a8f0afe197bf38c4db0792b7e42ee5",
+      "sha256": "25d1dbd8eb8785c77f01d8fceb92effb701ab0f2ba0fff75b1bda329dee1ef57",
       "specifications": ["Ethereum Verkle EIPs 4762, 6800, 7612, and 7748 at c55786f4242e5324afd14c6bca890a369a771d7f (research only; not implemented)"]
     }
   ]

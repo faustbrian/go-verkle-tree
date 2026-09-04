@@ -6,6 +6,16 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ### Changed
 
+- Adopt schema-v2 cohesion metadata and the checksum-verified
+  `go-library-tools` v1.4.0 CLI, including repository-local cohesion and online
+  specification gates, without changing public behavior.
+- Pin reusable CI to the immutable v1.4.0 W14-enforcement workflow.
+- Record the existing borrowed storage collaborators, copied values, and
+  transferred read buffers in the module ownership metadata.
+- Review Ethereum EIPs changes through `9207c6011f526bd40abd79649484a1a342585bd4`
+  and refresh the monitored commit-feed digest; none of the intervening changes
+  affect the four pinned Verkle research inputs, so their exclusion decision
+  remains unchanged.
 - Adopt checksum-pinned `go-library-tools` v1.2.0 and its immutable workflow
   so CI executes specification governance and fails closed on monitored
   authority changes while preserving package-owned mutation evidence and
@@ -13,6 +23,10 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ### Documentation
 
+- Publish the module's family, capabilities, ownership, lifecycle, supported
+  environments, and package-selection metadata, with versioned ecosystem
+  navigation from the README.
+- Advance README ecosystem navigation to the immutable v1.4.0 documentation.
 - Add the [specification decision register](docs/specification-decisions.md),
   machine conformance bindings, source monitoring, decision history, and a
   maintained-peer assessment for the package-owned research profile. The four
