@@ -160,7 +160,7 @@
           ]
         },
         "supported_platforms": [
-          "portable-go"
+          "darwin-arm64"
         ],
         "supported_backends": [],
         "supported_protocols": [
