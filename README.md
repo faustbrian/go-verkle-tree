@@ -19,11 +19,33 @@ The pinned cryptographic backend has not received the independent audit
 required for production use. Treat the implementation and profile as
 research-grade despite the stable Go API and explicit compatibility contract.
 
+## Status, package, and platform
+
+The module has a stable v1 Go API and requires Go 1.26.6. Its only public
+package is the root package, whose default import identifier is `verkletree`.
+All subpackages are internal implementation details.
+
+Native runtime acceptance evidence is limited to `darwin/arm64`. Other native
+targets in the [platform audit](docs/platforms.md) have compile-only evidence;
+Rosetta results are diagnostic and do not establish native `darwin/amd64`
+support. The module has no cgo path, but its cryptographic dependencies use
+architecture-specific assembly. No constant-time or complete side-channel
+claim is made.
+
 ## Installation
 
 ```sh
 go get github.com/faustbrian/go-verkle-tree
 ```
+
+## When to use it
+
+Use `verkletree` when an application accepts the fixed research profile and
+needs bounded immutable snapshots, profile-bound proofs and witnesses,
+stateless updates, or caller-owned storage protocols. Do not use it as an
+Ethereum compatibility layer, an audited production cryptography component,
+or a storage adapter. The [adoption and migration guide](docs/adoption.md)
+defines the decision and rollback boundaries.
 
 ## Quick start
 
@@ -60,6 +82,27 @@ if err != nil {
 }
 ```
 
+The checked-in [`ExampleSnapshot`](example_test.go) is the executable version
+of this flow and is compiled and run by the Go example test gate.
+
+## Operational contract
+
+- Construction selects the fixed `BandersnatchIPA256V0` profile and validates
+  explicit limits before attacker-amplified work. See the
+  [usage guide](docs/usage.md) and [detailed reference](docs/reference.md).
+- Expensive public operations accept a context. Queued work observes
+  cancellation, but an admitted dependency proof call cannot be interrupted.
+- Sentinel errors work with `errors.Is`; `ResourceError` and
+  `StoreCapabilityError` work with `errors.As`.
+- Immutable snapshots, engines, proofs, witnesses, and successful results are
+  safe for concurrent use. Callers construct, retain, and discard engines;
+  they expose no close lifecycle and start no background work outside an
+  operation. Callers own storage implementations, read-view closure, writer
+  coordination, durability, publication, and recovery.
+- The repository provides no concrete storage adapter and declares no owned
+  Golib consumer. Applications integrate through the public caller-owned
+  storage interfaces and must validate those implementations independently.
+
 ## Guarantees and limitations
 
 - Snapshots and transitions are immutable and profile-bound.
@@ -74,12 +117,19 @@ if err != nil {
 
 ## Documentation
 
-Use the [documentation index](docs/README.md),
-[specification decision register](docs/specification-decisions.md),
-[profile freeze](specification/profile-freeze.md),
-[backend audit](docs/backend-audit.md), and [threat model](docs/threat-model.md)
-before adoption. The [detailed reference](docs/reference.md) preserves the full
-proof, storage, witness, recovery, and profile contracts.
+Use the [documentation index](docs/README.md) for the complete guide set. Start
+with [adoption and FAQ](docs/adoption.md), the [usage guide](docs/usage.md),
+the [detailed reference](docs/reference.md), and the
+[executable example](example_test.go). Review [storage operations](docs/storage-operations.md),
+[platform evidence](docs/platforms.md), [compatibility](docs/compatibility.md),
+[performance](docs/benchmarks.md), and the [threat model](docs/threat-model.md)
+before integration. Project routes include [support](SUPPORT.md),
+[private security reporting](SECURITY.md), the [changelog](CHANGELOG.md), and
+the [license](LICENSE).
+
+The [specification decision register](docs/specification-decisions.md),
+[profile freeze](specification/profile-freeze.md), and
+[backend audit](docs/backend-audit.md) define the research-profile boundary.
 
 For ecosystem-wide package selection and ownership conventions, see the
 [versioned Golib ecosystem index](https://github.com/faustbrian/go-library-tools/blob/v1.4.0/docs/ecosystem/README.md)

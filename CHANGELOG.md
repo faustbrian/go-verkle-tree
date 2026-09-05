@@ -23,6 +23,12 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ### Documentation
 
+- Document the single public package, exact Go and native runtime boundary,
+  executable example, integration ownership, cancellation and concurrency
+  contracts, side-channel caveat, and complete support and security routes.
+- Correct supported-platform metadata to the runtime-proven `darwin/arm64`;
+  other recorded native targets remain compile-only evidence.
+
 - Publish the module's family, capabilities, ownership, lifecycle, supported
   environments, and package-selection metadata, with versioned ecosystem
   navigation from the README.
@@ -42,7 +48,7 @@ All notable changes to `verkle-tree` will be documented in this file.
 - Replace archived monorepo links and completed execution artifacts with a
   standalone, human-oriented documentation structure.
 
-## 1.0.0 - 2026-08-25
+## 1.0.0 - 2026-08-26
 
 ### Changed
 

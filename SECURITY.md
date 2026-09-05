@@ -2,9 +2,11 @@
 
 ## Reporting
 
-Report suspected vulnerabilities privately through the GitHub security
-advisory for `faustbrian/go-verkle-tree`. Do not open a public issue containing exploit
-details, credentials, private fixtures, or affected deployment information.
+Do not open a public issue for a suspected vulnerability. Report it privately
+through [GitHub Security Advisories for
+`faustbrian/go-verkle-tree`](https://github.com/faustbrian/go-verkle-tree/security/advisories/new)
+before public disclosure. Do not include exploit details, credentials, private
+fixtures, or affected deployment information in a public report.
 
 Include the affected module and version, impact, reproduction, preconditions,
 and any suggested mitigation. Reports are acknowledged as soon as practical;
@@ -12,9 +14,14 @@ timelines depend on severity and verification.
 
 ## Supported Versions
 
-The latest stable `v1` release line receives security fixes. Support windows
-are documented per module and in
-[`COMPATIBILITY.md`](COMPATIBILITY.md).
+The latest stable `v1` release receives security fixes. Older releases and the
+`main` branch are not supported; upgrade before reporting. The compatibility
+and deprecation boundaries are documented in
+[`COMPATIBILITY.md`](COMPATIBILITY.md) and [`DEPRECATION.md`](DEPRECATION.md).
+
+The pinned cryptographic backend is not independently audited, and complete
+side-channel behavior is unverified. See the [threat model](docs/threat-model.md)
+and [platform audit](docs/platforms.md) before assessing exposure.
 
 ## Security Gates
 
