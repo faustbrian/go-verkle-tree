@@ -6,16 +6,19 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ### Changed
 
+- Clarify that root modules use `v<version>` tags while independently
+  releasable nested modules use `<module-directory>/v<version>` tags.
 - Adopt schema-v2 cohesion metadata and the checksum-verified
   `go-library-tools` v1.4.0 CLI, including repository-local cohesion and online
   specification gates, without changing public behavior.
 - Pin reusable CI to the immutable v1.4.0 W14-enforcement workflow.
 - Record the existing borrowed storage collaborators, copied values, and
   transferred read buffers in the module ownership metadata.
-- Review Ethereum EIPs changes through `9207c6011f526bd40abd79649484a1a342585bd4`
-  and refresh the monitored commit-feed digest; none of the intervening changes
-  affect the four pinned Verkle research inputs, so their exclusion decision
-  remains unchanged.
+- Review Ethereum EIPs changes from
+  `9207c6011f526bd40abd79649484a1a342585bd4` through
+  `a9031bdc85949321a9707dd59ba44cdcba4a0eb0`. The range adds only EIP-8360;
+  the pinned EIP-4762, EIP-6800, EIP-7612, and EIP-7748 blobs are unchanged,
+  so their research-only exclusion decision remains unchanged.
 - Adopt checksum-pinned `go-library-tools` v1.2.0 and its immutable workflow
   so CI executes specification governance and fails closed on monitored
   authority changes while preserving package-owned mutation evidence and
