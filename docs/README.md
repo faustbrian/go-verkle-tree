@@ -1,7 +1,7 @@
 # Documentation
 
 `go-verkle-tree` exposes one stable-v1 public package, imported with the
-default identifier `verkletree`, and requires Go 1.26.6. It implements only
+default identifier `verkletree`, and requires Go 1.27.0. It implements only
 the fixed `verkletree-bandersnatch-ipa-256-v0` research profile. Native runtime
 acceptance evidence is limited to `darwin/arm64`; other native targets are
 compile-only. It provides no concrete storage adapter and makes no Ethereum,

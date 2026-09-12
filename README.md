@@ -7,7 +7,7 @@
 [![Documentation](https://img.shields.io/badge/docs-checked_in_CI-blue)](docs/)
 [![Go Reference](https://pkg.go.dev/badge/github.com/faustbrian/go-verkle-tree.svg)](https://pkg.go.dev/github.com/faustbrian/go-verkle-tree)
 [![Release](https://img.shields.io/github/v/release/faustbrian/go-verkle-tree?sort=semver)](https://github.com/faustbrian/go-verkle-tree/releases)
-[![Go](https://img.shields.io/badge/go-1.26.6-00ADD8?logo=go)](https://go.dev/)
+[![Go](https://img.shields.io/badge/go-1.27.0-00ADD8?logo=go)](https://go.dev/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 `verkle-tree` is a storage-independent authenticated key/value tree backed by
@@ -21,7 +21,7 @@ research-grade despite the stable Go API and explicit compatibility contract.
 
 ## Status, package, and platform
 
-The module has a stable v1 Go API and requires Go 1.26.6. Its only public
+The module has a stable v1 Go API and requires Go 1.27.0. Its only public
 package is the root package, whose default import identifier is `verkletree`.
 All subpackages are internal implementation details.
 

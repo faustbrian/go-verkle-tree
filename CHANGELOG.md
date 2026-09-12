@@ -6,6 +6,7 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ### Changed
 
+- Raise the minimum supported and tested Go toolchain to 1.27.0.
 - Adopt schema-v2 cohesion metadata and the checksum-verified
   `go-library-tools` v1.4.0 CLI, including repository-local cohesion and online
   specification gates, without changing public behavior.
