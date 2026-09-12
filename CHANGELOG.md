@@ -6,6 +6,7 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ### Changed
 
+- Raise the minimum supported and tested Go toolchain to 1.27.0.
 - Clarify that root modules use `v<version>` tags while independently
   releasable nested modules use `<module-directory>/v<version>` tags.
 - Adopt schema-v2 cohesion metadata and the checksum-verified

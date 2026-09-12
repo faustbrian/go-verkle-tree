@@ -5,7 +5,7 @@
 The original platform and cross-compilation audit ran on 2026-08-12 with Go
 1.26.5 on an Apple M4 Max running `darwin/arm64`. On 2026-09-06, the current
 source, dependency, test, and module-manifest tree was revalidated on that
-native platform with Go 1.26.6 through the complete repository gate. The fresh
+native platform with Go 1.27.0 through the complete repository gate. The fresh
 run covered tests, race detection, exact coverage and mutation requirements,
 fuzzing, security checks, conformance, interoperability, and benchmarks.
 
@@ -26,7 +26,7 @@ support. Every other named native target has compile-only evidence.
 
 | Runtime | Build path | Evidence | Result |
 | --- | --- | --- | --- |
-| darwin/arm64 | default | Go 1.26.6 complete repository gate | Pass |
+| darwin/arm64 | default | Go 1.27.0 complete repository gate | Pass |
 | darwin/arm64 | `purego,noadx` | Go 1.26.5 complete `internal/backend` suite | Historical pass |
 | darwin/arm64 | default | Go 1.26.5 pinned Go IPA scalar-field multiplication, squaring, and inversion properties | Historical pass |
 | darwin/arm64 | default and `purego` | Go 1.26.5 pinned gnark base-field multiplication, squaring, inversion, zero inversion, and batch inversion properties | Historical pass |
