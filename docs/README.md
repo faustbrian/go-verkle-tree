@@ -9,6 +9,7 @@ production-suitability, constant-time, or complete side-channel claim.
 
 ## Getting started
 
+- [Detailed package reference](reference.md)
 - [Adoption](adoption.md)
 - [Usage](usage.md)
 - [Executable example](../example_test.go)
