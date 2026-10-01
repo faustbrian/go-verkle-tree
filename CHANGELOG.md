@@ -6,6 +6,9 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ### Changed
 
+- Keep reusable CI and its checked-out tooling on the same v1.8.4 source
+  while retaining the checksum-verified v1.4.0 CLI bootstrap.
+
 - Raise the minimum supported and tested Go toolchain to 1.27.0.
 - Clarify that root modules use `v<version>` tags while independently
   releasable nested modules use `<module-directory>/v<version>` tags.
