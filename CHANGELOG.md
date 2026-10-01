@@ -4,12 +4,25 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ## Unreleased
 
+## 1.1.0 - 2026-10-01
+
 ### Changed
+
+- Bind the interoperability Go harness manifest to its Go 1.27.0 template
+  so source verification checks the reviewed generator inputs.
+- Review Ethereum EIPs changes from
+  `a9031bdc85949321a9707dd59ba44cdcba4a0eb0` through
+  `41ba25ccbf3f5dc441d7d049d0bc6ec9ad8e8215`. The range changes 33 files
+  and adds draft EIPs 8288, 8365, 8383, and 8411; the four pinned Verkle
+  EIP blobs are unchanged. Refresh only their mutable change-feed monitor;
+  the frozen profile and research-only exclusion decision remain unchanged.
 
 - Keep reusable CI and its checked-out tooling on the same v1.8.4 source
   while retaining the checksum-verified v1.4.0 CLI bootstrap.
 
-- Raise the minimum supported and tested Go toolchain to 1.27.0.
+- Raise the minimum supported and tested Go toolchain to 1.27.0. Upgrade
+  consumer toolchains before adopting v1.1.0; the stable Go API, package-owned
+  research profile, proof and storage formats, and runtime behavior are unchanged.
 - Clarify that root modules use `v<version>` tags while independently
   releasable nested modules use `<module-directory>/v<version>` tags.
 - Adopt schema-v2 cohesion metadata and the checksum-verified
