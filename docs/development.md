@@ -1,8 +1,9 @@
 # Development and Verification
 
 The repository uses the released `go-library-tools` contract for local and CI
-verification. Install `golib` v1.0.7 or provide it through the project tooling
-environment, then run:
+verification. Install the checksum-verified `golib` v1.4.0 declared in
+[`.golib.yaml`](../.golib.yaml), or provide that version through the project
+tooling environment, then run:
 
 ```sh
 make inventory
