@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "repository": "github.com/faustbrian/go-verkle-tree",
+  "module": ".",
+  "package": "internal/backend",
+  "gate": "mutation",
+  "input_digest": "sha256:8d79209ca4062b6d337a81a62c82aaa7c023d54be7c7e5f9577a814804e0b088",
+  "verifier_digest": "sha256:9a9499ff68a8dfd49a0be7995590297a8ee563a1aa226bfd8b9361dc53058108",
+  "result": "passed",
+  "report_digest": "sha256:eb7ee6507f7142a5a08cc91f119021af32b84959aceba152e056f97a6d96fb7b",
+  "environment": {
+    "CGO_ENABLED": "1",
+    "GOARCH": "amd64",
+    "GOOS": "linux",
+    "GOVERSION": "go1.27.0",
+    "gremlins_binary_sha256": "sha256:c445d9c04ffe4d2070617fd4df511cb19e48135950462912be29133b1b0169cc"
+  },
+  "completed_at": "2026-10-08T03:06:06.392264136Z"
+}
