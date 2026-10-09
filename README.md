@@ -15,9 +15,11 @@ vector commitments. Its v1 Go API exposes the package-owned research profile
 `verkletree-bandersnatch-ipa-256-v0`; it does not claim compatibility with an
 eventual Ethereum production Verkle profile.
 
-The pinned cryptographic backend has not received the independent audit
-required for production use. Treat the implementation and profile as
-research-grade despite the stable Go API and explicit compatibility contract.
+**Experimental; not production-ready.** Do not use this library to protect
+production integrity or confidentiality. The stable Go API is not a security
+qualification. [SECURITY.md](SECURITY.md#experimental-status-and-known-limitations)
+records the known backend, transcript, cancellation, mutable-configuration,
+and side-channel limitations, current containment, and deferred remediation.
 
 ## Status, package, and platform
 
@@ -40,10 +42,10 @@ go get github.com/faustbrian/go-verkle-tree
 
 ## When to use it
 
-Use `verkletree` when an application accepts the fixed research profile and
-needs bounded immutable snapshots, profile-bound proofs and witnesses,
-stateless updates, or caller-owned storage protocols. Do not use it as an
-Ethereum compatibility layer, an audited production cryptography component,
+Use `verkletree` only for non-production experiments that accept the fixed
+research profile and need bounded immutable snapshots, profile-bound proofs
+and witnesses, stateless updates, or caller-owned storage protocols. Do not
+use it as an Ethereum compatibility layer, an audited production cryptography component,
 or a storage adapter. The [adoption and migration guide](docs/adoption.md)
 defines the decision and rollback boundaries.
 
