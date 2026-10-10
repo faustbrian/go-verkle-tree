@@ -301,7 +301,7 @@ func (snapshot Snapshot) EntryCount() (uint32, error) {
 		return 0, err
 	}
 
-	return uint32(len(snapshot.entries)), nil
+	return uint32(len(snapshot.entries)), nil // #nosec G115 -- Valid immutable snapshot construction bounds entries by MaxEntries <= MaxInt32.
 }
 
 // CopyEntries returns an owned canonical entry sequence after preflighting the
@@ -441,7 +441,7 @@ func (snapshot Snapshot) Apply(
 		return Snapshot{}, Transition{}, err
 	}
 
-	result := make([]Entry, 0, int(finalCount))
+	result := make([]Entry, 0, int(finalCount)) // #nosec G115 -- Final entry count is checked against validated MaxEntries <= MaxInt32 before allocation.
 	oldIndex := 0
 	updateIndex := 0
 	for oldIndex < len(snapshot.entries) || updateIndex < len(ordered) {

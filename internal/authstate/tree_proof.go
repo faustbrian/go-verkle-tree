@@ -183,7 +183,7 @@ func NewPathCommitment(
 
 	value := PathCommitment{
 		commitment: commitment,
-		length:     uint8(len(path)),
+		length:     uint8(len(path)), // #nosec G115 -- NewPathCommitment validates commitment paths of at most 32 bytes, including suffix paths.
 		valid:      true,
 	}
 	copy(value.path[:], path)
@@ -346,7 +346,7 @@ func NewTreeProof(
 	if err := limits.validate(); err != nil {
 		return TreeProof{}, err
 	}
-	claimCount := uint32(len(claims.claims))
+	claimCount := uint32(len(claims.claims)) // #nosec G115 -- Validated ClaimSets contain at most 65536 claims.
 	stemPathCount := uint64(len(stemPaths))
 	commitmentCount := uint64(len(commitments))
 	if emptyRoot && commitmentCount != 0 {
@@ -475,7 +475,7 @@ func NewTreeProof(
 		ctx,
 		canonicalClaims,
 		ownedStemPaths,
-		int(derivationBound),
+		int(derivationBound), // #nosec G115 -- Validated claim/path budgets bound derivations to at most 2097152.
 	)
 	if err != nil {
 		return TreeProof{}, err
@@ -777,7 +777,7 @@ func newPathMarker(
 ) pathMarker {
 	marker := pathMarker{
 		leafStem: leafStem,
-		length:   uint8(len(path)),
+		length:   uint8(len(path)), // #nosec G115 -- Private suffix marker callers construct paths of at most 32 bytes.
 		kind:     kind,
 	}
 	copy(marker.path[:], path)

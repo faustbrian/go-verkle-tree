@@ -184,7 +184,7 @@ func (tree Tree) NodeCount() (uint32, error) {
 		return 0, errInvalidTree
 	}
 
-	return uint32(len(tree.nodes)), nil
+	return uint32(len(tree.nodes)), nil // #nosec G115 -- Valid tree construction bounds total nodes by MaxInt32.
 }
 
 // EdgeCount returns the number of retained internal-node child edges.
@@ -193,7 +193,7 @@ func (tree Tree) EdgeCount() (uint32, error) {
 		return 0, errInvalidTree
 	}
 
-	return uint32(len(tree.edges)), nil
+	return uint32(len(tree.edges)), nil // #nosec G115 -- Valid tree construction bounds total edges by MaxInt32.
 }
 
 type stemGroup struct {
@@ -374,7 +374,7 @@ func prepareBuild(
 	if err := checkResource(ResourceTemporaryBytes, limits.MaxTemporaryBytes, preGroupBytes); err != nil {
 		return buildPlan{}, err
 	}
-	groups, err := groupEntries(ctx, owned, int(stemCount))
+	groups, err := groupEntries(ctx, owned, int(stemCount)) // #nosec G115 -- Entry admission bounds stem count by MaxInt32 before grouping.
 	if err != nil {
 		return buildPlan{}, err
 	}
@@ -444,14 +444,14 @@ func buildPrepared(
 		entries: plan.entries,
 		groups:  plan.groups,
 		engine:  engine,
-		nodes:   make([]node, 0, int(plan.nodeCount)),
-		edges:   make([]edge, 0, int(plan.edgeCount)),
+		nodes:   make([]node, 0, int(plan.nodeCount)), // #nosec G115 -- Validated topology preflight bounds node count by MaxInt32.
+		edges:   make([]edge, 0, int(plan.edgeCount)), // #nosec G115 -- Validated topology preflight bounds edge count by MaxInt32.
 	}
 	_, err := builder.commitInternal(0, len(plan.groups), 0)
 	if err != nil {
 		return Tree{}, err
 	}
-	root := uint32(len(builder.nodes) - 1)
+	root := uint32(len(builder.nodes) - 1) // #nosec G115 -- Successful root construction appends a node; validated topology count <= MaxInt32.
 
 	tree, err := finalizeTree(
 		builder.nodes,
@@ -480,15 +480,15 @@ func rebuildPrepared(
 		entries:  plan.entries,
 		groups:   plan.groups,
 		engine:   engine,
-		nodes:    make([]node, 0, int(plan.nodeCount)),
-		edges:    make([]edge, 0, int(plan.edgeCount)),
+		nodes:    make([]node, 0, int(plan.nodeCount)), // #nosec G115 -- Validated topology preflight bounds node count by MaxInt32.
+		edges:    make([]edge, 0, int(plan.edgeCount)), // #nosec G115 -- Validated topology preflight bounds edge count by MaxInt32.
 	}
 	var prefix [31]byte
 	_, err := rebuilder.commitInternal(0, len(plan.groups), 0, prefix)
 	if err != nil {
 		return Tree{}, err
 	}
-	root := uint32(len(rebuilder.nodes) - 1)
+	root := uint32(len(rebuilder.nodes) - 1) // #nosec G115 -- Successful root rebuilding appends a node; validated topology count <= MaxInt32.
 	tree, err := finalizeTree(
 		rebuilder.nodes,
 		rebuilder.edges,
@@ -564,7 +564,7 @@ func (rebuilder *topologyRebuilder) commitInternal(
 		if err != nil {
 			return backend.VectorCommitment{}, err
 		}
-		childIndex := uint32(len(rebuilder.nodes) - 1)
+		childIndex := uint32(len(rebuilder.nodes) - 1) // #nosec G115 -- Successful child rebuilding appends a node; validated topology count <= MaxInt32.
 		rebuilder.edges[firstEdge+edgeIndex] = edge{index: index, child: childIndex}
 		mapped, err := child.ScalarBytes()
 		if err != nil {
@@ -599,7 +599,7 @@ func (rebuilder *topologyRebuilder) commitInternal(
 	rebuilder.nodes = append(rebuilder.nodes, node{
 		kind:       nodeInternal,
 		depth:      depth,
-		firstEdge:  uint32(firstEdge),
+		firstEdge:  uint32(firstEdge), // #nosec G115 -- Validated topology preflight bounds all edge offsets by MaxInt32.
 		edgeCount:  uint16(groupCount),
 		commitment: committed,
 	})
@@ -646,8 +646,8 @@ func (rebuilder *topologyRebuilder) commitStem(
 		return backend.VectorCommitment{}, err
 	}
 	committed.depth = depth
-	committed.entryStart = uint32(group.entryStart)
-	committed.entryCount = uint32(group.entryEnd - group.entryStart)
+	committed.entryStart = uint32(group.entryStart)                  // #nosec G115 -- Validated ordered entry ranges are bounded by the admitted entry count <= MaxInt32.
+	committed.entryCount = uint32(group.entryEnd - group.entryStart) // #nosec G115 -- Validated ordered entry ranges are bounded by the admitted entry count <= MaxInt32.
 	rebuilder.nodes = append(rebuilder.nodes, committed)
 
 	return committed.commitment, nil
@@ -779,13 +779,13 @@ func updatePrepared(
 		current.entryStart = uint32(group.entryStart)                  // #nosec G115 -- The validated update plan bounds ordered entry ranges by MaxInt32.
 		current.entryCount = uint32(group.entryEnd - group.entryStart) // #nosec G115 -- The validated update plan bounds ordered entry ranges by MaxInt32.
 		if !entriesEqual(
-			previous.entries[int(oldStart):int(oldEnd)],
+			previous.entries[int(oldStart):int(oldEnd)], // #nosec G115 -- The previous immutable tree validates ordered entry ranges within its admitted entry slice.
 			plan.entries[group.entryStart:group.entryEnd],
 		) {
 			committed, err := updateStemEntries(
 				ctx,
 				current,
-				previous.entries[int(oldStart):int(oldEnd)],
+				previous.entries[int(oldStart):int(oldEnd)], // #nosec G115 -- The previous immutable tree validates ordered entry ranges within its admitted entry slice.
 				plan.entries[group.entryStart:group.entryEnd],
 				engine,
 			)

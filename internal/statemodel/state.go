@@ -224,7 +224,7 @@ func (snapshot Snapshot) Apply(
 		}
 	}
 
-	result := make([]entry, 0, int(finalCount))
+	result := make([]entry, 0, int(finalCount)) // #nosec G115 -- Final entry count is checked against validated MaxEntries <= MaxInt32 before allocation.
 	oldIndex := 0
 	updateIndex := 0
 	for oldIndex < len(snapshot.entries) || updateIndex < len(ordered) {

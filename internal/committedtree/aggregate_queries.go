@@ -554,7 +554,7 @@ func (collector *aggregateQueryCollector) append(
 	queries, err := growAggregateProverQueries(
 		collector.queries,
 		collector.queryCapacity,
-		int(actual),
+		int(actual), // #nosec G115 -- Query admission checks the validated maximum of 65536 before conversion.
 	)
 	if err != nil {
 		return err

@@ -270,7 +270,7 @@ func (tree Tree) validateStorageTree() error {
 }
 
 func (tree Tree) validateStorageTopology(ctx context.Context) error {
-	if tree.root != uint32(len(tree.nodes)-1) ||
+	if tree.root != uint32(len(tree.nodes)-1) || // #nosec G115 -- Valid tree construction bounds node counts by MaxInt32 before storage encoding.
 		len(tree.edges) != len(tree.nodes)-1 ||
 		tree.nodes[tree.root].kind != nodeInternal ||
 		tree.nodes[tree.root].depth != 0 {
@@ -485,7 +485,7 @@ func (tree Tree) encodeStorageNode(
 		return nil, err
 	}
 	current := tree.nodes[index]
-	encoded := make([]byte, int(size))
+	encoded := make([]byte, int(size)) // #nosec G115 -- Node-size inspection validates byte fan-out and suffix counts; encoded node size is below 9 KiB.
 	copy(encoded, storageNodeMagic[:])
 	offset := storageNodeMagicBytes
 	profile := internalprofile.BandersnatchIPA256V0Profile()
@@ -548,7 +548,7 @@ func (tree Tree) encodeStorageNode(
 		}
 		binary.BigEndian.PutUint16(
 			encoded[offset:offset+storageNodeCountBytes],
-			uint16(current.entryCount),
+			uint16(current.entryCount), // #nosec G115 -- Node inspection validates ordered byte suffixes, so a stem has at most 256 entries.
 		)
 		offset += storageNodeCountBytes
 		end := uint64(current.entryStart) + uint64(current.entryCount)

@@ -252,7 +252,7 @@ func (proof TreeProof) Bytes(
 
 	rootBytes, _ := proof.root.Bytes()
 	openingBytes, _ := proof.opening.Bytes()
-	encoded := make([]byte, int(encodedSize))
+	encoded := make([]byte, int(encodedSize)) // #nosec G115 -- Proof structural-size admission bounds encoded output below MaxInt32 before allocation.
 	copy(encoded, treeProofMagic[:])
 	offset := treeProofMagicBytes
 	encoded[offset] = byte(proof.profile.ID())
@@ -271,17 +271,17 @@ func (proof TreeProof) Bytes(
 	offset += backend.RootSize
 	binary.BigEndian.PutUint32(
 		encoded[offset:offset+treeProofCountBytes],
-		uint32(len(proof.claims.claims)),
+		uint32(len(proof.claims.claims)), // #nosec G115 -- ClaimSet validation bounds claims to at most 65536.
 	)
 	offset += treeProofCountBytes
 	binary.BigEndian.PutUint32(
 		encoded[offset:offset+treeProofCountBytes],
-		uint32(len(proof.stemPaths)),
+		uint32(len(proof.stemPaths)), // #nosec G115 -- Proof validation bounds stem paths to at most 65536.
 	)
 	offset += treeProofCountBytes
 	binary.BigEndian.PutUint32(
 		encoded[offset:offset+treeProofCountBytes],
-		uint32(len(proof.commitments)),
+		uint32(len(proof.commitments)), // #nosec G115 -- Proof validation bounds commitments to at most 2097152.
 	)
 	offset += treeProofCountBytes
 

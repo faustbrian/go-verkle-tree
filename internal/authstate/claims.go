@@ -232,7 +232,7 @@ func (set ClaimSet) Count() (uint32, error) {
 		return 0, err
 	}
 
-	return uint32(len(set.claims)), nil
+	return uint32(len(set.claims)), nil // #nosec G115 -- Valid ClaimSet construction bounds claims to at most 65536.
 }
 
 // Profile returns the immutable profile bound to the claims.

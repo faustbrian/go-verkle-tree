@@ -167,7 +167,7 @@ func (tree Tree) proofPath(
 			uint64(limits.MaxCommitments),
 			limits.MaxTemporaryBytes/proofPathWorkingBytes,
 		)
-		commitments = make([]ProofPathCommitment, 0, int(capacity))
+		commitments = make([]ProofPathCommitment, 0, int(capacity)) // #nosec G115 -- Validated maximum path depth bounds commitment capacity to at most 32.
 	}
 	result := ProofPath{Commitments: commitments}
 	nodeReads := uint64(0)
@@ -196,7 +196,7 @@ func (tree Tree) proofPath(
 		}
 		selected := key[current.depth]
 		childIndex, found := findProofPathChild(
-			tree.edges[int(first):int(end)],
+			tree.edges[int(first):int(end)], // #nosec G115 -- Ordered edge-range endpoints are checked against the actual edge slice length.
 			selected,
 		)
 		if !found {
@@ -204,7 +204,7 @@ func (tree Tree) proofPath(
 			result.Depth = current.depth + 1
 			return result, nil
 		}
-		child := tree.edges[int(first)+childIndex].child
+		child := tree.edges[int(first)+childIndex].child // #nosec G115 -- The edge-range start is checked against the actual edge slice length.
 		if uint64(child) >= uint64(len(tree.nodes)) {
 			return ProofPath{}, errInvalidTree
 		}
@@ -341,7 +341,7 @@ func appendProofPathCommitment(
 	}
 
 	value := ProofPathCommitment{
-		Length:     uint8(len(path)),
+		Length:     uint8(len(path)), // #nosec G115 -- Private callers construct validated commitment paths of at most 32 bytes.
 		Commitment: commitment,
 	}
 	copy(value.Path[:], path)

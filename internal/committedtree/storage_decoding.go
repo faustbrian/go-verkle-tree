@@ -161,10 +161,10 @@ func (node DecodedStorageNode) RecordCount() uint16 {
 		return 0
 	}
 	if node.kind == StorageNodeKindInternal {
-		return uint16(len(node.children))
+		return uint16(len(node.children)) // #nosec G115 -- Inspected wire node counts bound the decoded child array to at most 256 records.
 	}
 
-	return uint16(len(node.entries))
+	return uint16(len(node.entries)) // #nosec G115 -- Inspected wire node counts bound the decoded entry array to at most 256 records.
 }
 
 // TemporaryBytes returns the conservative owned decoder storage charged by

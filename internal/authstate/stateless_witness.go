@@ -353,7 +353,7 @@ func (witness StatelessWitness) Bytes(
 		return nil, err
 	}
 	postRootBytes, _ := witness.postRoot.Bytes()
-	encoded := make([]byte, int(encodedSize))
+	encoded := make([]byte, int(encodedSize)) // #nosec G115 -- Witness structural-size admission bounds encoded output below MaxInt32 before allocation.
 	copy(encoded, statelessWitnessMagic[:])
 	offset := statelessWitnessMagicBytes
 	encoded[offset] = byte(witness.profile.ID())
@@ -362,9 +362,9 @@ func (witness StatelessWitness) Bytes(
 	offset += statelessWitnessVersionBytes
 	binary.BigEndian.PutUint16(encoded[offset:], witness.profile.EncodingVersion())
 	offset += statelessWitnessEncodingBytes
-	binary.BigEndian.PutUint32(encoded[offset:], uint32(proofSize))
+	binary.BigEndian.PutUint32(encoded[offset:], uint32(proofSize)) // #nosec G115 -- Proof structural-size admission bounds encoded proof length below MaxInt32.
 	offset += statelessWitnessLengthBytes
-	binary.BigEndian.PutUint32(encoded[offset:], uint32(len(witness.updates)))
+	binary.BigEndian.PutUint32(encoded[offset:], uint32(len(witness.updates))) // #nosec G115 -- Witness validation bounds updates to at most 65536 before encoding.
 	offset += statelessWitnessCountBytes
 	copy(encoded[offset:], postRootBytes[:])
 	offset += backend.RootSize

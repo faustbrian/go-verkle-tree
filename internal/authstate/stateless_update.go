@@ -1209,7 +1209,7 @@ func statelessChildPath(parent statelessPath, child byte) statelessPath {
 }
 
 func makeStatelessPath(path []byte) statelessPath {
-	value := statelessPath{length: uint8(len(path))}
+	value := statelessPath{length: uint8(len(path))} // #nosec G115 -- Private callers slice 31-byte stems at validated proof-path depths.
 	copy(value.path[:], path)
 
 	return value

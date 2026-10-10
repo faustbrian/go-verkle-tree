@@ -481,7 +481,7 @@ func proofStatementBinding(
 	}
 	hash.Write(rootBytes[:])
 	var count [4]byte
-	binary.BigEndian.PutUint32(count[:], uint32(len(claims.claims)))
+	binary.BigEndian.PutUint32(count[:], uint32(len(claims.claims))) // #nosec G115 -- Production callers supply validated ClaimSets containing at most 65536 claims.
 	hash.Write(count[:])
 	for index := range claims.claims {
 		if err := checkTreeProofContext(ctx); err != nil {
@@ -492,7 +492,7 @@ func proofStatementBinding(
 		hash.Write([]byte{byte(claim.kind)})
 		hash.Write(claim.value[:])
 	}
-	binary.BigEndian.PutUint32(count[:], uint32(len(queries)))
+	binary.BigEndian.PutUint32(count[:], uint32(len(queries))) // #nosec G115 -- Production callers supply validated aggregate queries containing at most 65536 entries.
 	hash.Write(count[:])
 	for index := range queries {
 		if err := checkTreeProofContext(ctx); err != nil {

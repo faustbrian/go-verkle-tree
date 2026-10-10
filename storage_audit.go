@@ -324,7 +324,7 @@ func auditPublicationSet(
 	if err := checkAuditTemporary(limits, workingPublications, 0, 0, 0); err != nil {
 		return nil, false, err
 	}
-	publications := make([]StorePublication, 0, int(actual))
+	publications := make([]StorePublication, 0, int(actual)) // #nosec G115 -- Returned retained capacity is checked against remaining validated publications; total <= MaxInt32.
 	if present {
 		publications = append(publications, current)
 	}
@@ -378,7 +378,7 @@ func auditInventory(
 				Actual:   inventory + 1,
 			}
 		}
-		declaredPageLimit := uint32(min(
+		declaredPageLimit := uint32(min( // #nosec G115 -- The minimum cannot exceed validated MaxNodeIDsPerPage <= MaxInt32.
 			remaining,
 			uint64(limits.MaxNodeIDsPerPage),
 		))

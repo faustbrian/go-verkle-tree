@@ -184,8 +184,8 @@ func buildOwned(
 	layout := Layout{
 		limits:         limits,
 		stems:          stems,
-		nodes:          make([]node, 1, int(counts.nodes)),
-		edges:          make([]edge, 0, int(counts.edges)),
+		nodes:          make([]node, 1, int(counts.nodes)), // #nosec G115 -- Topology preflight bounds node count by MaxInt32 before construction.
+		edges:          make([]edge, 0, int(counts.edges)), // #nosec G115 -- Topology preflight bounds edge count by MaxInt32 before construction.
 		temporaryBytes: temporaryBytes,
 		valid:          true,
 	}
@@ -262,7 +262,7 @@ func (layout *Layout) buildChildren(
 
 	firstEdge := len(layout.edges)
 	layout.edges = append(layout.edges, make([]edge, groupCount)...)
-	layout.nodes[parent].firstEdge = uint32(firstEdge)
+	layout.nodes[parent].firstEdge = uint32(firstEdge)  // #nosec G115 -- Topology preflight bounds all edge offsets by MaxInt32 before construction.
 	layout.nodes[parent].edgeCount = uint16(groupCount) // #nosec G115 -- Groups partition one byte of the stem, so there are at most 256.
 
 	groupIndex := 0
@@ -416,7 +416,7 @@ func checkedEdgeRange(
 		return 0, 0, false
 	}
 
-	return int(low), int(high), true
+	return int(low), int(high), true // #nosec G115 -- edgeRange checks ordered endpoints against the actual edge slice length before conversion.
 }
 
 // Insert returns a canonical new layout and whether stem was newly inserted.

@@ -139,7 +139,7 @@ func (snapshot Snapshot) Bytes(
 	}
 	profile := BandersnatchIPA256V0()
 
-	encoded := make([]byte, int(encodedBytes))
+	encoded := make([]byte, int(encodedBytes)) // #nosec G115 -- Encoded-size admission checks the explicit 2147483639-byte ceiling before allocation.
 	copy(encoded, snapshotMagic[:])
 	offset := snapshotMagicBytes
 	encoded[offset] = byte(profile.ID())

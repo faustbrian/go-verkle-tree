@@ -137,7 +137,7 @@ func (material ProofMaterial) AggregateVerifierQueries(
 		ctx,
 		material.claims.claims,
 		material.stemPaths,
-		int(capacity),
+		int(capacity), // #nosec G115 -- Query admission checks the validated maximum of 65536 before allocation.
 	)
 	if err != nil {
 		if errors.Is(err, errTreeProofCancelled) {
@@ -178,7 +178,7 @@ func (material ProofMaterial) AggregateVerifierQueries(
 		ctx:           ctx,
 		limits:        limits,
 		commitments:   commitments,
-		queryCapacity: int(capacity),
+		queryCapacity: int(capacity), // #nosec G115 -- Query admission checks the validated maximum of 65536 before construction.
 		queries:       make([]AggregateVerifierQuery, 0, int(initialCapacity)),
 		queryByID:     make(map[aggregateVerifierIdentity]int, int(initialCapacity)),
 	}
@@ -362,7 +362,7 @@ func (collector *aggregateVerifierCollector) appendValue(
 	queries, err := growAggregateVerifierQueries(
 		collector.queries,
 		collector.queryCapacity,
-		int(actual),
+		int(actual), // #nosec G115 -- Query admission checks the validated maximum of 65536 before conversion.
 	)
 	if err != nil {
 		return err

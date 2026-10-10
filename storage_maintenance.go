@@ -617,7 +617,7 @@ func maintenanceInventory(
 		if remaining == 0 {
 			return nil, 0, &ResourceError{Resource: ResourceInventoryNodes, Limit: uint64(limits.MaxInventoryNodes), Actual: inventory + 1}
 		}
-		declared := uint32(min(remaining, uint64(limits.MaxNodeIDsPerPage)))
+		declared := uint32(min(remaining, uint64(limits.MaxNodeIDsPerPage))) // #nosec G115 -- The minimum cannot exceed validated MaxNodeIDsPerPage <= MaxInt32.
 		maxIDs, limitErr := storageAuditPageLimit(
 			limits,
 			publicationCount,
