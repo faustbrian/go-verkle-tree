@@ -41,7 +41,7 @@ jobs:
         with:
           go-version: '1.27.2'
           cache: false
-      - name: Verify allocation-free capacity accounting
+      - name: Verify bounded accounting and update conversion
         env:
           GOENV: off
           GOWORK: off
@@ -56,7 +56,7 @@ jobs:
           trap 'find "${task_root}" -type d -exec chmod u+w {} +; find "${task_root}" -depth -delete' EXIT
           mkdir "${task_root}/build" "${task_root}/modules" "${task_root}/tmp"
           export GOCACHE="${task_root}/build" GOMODCACHE="${task_root}/modules" GOTMPDIR="${task_root}/tmp"
-          go test -p=1 -count=1 -timeout=60s -run '^TestStorageAuditResultCapacityPreserves32BitBounds$' .
+          go test -p=1 -count=1 -timeout=60s -run '^Test(StorageAccountingAndUpdateConversionTerminate|StorageAuditResultCapacityPreserves32BitBounds)$' .
 
   required:
     name: Required

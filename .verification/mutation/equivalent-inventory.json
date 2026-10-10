@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "packages": [
+    {
+      "module_directory": ".",
+      "package_directory": ".",
+      "source_digest": "2e8a7405ecb80bb318c4524ffe35be4ab5bf1cdb4ff6e475e2c50e0f93b0ed36",
+      "gremlins_version": "v0.6.0",
+      "gremlins_verifier_sha256": "390cf4085a0063fe5dcaa29ce942ea4cb8c7876347da90376b65dc8c5c811104",
+      "mutations": [
+        {
+          "file_name": "storage_audit.go",
+          "type": "INVERT_NEGATIVES",
+          "line": 535,
+          "column": 46,
+          "contract_domain": "64-bit native mutation hosts with validated nonnegative inventory counts <= MaxInt32 and length <= capacity <= maximum; required linux/386 accounting assertions independently qualify 32-bit execution",
+          "reason": "Owner go-verkle-tree maintainers; date2026-10-10; expiry2026-11-09 or earlier bound source/verifier/count-domain change or removal of the required 32-bit assertions. Pinned Gremlins replaces maximum-length with maximum+length. On a 64-bit host both resulting additions fit. If additional <= maximum-length, required is unchanged. Otherwise the original required is maximum and the changed required is greater than maximum; the unchanged doubling-headroom guard returns the same maximum, including capacity==maximum. No external effect occurs. This is not a 32-bit equivalence claim: the exact overflow assertions must reject the counterfactual there. Failed campaign38059257464 remains failed; TIMED OUT never satisfies this inventory. Only a fresh native LIVED result can use the reviewed classification."
+        },
+        {
+          "file_name": "storage_audit.go",
+          "type": "ARITHMETIC_BASE",
+          "line": 535,
+          "column": 46,
+          "contract_domain": "64-bit native mutation hosts with validated nonnegative inventory counts <= MaxInt32 and length <= capacity <= maximum; required linux/386 accounting assertions independently qualify 32-bit execution",
+          "reason": "Owner go-verkle-tree maintainers; date2026-10-10; expiry2026-11-09 or earlier bound source/verifier/count-domain change or removal of the required 32-bit assertions. Pinned Gremlins makes exactly the same minus-to-plus token replacement as INVERT_NEGATIVES at this coordinate. For additional within remaining headroom the required count is identical. Beyond headroom, both forms return maximum through the unchanged growth guard; all arithmetic fits on the 64-bit native host. This classification does not cover 32-bit overflow: the required linux/386 assertions must reject that exact replacement. Failed campaign38059257464 is not reclassified; fresh native LIVED accounting and independent complete-diff review remain required."
+        },
+        {
+          "file_name": "storage_audit.go",
+          "type": "CONDITIONALS_BOUNDARY",
+          "line": 543,
+          "column": 12,
+          "contract_domain": "Validated nonnegative inventory counts <= MaxInt32, required <= maximum and geometric growth bounded before doubling, on both 32-bit and 64-bit hosts",
+          "reason": "Owner go-verkle-tree maintainers; date2026-10-10; expiry2026-11-09 or earlier bound source/verifier/growth-domain change. Pinned Gremlins changes grown>maximum-grown to >=. Only equality changes the branch, and equality means 2*grown==maximum. The original safely doubles to exactly maximum, exits because required<=maximum, and returns maximum. The replacement returns that identical value immediately. Both forms are allocation-free and expose no other state. Exact counterfactual executions must complete with the same result on each supported integer width. Failed campaign38059257464 remains failed; an old TIMED OUT cannot be admitted as LIVED. Fresh native qualification must retain statuses and enforce this exact coordinate only."
+        },
+        {
+          "file_name": "storage_audit.go",
+          "type": "INVERT_NEGATIVES",
+          "line": 543,
+          "column": 21,
+          "contract_domain": "64-bit native mutation hosts with validated nonnegative counts <= MaxInt32 and required <= maximum; required linux/386 accounting assertions independently qualify 32-bit execution",
+          "reason": "Owner go-verkle-tree maintainers; date2026-10-10; expiry2026-11-09 or earlier bound source/verifier/count-domain change or removal of the required 32-bit assertions. Pinned Gremlins changes maximum-grown to maximum+grown. On 64-bit hosts the changed predicate is false without overflow. Where the original returns maximum before doubling, the replacement safely doubles to a value above maximum, exits because required<=maximum, and clamps to the identical maximum; otherwise the growth path is identical. No allocation or external effect occurs. This is not equivalent on 32-bit hosts: a small required count with maximum=MaxInt32 must fail the exact replacement under the required linux/386 assertions. No timeout admission or passing campaign is inferred; fresh native LIVED accounting is required."
+        },
+        {
+          "file_name": "storage_audit.go",
+          "type": "ARITHMETIC_BASE",
+          "line": 543,
+          "column": 21,
+          "contract_domain": "64-bit native mutation hosts with validated nonnegative counts <= MaxInt32 and required <= maximum; required linux/386 accounting assertions independently qualify 32-bit execution",
+          "reason": "Owner go-verkle-tree maintainers; date2026-10-10; expiry2026-11-09 or earlier bound source/verifier/count-domain change or removal of the required 32-bit assertions. This operator makes exactly the same minus-to-plus replacement as INVERT_NEGATIVES at this coordinate. The 64-bit changed growth step cannot overflow for counts <= MaxInt32; a step beyond maximum exits and is clamped to maximum, matching the original early return. Other admitted paths are unchanged. The required linux/386 assertions must still reject the exact width-sensitive replacement; no 32-bit equivalence or production eligibility is claimed. Existing TIMED OUT statuses remain failures. Only fresh native LIVED evidence can be admitted after independent review."
+        }
+      ]
+    }
+  ]
+}
