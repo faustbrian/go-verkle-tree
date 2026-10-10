@@ -4,6 +4,8 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ## Unreleased
 
+## 1.1.1 - 2026-10-10
+
 ### Fixed
 
 - Keep storage-audit capacity growth and retained-node accounting within their
