@@ -4,6 +4,13 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ## Unreleased
 
+### Fixed
+
+- Keep storage-audit capacity growth and retained-node accounting within their
+  configured bounds on 32-bit hosts, avoiding integer overflow at large valid
+  inventory limits. This does not change the experimental cryptographic backend
+  or make the package production-ready.
+
 ## 1.1.0 - 2026-10-08
 
 ### Changed

@@ -143,7 +143,7 @@ func (audit StorageAudit) UnreachableNodeCount() uint32 {
 		return 0
 	}
 
-	return uint32(len(audit.unreachable))
+	return uint32(len(audit.unreachable)) // #nosec G115 -- Valid audits retain at most validated MaxUnreachableNodes <= MaxInt32.
 }
 
 // UnreachableNodes returns an owned ascending copy of every node outside all
@@ -263,9 +263,9 @@ func AuditStorage(
 	}
 
 	return StorageAudit{
-		publications: uint32(len(publications)),
-		reachable:    uint32(reachableCount),
-		inventory:    uint32(inventory),
+		publications: uint32(len(publications)), // #nosec G115 -- auditPublications enforces validated MaxPublications <= MaxInt32.
+		reachable:    uint32(reachableCount),    // #nosec G115 -- Verified reachable nodes are bounded by validated MaxInventoryNodes <= MaxInt32.
+		inventory:    uint32(inventory),         // #nosec G115 -- auditInventory enforces validated MaxInventoryNodes <= MaxInt32.
 		unreachable:  unreachable,
 		valid:        true,
 	}, nil
@@ -384,8 +384,8 @@ func auditInventory(
 		))
 		maxIDs, limitErr := storageAuditPageLimit(
 			limits,
-			uint64(publicationCount),
-			uint64(reachableCount),
+			uint64(publicationCount), // #nosec G115 -- Private caller supplies a nonnegative validated publication slice length.
+			uint64(reachableCount),   // #nosec G115 -- Private caller supplies a nonnegative verified reachable-map length.
 			len(unreachable),
 			cap(unreachable),
 			declaredPageLimit,
@@ -444,7 +444,7 @@ func auditInventory(
 
 func appendStorageAuditNode(nodes []NodeID, id NodeID, maximum int) []NodeID {
 	if len(nodes) == cap(nodes) {
-		nextCapacity := min(max(1, 2*cap(nodes)), maximum)
+		nextCapacity := storageAuditResultCapacity(len(nodes), cap(nodes), 1, maximum)
 		grown := make([]NodeID, len(nodes), nextCapacity)
 		copy(grown, nodes)
 		nodes = grown
@@ -480,16 +480,14 @@ func storageAuditPageLimit(
 			int(count),
 			int(limits.MaxUnreachableNodes),
 		)
-		resultLength := min(
-			unreachableLength+int(count),
-			int(limits.MaxUnreachableNodes),
-		)
+		maximum := int(limits.MaxUnreachableNodes)
+		resultLength := unreachableLength + min(int(count), maximum-unreachableLength)
 		previousCapacity := storageAuditPreviousCapacity(
 			unreachableCapacity,
 			capacity,
 		)
-		workingSlots := uint64(capacity) + uint64(previousCapacity) + uint64(count)
-		copySlots := uint64(capacity) + uint64(resultLength)
+		workingSlots := uint64(capacity) + uint64(previousCapacity) + uint64(count) // #nosec G115 -- Overflow-free growth and previous-capacity helpers return nonnegative counts <= MaxInt32.
+		copySlots := uint64(capacity) + uint64(resultLength)                        // #nosec G115 -- Capacity and capped retained length are nonnegative and <= MaxInt32.
 		actual := storageAuditTemporaryBytes(
 			publications, reachable, max(workingSlots, copySlots), 0,
 		)
@@ -504,7 +502,7 @@ func storageAuditPageLimit(
 		}
 	}
 	firstRejected := sort.Search(int(declared), func(index int) bool {
-		ok, _ := fits(uint32(index + 1))
+		ok, _ := fits(uint32(index + 1)) // #nosec G115 -- Search index is in [0, declared), and validated declared <= MaxInt32.
 
 		return !ok
 	})
@@ -512,7 +510,7 @@ func storageAuditPageLimit(
 		return declared, nil
 	}
 
-	return uint32(firstRejected), nil
+	return uint32(firstRejected), nil // #nosec G115 -- sort.Search returns an index in [0, declared], and validated declared <= MaxInt32.
 }
 
 func storageAuditPreviousCapacity(current int, final int) int {
@@ -532,15 +530,23 @@ func storageAuditResultCapacity(
 	additional int,
 	maximum int,
 ) int {
-	required := min(length+additional, maximum)
+	// Validated inventory counts and retained lengths are nonnegative and at
+	// most maximum (MaxInt32). Clamp before adding so 32-bit hosts cannot wrap.
+	required := length + min(additional, maximum-length)
 	if required == 0 {
 		return capacity
 	}
-	base := max(1, capacity)
-	quotient := (required + base - 1) / base
-	factor := 1 << bits.Len(uint(quotient-1))
+	grown := max(1, capacity)
+	for grown < required {
+		// Check the remaining headroom before doubling. This retains geometric
+		// growth without an overflowing rounded power of two or product.
+		if grown > maximum-grown {
+			return maximum
+		}
+		grown += grown
+	}
 
-	return min(base*factor, maximum)
+	return min(grown, maximum)
 }
 
 func checkAuditTemporary(

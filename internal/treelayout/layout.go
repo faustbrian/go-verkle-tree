@@ -263,7 +263,7 @@ func (layout *Layout) buildChildren(
 	firstEdge := len(layout.edges)
 	layout.edges = append(layout.edges, make([]edge, groupCount)...)
 	layout.nodes[parent].firstEdge = uint32(firstEdge)
-	layout.nodes[parent].edgeCount = uint16(groupCount)
+	layout.nodes[parent].edgeCount = uint16(groupCount) // #nosec G115 -- Groups partition one byte of the stem, so there are at most 256.
 
 	groupIndex := 0
 	for start := 0; start < len(stems); {
@@ -271,7 +271,7 @@ func (layout *Layout) buildChildren(
 			return err
 		}
 		end := groupEnd(stems, start, depth)
-		childIndex := uint32(len(layout.nodes))
+		childIndex := uint32(len(layout.nodes)) // #nosec G115 -- The validated topology plan bounds total nodes by MaxInt32 before construction.
 		child := node{depth: depth + 1}
 		if end-start == 1 {
 			child.kind = KindStem
@@ -538,7 +538,7 @@ func checkInitialBytes(limits Limits, stemCount int) error {
 	return checkResource(
 		ResourceTemporaryBytes,
 		limits.MaxTemporaryBytes,
-		uint64(stemCount)*stemWorkingBytes,
+		uint64(stemCount)*stemWorkingBytes, // #nosec G115 -- Private callers derive this count from a slice length or validated insertion/deletion count.
 	)
 }
 

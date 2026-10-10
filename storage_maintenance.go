@@ -147,7 +147,7 @@ func (result StorageMaintenanceResult) DeletedNodeCount() uint32 {
 		return 0
 	}
 
-	return uint32(len(result.deleted))
+	return uint32(len(result.deleted)) // #nosec G115 -- Valid maintenance results retain at most validated MaxUnreachableNodes <= MaxInt32.
 }
 
 // DeletedNodes returns an owned ascending copy of every deleted node.
@@ -278,8 +278,8 @@ func runStorageMaintenance(
 	}
 
 	return StorageMaintenanceResult{
-		previousRetained: uint32(len(maintenance.previousRetained)),
-		retained:         uint32(len(maintenance.retained)),
+		previousRetained: uint32(len(maintenance.previousRetained)), // #nosec G115 -- Maintenance planning bounds publication counts by validated MaxPublications <= MaxInt32.
+		retained:         uint32(len(maintenance.retained)),         // #nosec G115 -- Maintenance planning bounds publication counts by validated MaxPublications <= MaxInt32.
 		deleted:          maintenance.deleted,
 		valid:            true,
 	}, nil

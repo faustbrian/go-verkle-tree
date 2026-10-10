@@ -776,8 +776,8 @@ func updatePrepared(
 		current := nodes[nodeIndex]
 		oldStart := uint64(current.entryStart)
 		oldEnd := oldStart + uint64(current.entryCount)
-		current.entryStart = uint32(group.entryStart)
-		current.entryCount = uint32(group.entryEnd - group.entryStart)
+		current.entryStart = uint32(group.entryStart)                  // #nosec G115 -- The validated update plan bounds ordered entry ranges by MaxInt32.
+		current.entryCount = uint32(group.entryEnd - group.entryStart) // #nosec G115 -- The validated update plan bounds ordered entry ranges by MaxInt32.
 		if !entriesEqual(
 			previous.entries[int(oldStart):int(oldEnd)],
 			plan.entries[group.entryStart:group.entryEnd],
@@ -1058,7 +1058,7 @@ func (builder *treeBuilder) commitInternal(
 		if err != nil {
 			return backend.VectorCommitment{}, err
 		}
-		childIndex := uint32(len(builder.nodes) - 1)
+		childIndex := uint32(len(builder.nodes) - 1) // #nosec G115 -- The validated topology plan bounds nodes by MaxInt32, and child construction appends a node first.
 		builder.edges[firstEdge+edgeIndex] = edge{index: index, child: childIndex}
 		mapped, err := child.ScalarBytes()
 		if err != nil {
@@ -1076,8 +1076,8 @@ func (builder *treeBuilder) commitInternal(
 	builder.nodes = append(builder.nodes, node{
 		kind:       nodeInternal,
 		depth:      depth,
-		firstEdge:  uint32(firstEdge),
-		edgeCount:  uint16(groupCount),
+		firstEdge:  uint32(firstEdge),  // #nosec G115 -- The validated topology plan bounds all edge offsets by MaxInt32.
+		edgeCount:  uint16(groupCount), // #nosec G115 -- Groups partition one byte of the stem, so there are at most 256.
 		commitment: committed,
 	})
 
@@ -1098,8 +1098,8 @@ func (builder *treeBuilder) commitStem(
 	if err != nil {
 		return backend.VectorCommitment{}, err
 	}
-	committed.entryStart = uint32(group.entryStart)
-	committed.entryCount = uint32(group.entryEnd - group.entryStart)
+	committed.entryStart = uint32(group.entryStart)                  // #nosec G115 -- The validated build plan bounds ordered entry ranges by MaxInt32.
+	committed.entryCount = uint32(group.entryEnd - group.entryStart) // #nosec G115 -- The validated build plan bounds ordered entry ranges by MaxInt32.
 	builder.nodes = append(builder.nodes, committed)
 
 	return committed.commitment, nil

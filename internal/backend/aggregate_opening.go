@@ -251,7 +251,7 @@ func newAggregateOpeningEngine(
 		{AggregateOpeningResourceGeneratorDerivations, uint64(limits.MaxGeneratorDerivations), VectorWidth},
 		{AggregateOpeningResourcePrecomputedPoints, uint64(limits.MaxPrecomputedPoints), VectorWidth},
 		{AggregateOpeningResourceTemporaryBytes, limits.MaxTemporaryBytes, aggregateSetupWorkingBytes},
-		{AggregateOpeningResourceWorkers, uint64(limits.MaxWorkers), uint64(runtime.NumCPU())},
+		{AggregateOpeningResourceWorkers, uint64(limits.MaxWorkers), uint64(runtime.NumCPU())}, // #nosec G115 -- runtime.NumCPU returns a positive processor count.
 	} {
 		if err := checkAggregateOpeningResource(check.resource, check.limit, check.actual); err != nil {
 			return nil, err
@@ -777,7 +777,7 @@ func (engine *AggregateOpeningEngine) preflight(
 		{AggregateOpeningResourceScalarDecodes, engine.limits.MaxScalarDecodes, scalarDecodes},
 		{AggregateOpeningResourceMSMTerms, engine.limits.MaxMSMTerms, msmTerms},
 		{AggregateOpeningResourceTemporaryBytes, engine.limits.MaxTemporaryBytes, temporaryBytes},
-		{AggregateOpeningResourceWorkers, uint64(engine.limits.MaxWorkers), uint64(runtime.NumCPU())},
+		{AggregateOpeningResourceWorkers, uint64(engine.limits.MaxWorkers), uint64(runtime.NumCPU())}, // #nosec G115 -- runtime.NumCPU returns a positive processor count.
 	} {
 		if err := checkAggregateOpeningResource(check.resource, check.limit, check.actual); err != nil {
 			return err

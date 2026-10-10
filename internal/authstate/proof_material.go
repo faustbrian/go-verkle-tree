@@ -415,7 +415,7 @@ func convertProofPathCommitments(
 	pathBytes := uint64(0)
 	for index := range values {
 		length := int(values[index].Length)
-		pathBytes = saturatingProofMaterialAdd(pathBytes, uint64(length))
+		pathBytes = saturatingProofMaterialAdd(pathBytes, uint64(values[index].Length))
 		if length == 0 || length > len(values[index].Path) {
 			continue
 		}
