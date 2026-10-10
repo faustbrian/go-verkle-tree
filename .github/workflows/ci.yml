@@ -27,14 +27,48 @@ jobs:
       public_dependencies: true
       release_dry_run: ${{ inputs.release_dry_run || false }}
 
+  storage-width-proof:
+    name: Storage capacity on 32-bit hosts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.27.2'
+          cache: false
+      - name: Verify allocation-free capacity accounting
+        env:
+          GOENV: off
+          GOWORK: off
+          GOTOOLCHAIN: local
+          GOOS: linux
+          GOARCH: '386'
+          CGO_ENABLED: '0'
+          GOMAXPROCS: '2'
+        run: |
+          set -euo pipefail
+          task_root=$(mktemp -d "${RUNNER_TEMP}/verkle-width.XXXXXX")
+          trap 'find "${task_root}" -type d -exec chmod u+w {} +; find "${task_root}" -depth -delete' EXIT
+          mkdir "${task_root}/build" "${task_root}/modules" "${task_root}/tmp"
+          export GOCACHE="${task_root}/build" GOMODCACHE="${task_root}/modules" GOTMPDIR="${task_root}/tmp"
+          go test -p=1 -count=1 -timeout=60s -run '^TestStorageAuditResultCapacityPreserves32BitBounds$' .
+
   required:
     name: Required
     if: always()
-    needs: ci
+    needs: [ci, storage-width-proof]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - name: Require shared workflow
         env:
           CI_RESULT: ${{ needs.ci.result }}
-        run: test "${CI_RESULT}" = success
+          WIDTH_RESULT: ${{ needs.storage-width-proof.result }}
+        run: |
+          test "${CI_RESULT}" = success
+          test "${WIDTH_RESULT}" = success
