@@ -6,6 +6,7 @@ import (
 	"go/parser"
 	"go/token"
 	"io/fs"
+	"os"
 	"path/filepath"
 	"runtime"
 	"slices"
@@ -21,6 +22,52 @@ func TestProductionSourceHasNoPackageInitOrOwnedGoroutines(t *testing.T) {
 		t.Fatal("resolve architecture test source path")
 	}
 	moduleRoot := filepath.Dir(filename)
+	violations, err := scanProductionSourceArchitecture(moduleRoot)
+	if err != nil {
+		t.Fatalf("scan production source: %v", err)
+	}
+	for _, violation := range violations {
+		t.Errorf(
+			"package-owned production source must not %s: %s",
+			violation.rule,
+			violation.position,
+		)
+	}
+}
+
+func TestProductionSourceArchitectureRespectsModuleOwnership(t *testing.T) {
+	t.Parallel()
+	root := t.TempDir()
+	for name, content := range map[string]string{
+		"go.mod":                    "module fixture.test/root\n",
+		"owned.go":                  "package fixture\nfunc init() {}\n",
+		"internal/owned.go":         "package internal\nfunc launch() { go func() {}() }\n",
+		".golib-tooling/go.mod":     "module fixture.test/tooling\n",
+		".golib-tooling/foreign.go": "package tooling\nfunc init() {}\nfunc launch() { go func() {}() }\n",
+	} {
+		path := filepath.Join(root, filepath.FromSlash(name))
+		if err := os.MkdirAll(filepath.Dir(path), 0o700); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(path, []byte(content), 0o600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	violations, err := scanProductionSourceArchitecture(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(violations) != 2 {
+		t.Fatalf("owned violations = %d, want 2", len(violations))
+	}
+	for _, violation := range violations {
+		if strings.Contains(violation.position.Filename, ".golib-tooling") {
+			t.Fatal("independent module classified as owned source")
+		}
+	}
+}
+
+func scanProductionSourceArchitecture(moduleRoot string) ([]sourceArchitectureViolation, error) {
 	violations := make([]sourceArchitectureViolation, 0)
 	err := filepath.WalkDir(moduleRoot, func(
 		path string,
@@ -29,6 +76,15 @@ func TestProductionSourceHasNoPackageInitOrOwnedGoroutines(t *testing.T) {
 	) error {
 		if walkErr != nil {
 			return walkErr
+		}
+		if entry.IsDir() && path != moduleRoot {
+			// A nested module owns its source independently, including the CI
+			// tooling checkout. Do not apply this module's architecture to it.
+			if _, err := os.Stat(filepath.Join(path, "go.mod")); err == nil {
+				return filepath.SkipDir
+			} else if !os.IsNotExist(err) {
+				return err
+			}
 		}
 		if entry.IsDir() ||
 			filepath.Ext(path) != ".go" ||
@@ -48,16 +104,7 @@ func TestProductionSourceHasNoPackageInitOrOwnedGoroutines(t *testing.T) {
 
 		return nil
 	})
-	if err != nil {
-		t.Fatalf("scan production source: %v", err)
-	}
-	for _, violation := range violations {
-		t.Errorf(
-			"package-owned production source must not %s: %s",
-			violation.rule,
-			violation.position,
-		)
-	}
+	return violations, err
 }
 
 func TestSourceArchitectureViolationDetection(t *testing.T) {
