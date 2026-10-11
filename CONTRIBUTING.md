@@ -29,7 +29,7 @@ The root module's decisions and conformance boundary are recorded in the
 Explicit full mutation qualification must finish with zero surviving viable
 mutants; it is not required for every ordinary process or documentation edit.
 
-Do not add package-local workflows, permanent replacements, machine-specific
+Do not fork shared verification workflows, add permanent replacements, machine-specific
 paths, bypass flags, broad mutation exclusions, or aggregate quality metrics
 that hide a failing package.
 
@@ -92,6 +92,33 @@ the deliberate release boundary; rehearsal does not publish or qualify the
 research backend for production. See [docs/development.md](docs/development.md).
 Report unavailable or failed selected checks without implying production
 security or release readiness from the ordinary route.
+
+## Selected Monthly Assurance
+
+The owner-level [selected-assurance caller](.github/workflows/assurance.yml) is
+configured for main only, on calendar day 29 when present, at 08:17 UTC. It selects one
+of the 23 declared root-module package-target identities using the shared
+UTC-week selection, with 30 seconds of active exploration. Monthly selection
+samples one identity; it does not promise exhaustive rotation. The selected
+risks are state-transition/reference equivalence, canonical snapshot/proof
+encodings, bounded hostile input and storage/layout histories. The two package-owned
+`FuzzSnapshotTransitions` identities remain distinct. This is an isolated,
+non-production diagnostic, not cryptographic certification or full research
+qualification. All backend, transcript, non-cancellable dependency work,
+mutable-global and side-channel limitations in [SECURITY.md](SECURITY.md) remain
+unresolved and unchanged.
+
+Base-free ordinary checks execute deterministic seeds, not active exploration;
+committed-range CI selects affected active smoke. Manual assurance requires a
+declared selector from the root-module fuzz operation in `.golib.yaml`, for
+example `./internal/statemodel::^FuzzSnapshotTransitions$`. A bare anchored
+target is accepted only when unique across declared packages; ambiguous, empty, unknown
+and malformed selections refuse. The shared job bounds setup and execution
+to ten minutes, active workers and CPU to two, owned memory to 2 GiB, native
+output to 1 MiB and private-cache lifetime. Failure, cancellation, exhausted
+budgets and cleanup refusal remain attributable failures. This lane does not
+run mutation or replace Required, original full fuzz/race budgets,
+explicit `make check-full`, or relevant public-consumer/release qualification.
 
 ## Adding A Module
 
