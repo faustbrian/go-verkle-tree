@@ -2,8 +2,8 @@
 
 [![CI](https://github.com/faustbrian/go-verkle-tree/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/faustbrian/go-verkle-tree/actions/workflows/ci.yml)
 [![CodeQL](https://img.shields.io/badge/CodeQL-required-blue)](https://github.com/faustbrian/go-verkle-tree/actions/workflows/ci.yml)
-[![Coverage](https://img.shields.io/badge/coverage-100%25_required-blue)](CONTRIBUTING.md#verification)
-[![Mutation](https://img.shields.io/badge/mutation-100%25_required-blue)](CONTRIBUTING.md#verification)
+[![Coverage](https://img.shields.io/badge/coverage-full_qualification-blue)](CONTRIBUTING.md#verification)
+[![Mutation](https://img.shields.io/badge/mutation-full_qualification-blue)](CONTRIBUTING.md#verification)
 [![Documentation](https://img.shields.io/badge/docs-checked_in_CI-blue)](docs/)
 [![Go Reference](https://pkg.go.dev/badge/github.com/faustbrian/go-verkle-tree.svg)](https://pkg.go.dev/github.com/faustbrian/go-verkle-tree)
 [![Release](https://img.shields.io/github/v/release/faustbrian/go-verkle-tree?sort=semver)](https://github.com/faustbrian/go-verkle-tree/releases)
@@ -139,8 +139,13 @@ and its [Domain utilities family](https://github.com/faustbrian/go-library-tools
 
 ## Development
 
-Run `make check` and the package conformance gates before changing profile,
-commitment, proof, encoding, or storage behavior.
+Use `GOWORK=off go test ./... -count=1 -timeout=3m` for standalone tests.
+`make check` and `make ci` use bounded public verification; `make check-full`
+retains original full qualification. Profile, commitment, proof, encoding or
+storage changes require their affected conformance/interoperability evidence.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for focused input checks and active fuzzing.
+Passing these gates does not change the experimental/non-production status or
+the accepted [security limitations](SECURITY.md).
 
 Run `make cohesion` to validate the module's family, ownership, lifecycle,
 documentation, and supported-environment metadata.
