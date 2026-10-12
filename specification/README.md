@@ -25,8 +25,29 @@ change requires source/license review, corpus regeneration through
 [`scripts/check-interoperability.sh`](../scripts/check-interoperability.sh),
 and profile/compatibility review; its cost
 is re-establishing the pinned generator and differential evidence, not merely
-changing a dependency version. This review does not refresh the recorded Cargo
-advisory assessment.
+changing a dependency version.
+
+## Rust fixture maintenance disposition
+
+The exact locked Cargo package versions and Git revision were checked against
+OSV on 2026-10-12. `derivative` 2.2.0
+([RUSTSEC-2024-0388](https://rustsec.org/advisories/RUSTSEC-2024-0388.html)) and
+`paste` 1.0.15
+([RUSTSEC-2024-0436](https://rustsec.org/advisories/RUSTSEC-2024-0436.html)) have
+informational unmaintained notices without CVSS scores or affected functions.
+They are transitive build-time procedural macros in the fixed, nonproduction
+Rust fixture generator, not Go runtime dependencies. They remain retained at
+their locked versions; this is a maintenance-risk disposition, not a claim of
+CVE or cryptographic remediation.
+
+The library maintainer owns this retention decision, reviewed on 2026-10-12.
+Review is due by 2026-11-11 under the existing 30-day cadence, or before any
+generator, profile, or publication change, whichever comes first. Mitigation
+retains locked checksums and exact-source regeneration; generator execution
+must use least-privilege CI without repository secrets. Replacement requires
+a reviewed upstream change or fork and renewed profile/fixture compatibility
+evidence, not a silent lockfile update. This disposition adds no scanner bypass
+or dependency ignore and does not refresh the transitive-license inventory.
 
 ## Decision conformance
 
