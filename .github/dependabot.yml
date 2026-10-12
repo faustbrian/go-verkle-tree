@@ -17,3 +17,19 @@ updates:
       github-actions:
         patterns:
           - "*"
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: cargo
+    directory: "/interoperability/rust-verkle"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    # Immutable fixture Git inputs are owned by specification/sources.json.
+    # Changing them requires coordinated source, corpus, and profile review.
+    ignore:
+      - dependency-name: banderwagon
+      - dependency-name: ipa-multipoint
+      - dependency-name: verkle-trie
