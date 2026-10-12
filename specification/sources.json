@@ -1188,8 +1188,8 @@
       "revision": "e27b8b4edf1992b4afa636c2fc7983bcc27ddb88",
       "tree": "2e5a8ef853403337b3a675840ea34ad4e6be2fc0",
       "latest_reviewed_revision": "e27b8b4edf1992b4afa636c2fc7983bcc27ddb88",
-      "latest_reviewed_on": "2026-07-29",
-      "latest_delta": "no newer upstream revision; repository HEAD is dated 2024-10-25",
+      "latest_reviewed_on": "2026-10-12",
+      "latest_delta": "master revision and tree still match the pinned fixture source; repository is not archived but dormant, last pushed 2024-10-25",
       "license": "MIT OR Apache-2.0",
       "license_files": {
         "MIT": "72163b4ed5befd0843f7c968c7fcb69816bde7e57b0600c6eaa44ee3f7af979f",

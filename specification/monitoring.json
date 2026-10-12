@@ -19,6 +19,13 @@
       "specifications": ["verkletree-bandersnatch-ipa-256-v0 package-owned research profile v0"]
     },
     {
+      "id": "rust-verkle-changes",
+      "kind": "releases",
+      "url": "https://github.com/crate-crypto/rust-verkle/commits/master.atom",
+      "sha256": "8d7639c3530bffaa90886135dc2200f8832b45f7349266ab7294e8f585a31fbf",
+      "specifications": ["verkletree-bandersnatch-ipa-256-v0 package-owned research profile v0"]
+    },
+    {
       "id": "ethereum-eip-4762-source",
       "kind": "specification",
       "version": "EIPs c55786f4242e5324afd14c6bca890a369a771d7f (EIP-4762)",
