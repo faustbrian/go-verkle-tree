@@ -1,5 +1,7 @@
 # Stable v1 public API audit
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 ## Scope and status
 
 This audit covers the complete exported surface of package
@@ -136,3 +138,6 @@ cryptographic backend has not received the separate review required for a
 production-suitability claim. This report closes the current API inventory and
 documentation review, but it does not constitute an external cryptographic
 audit or production-readiness evidence.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

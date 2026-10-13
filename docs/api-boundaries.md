@@ -1,5 +1,7 @@
 # API boundaries
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 This document records ownership boundaries for profile research. The exported
 profile, immutable snapshot/root/transition, update, aggregate proof, verifier,
 canonical whole-snapshot encoding, canonical storage-write and isolated
@@ -325,3 +327,6 @@ commitments, openings, field operations, multi-scalar multiplication size,
 temporary memory, workers, queued work, retained snapshots, and elapsed work.
 
 No default may silently mean unbounded.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

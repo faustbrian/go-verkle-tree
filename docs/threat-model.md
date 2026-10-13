@@ -1,5 +1,7 @@
 # Threat Model
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 ## Security objective
 
 A verifier must accept only a canonical proof or witness that establishes the
@@ -307,3 +309,6 @@ against each adapter that claims durability.
 
 Cryptographic audit status, assumptions, generator provenance, supported
 platforms, side-channel limits, and every residual risk must be public.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

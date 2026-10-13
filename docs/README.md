@@ -1,5 +1,7 @@
 # Documentation
 
+[Repository entry](../README.md) · [Versioned ecosystem](https://github.com/faustbrian/go-library-tools/blob/v1.4.0/docs/ecosystem/README.md)
+
 `go-verkle-tree` exposes one stable-v1 public package, imported with the
 default identifier `verkletree`, and requires Go 1.27.0. It implements only
 the fixed `verkletree-bandersnatch-ipa-256-v0` research profile. Native runtime
@@ -49,3 +51,21 @@ production-suitability, constant-time, or complete side-channel claim.
 - [Development and verification](development.md)
 - [Release history](../CHANGELOG.md)
 - [License](../LICENSE)
+
+## Complete documentation map
+
+- [Adoption, Migration, and FAQ](adoption.md) — `docs/adoption.md`
+- [Stable v1 public API audit](api-audit.md) — `docs/api-audit.md`
+- [API boundaries](api-boundaries.md) — `docs/api-boundaries.md`
+- [Commitment Backend Audit](backend-audit.md) — `docs/backend-audit.md`
+- [Benchmarks](benchmarks.md) — `docs/benchmarks.md`
+- [Conformance And Compatibility Status](compatibility.md) — `docs/compatibility.md`
+- [Development and Verification](development.md) — `docs/development.md`
+- [Package map](package-map.md) — `docs/package-map.md`
+- [Platform And CPU Audit](platforms.md) — `docs/platforms.md`
+- [Detailed reference](reference.md) — `docs/reference.md`
+- [Source documentation audit](source-documentation-audit.md) — `docs/source-documentation-audit.md`
+- [Verkle Tree Specification Decisions](specification-decisions.md) — `docs/specification-decisions.md`
+- [Storage, Recovery, and Pruning Guide](storage-operations.md) — `docs/storage-operations.md`
+- [Threat Model](threat-model.md) — `docs/threat-model.md`
+- [Usage Guide](usage.md) — `docs/usage.md`

@@ -1,5 +1,7 @@
 # Platform And CPU Audit
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 ## Evidence Scope
 
 The original platform and cross-compilation audit ran on 2026-08-12 with Go
@@ -87,3 +89,6 @@ The following remain release evidence gaps:
 
 Compile success and arithmetic property tests MUST NOT be presented as
 production support, constant-time evidence, or cross-platform durability.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

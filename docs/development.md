@@ -1,5 +1,7 @@
 # Development and Verification
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 The repository uses the released `go-library-tools` contract for local and CI
 verification. Install the checksum-qualified public `golib` version declared in
 [`.golib.yaml`](../.golib.yaml), or provide that version through the project
@@ -47,3 +49,6 @@ authority for experimental containment and deferred remediation.
 Mutation checkpoints and their migration record are retained under
 [`../.verification/mutation/`](../.verification/mutation/). They are imported
 by the strict configuration without rerunning content-identical campaigns.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

@@ -1,5 +1,7 @@
 # Detailed reference
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 This document contains the detailed package contracts and operational notes.
 Start with the root README and documentation index.
 
@@ -499,3 +501,6 @@ external audit, or Ethereum protocol compatibility without separate evidence
 for those claims.
 
 Detailed design, security, and operational material is indexed under `docs/`.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

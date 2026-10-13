@@ -1,5 +1,7 @@
 # Conformance And Compatibility Status
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 The package conforms to its normative
 `verkletree-bandersnatch-ipa-256-v0` profile for the implemented surfaces.
 External interoperability is claim-by-claim: agreement with a pinned reference
@@ -169,3 +171,6 @@ witness is complete or valid.
 
 Protocol activation, client database migration, gas accounting, block
 execution, and network witness distribution remain outside the generic package.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

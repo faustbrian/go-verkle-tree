@@ -1,5 +1,7 @@
 # Adoption, Migration, and FAQ
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 ## Adoption decision
 
 Adopt this module when its stable v1 API, research profile v0, and documented
@@ -149,3 +151,6 @@ No production-suitability claim is made until the backend satisfies the
 required audit, provenance, verification, interoperability, and release gates.
 The Go API is stable v1 while the implemented cryptographic profile remains
 the explicitly named research profile v0.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

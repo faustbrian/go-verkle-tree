@@ -1,5 +1,7 @@
 # Verkle Tree Specification Decisions
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 This register separates the implemented package-owned research profile from
 unimplemented Ethereum research inputs. The authoritative machine records are
 [`decisions.json`](../specification/decisions.json),
@@ -96,3 +98,6 @@ Public APIs: `Profile` and `BandersnatchIPA256V0`.
 
 Documentation: `docs/specification-decisions.md`, `docs/compatibility.md`,
 `docs/adoption.md`, and `specification/peer-assessment.json`.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

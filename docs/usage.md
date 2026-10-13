@@ -1,5 +1,7 @@
 # Usage Guide
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 ## Stability first
 
 The only constructible profile is `BandersnatchIPA256V0`. It is research
@@ -135,3 +137,6 @@ See [API boundaries](api-boundaries.md), the
 [threat model](threat-model.md), and the
 [research profile v0 specification](../specification/bandersnatch-ipa-256-v0.md)
 for the exact contracts.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

@@ -1,5 +1,7 @@
 # Storage, Recovery, and Pruning Guide
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 ## Responsibility boundary
 
 The root package defines interfaces and verifies package-owned data. It does
@@ -144,3 +146,6 @@ Expose sanitized counters for operation kind, duration, node reads, inventory
 pages, result counts, cancellation, resource category, stale comparison, and
 adapter error class. Do not log roots together with sensitive application
 metadata, complete node bytes, keys, values, proofs, or witnesses.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

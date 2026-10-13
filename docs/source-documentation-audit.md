@@ -1,5 +1,7 @@
 # Source documentation audit
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 ## Ownership and acceptance
 
 Documentation-only Tier A pass at remote-main base `b9df78f61c6ab7cbd1c04342804ac57abe4183f0`. The root library owns a package-defined experimental research profile, not production cryptographic assurance or Ethereum compatibility. Direct consumers use only the root package; the seven internal packages own its state, layout, vector, encoding and backend implementation. No owned reverse dependency is declared in `modules.json`. Caller-owned stores and trusted roots remain application boundaries.
@@ -259,3 +261,6 @@ routes. Ordinary shared CI selects strict source-documentation checking and
 requires its result. Native prerequisites, operation budgets, security and
 release controls are retained. Hosted exact-head evidence is recorded by the
 coordination ledger; configuration alone does not establish green delivery.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

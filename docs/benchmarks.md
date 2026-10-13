@@ -1,5 +1,7 @@
 # Benchmarks
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 ## Status and scope
 
 The public profile-v0 benchmark matrix exercises complete package entry points for
@@ -377,3 +379,6 @@ These results are descriptive evidence for this source and environment, not a
 portable performance guarantee. The vector samples show substantial local
 variance and therefore are not suitable as a release threshold or comparative
 ranking.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

@@ -1,5 +1,7 @@
 # Commitment Backend Audit
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 ## Decision
 
 `github.com/crate-crypto/go-ipa` is approved only for the current internal,
@@ -404,3 +406,6 @@ reviewable maintained backend that removes mutable cryptographic globals,
 provides bounded context-aware work, narrows unsafe APIs, documents
 side-channel behavior, and passes the complete differential, fuzz, mutation,
 license, vulnerability, and provenance gates.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.
