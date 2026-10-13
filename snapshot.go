@@ -133,7 +133,9 @@ type CommitmentLimits struct {
 }
 
 // SnapshotLimits binds every resource budget required to construct and update
-// an immutable snapshot. Every field must be positive.
+// an immutable snapshot. Every field must be positive. State entry/batch counts
+// and tree entry/stem/node/edge/commitment counts are capped at 2,147,483,647.
+// Scratch estimates are not a process-memory cap.
 type SnapshotLimits struct {
 	// State bounds immutable key/value state construction and updates.
 	State StateLimits
@@ -186,6 +188,9 @@ type Transition struct {
 }
 
 // NewSnapshot validates, defensively owns, orders, and commits entries.
+// Duplicate raw keys fail rather than select a winner. The caller must keep
+// entries unchanged until the copy completes; later mutation cannot alter the
+// snapshot. Fixed-profile generator derivation is not interruptible internally.
 func NewSnapshot(
 	ctx context.Context,
 	profile Profile,
@@ -282,7 +287,9 @@ func (snapshot Snapshot) Root() (Root, error) {
 }
 
 // Apply validates the entire batch, applies it in canonical key order, and
-// returns a new immutable snapshot. Failure preserves the receiver.
+// returns a new immutable snapshot. Duplicate keys fail the whole batch, even
+// when their kinds or values agree. An empty batch preserves the same state.
+// Both success and failure preserve the receiver.
 func (snapshot Snapshot) Apply(
 	ctx context.Context,
 	updates []Update,

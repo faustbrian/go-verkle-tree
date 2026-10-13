@@ -14,8 +14,9 @@ storage writes, and bounded reconstruction from isolated caller-owned read
 snapshots, plus bounded recovery audits and atomic retention/pruning plans over
 current and retained roots. A bounded recovery operation preserves every
 verified publication while atomically removing node-only debris left by an
-interrupted unpublished write. The implementation rebuilds the complete tree
-for stateful updates, persisted loads, and maintained publications, and
+interrupted unpublished write. Stateful updates retain complete immutable tree
+state while reusing unchanged commitments and applying bounded scalar deltas;
+persisted loads and maintained publications reconstruct complete trees. The API
 provides canonical
 bounded stateless witnesses for authenticated `Set` and `Delete` operations,
 including deletions that remove stems and collapse unary internal paths.
@@ -300,10 +301,11 @@ An internal authenticated-state layer now binds those complete roots to
 immutable ordered snapshots. It distinguishes absence from a present zero
 value, validates complete duplicate-free batches before publication, applies
 set and delete operations in canonical key order, and returns a transition
-bound to the exact pre-state and post-state commitments. Every update currently
-rebuilds the complete committed tree; no incremental commitment-update,
-recovery, or witness claim is made. Snapshots and
-transitions now expose an internal canonical 42-byte profile-bound root
+bound to the exact pre-state and post-state commitments. Stateful updates own
+complete resulting state while reusing unchanged commitments and updating
+changed vectors under the configured bounds. The separate public witness and
+recovery operations retain their own contracts. Snapshots and
+transitions expose an internal canonical 42-byte profile-bound root
 container that represents an empty tree explicitly and rejects mismatched
 profiles before point decoding. The pinned Go/Rust update corpus fixes one exact
 pre-root and post-root, while a separate cryptography-independent model checks

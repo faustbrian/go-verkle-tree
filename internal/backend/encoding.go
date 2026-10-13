@@ -59,6 +59,8 @@ func decodeCommitment(encoded []byte) (commitment, error) {
 	return commitment{element: element}, nil
 }
 
+// Proof elements may legitimately be identity even though standalone vector
+// commitments reject the same all-zero wire representation.
 func decodeOpeningProofPoint(encoded []byte) (commitment, error) {
 	if len(encoded) != commitmentSize {
 		return commitment{}, fmt.Errorf("%w: encoded length", errInvalidCommitment)

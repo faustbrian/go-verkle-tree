@@ -33,11 +33,18 @@ var (
 // StatelessUpdateLimits bounds authenticated post-state calculation. Every
 // field must be positive and no field denotes an unbounded resource.
 type StatelessUpdateLimits struct {
-	MaxUpdates           uint32
+	// MaxUpdates bounds operations in the canonical update batch.
+	MaxUpdates uint32
+	// MaxCommitmentUpdates bounds authenticated vector changes during a stateless
+	// transition.
 	MaxCommitmentUpdates uint32
-	MaxFieldMappings     uint32
-	MaxPathLookups       uint32
-	MaxTemporaryBytes    uint64
+	// MaxFieldMappings bounds commitment-to-field mappings.
+	MaxFieldMappings uint32
+	// MaxPathLookups bounds reads from authenticated witness paths.
+	MaxPathLookups uint32
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
+	MaxTemporaryBytes uint64
 }
 
 func (limits StatelessUpdateLimits) validate() error {
@@ -73,9 +80,12 @@ const (
 // StatelessUpdateResourceError reports one rejected resource without
 // disclosing keys, values, commitments, or paths.
 type StatelessUpdateResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource StatelessUpdateResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.
@@ -257,6 +267,8 @@ func (updater *StatelessUpdater) Apply(
 			return backend.Root{}, errDuplicateKey
 		}
 	}
+	// Old values and path commitments must be authenticated before they become
+	// inputs to sparse commitment updates or topology reconstruction.
 	if err := updater.proof.Verify(ctx, proof, verificationLimits); err != nil {
 		return backend.Root{}, err
 	}

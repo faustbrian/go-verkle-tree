@@ -1,5 +1,3 @@
-// Package committedtree constructs immutable research profile v0 nodes and
-// their vector-commitment root. It is an internal profile-v0 construction seam.
 package committedtree
 
 import (
@@ -42,21 +40,33 @@ type Value [32]byte
 
 // Entry is one present key/value pair. Array fields prevent caller aliasing.
 type Entry struct {
-	Key   Key
+	// Key is the fixed raw lookup key, copied by value.
+	Key Key
+	// Value is the fixed value, including a present all-zero value.
 	Value Value
 }
 
 // Limits bounds all allocation-amplifying tree construction work. Zero fields
 // are invalid and no field denotes an unbounded resource.
 type Limits struct {
-	MaxEntries         uint32
-	MaxStems           uint32
-	MaxNodes           uint32
-	MaxEdges           uint32
-	MaxCommitments     uint32
-	MaxFieldMappings   uint64
+	// MaxEntries bounds retained present key/value entries.
+	MaxEntries uint32
+	// MaxStems bounds distinct 31-byte stems.
+	MaxStems uint32
+	// MaxNodes bounds logical nodes.
+	MaxNodes uint32
+	// MaxEdges bounds retained internal-node child edges.
+	MaxEdges uint32
+	// MaxCommitments bounds vector commitments.
+	MaxCommitments uint32
+	// MaxFieldMappings bounds commitment-to-field mappings.
+	MaxFieldMappings uint64
+	// MaxCommitmentTerms bounds accounted scalar-multiplication terms across
+	// construction.
 	MaxCommitmentTerms uint64
-	MaxTemporaryBytes  uint64
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
+	MaxTemporaryBytes uint64
 }
 
 func (limits Limits) validate() error {
@@ -112,9 +122,12 @@ const (
 // ResourceError reports a rejected resource declaration without disclosing
 // keys or values.
 type ResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource Resource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.
@@ -169,7 +182,7 @@ type Tree struct {
 }
 
 // Root returns the opaque root commitment. The empty tree returns the internal
-// identity; no serialized empty-root representation is defined yet.
+// identity; backend.NewRoot wraps it in an explicit empty-root container.
 func (tree Tree) Root() (backend.VectorCommitment, error) {
 	if !tree.valid || len(tree.nodes) == 0 || uint64(tree.root) >= uint64(len(tree.nodes)) {
 		return backend.VectorCommitment{}, errInvalidTree
@@ -1241,6 +1254,9 @@ func encodeStemCommitmentVector(
 	return vector, nil
 }
 
+// Old scalar values come from the immutable authenticated tree, not untrusted
+// deltas. Chunking respects per-call capacity; zero capacity falls back to a
+// complete commit rather than silently skipping changed positions.
 func updateVectorCommitment(
 	ctx context.Context,
 	engine commitmentEngine,

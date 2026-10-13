@@ -45,14 +45,24 @@ var (
 // waiters. The pinned backend may use exactly runtime.NumCPU workers; an
 // operation is rejected before setup when MaxWorkers is smaller.
 type AggregateOpeningLimits struct {
+	// MaxGeneratorDerivations bounds fixed-profile generator derivations.
 	MaxGeneratorDerivations uint32
-	MaxPrecomputedPoints    uint32
-	MaxQueries              uint32
-	MaxScalarDecodes        uint64
-	MaxMSMTerms             uint64
-	MaxTemporaryBytes       uint64
-	MaxWorkers              uint32
-	MaxQueuedOperations     uint32
+	// MaxPrecomputedPoints bounds fixed-base precomputation points.
+	MaxPrecomputedPoints uint32
+	// MaxQueries bounds aggregate openings, including an added binding anchor.
+	MaxQueries uint32
+	// MaxScalarDecodes bounds canonical scalar decoding.
+	MaxScalarDecodes uint64
+	// MaxMSMTerms bounds scalar-multiplication terms under the operation accounting.
+	MaxMSMTerms uint64
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
+	MaxTemporaryBytes uint64
+	// MaxWorkers must cover runtime.NumCPU; it does not configure backend workers.
+	MaxWorkers uint32
+	// MaxQueuedOperations bounds waiters for this engine; zero rejects concurrent
+	// waiters.
+	MaxQueuedOperations uint32
 }
 
 func (limits AggregateOpeningLimits) validate() error {
@@ -104,9 +114,12 @@ const (
 // AggregateOpeningResourceError reports a rejected resource bound without
 // disclosing vectors, commitments, evaluations, or proofs.
 type AggregateOpeningResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource AggregateOpeningResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.
@@ -130,17 +143,23 @@ func (err *AggregateOpeningResourceError) Unwrap() error {
 // it; callers must keep it immutable until the operation returns. The engine
 // rejects a vector whose commitment does not match Commitment.
 type AggregateProverQuery struct {
+	// Commitment is the opaque vector commitment bound to this opening.
 	Commitment VectorCommitment
-	Vector     *Vector
-	Index      uint8
+	// Vector is borrowed synchronously; keep it immutable until the operation returns.
+	Vector *Vector
+	// Index selects one of the 256 vector positions.
+	Index uint8
 }
 
 // AggregateVerifierQuery binds one commitment, canonical scalar evaluation,
 // and in-domain index. The scalar is little-endian and must be canonical.
 type AggregateVerifierQuery struct {
+	// Commitment is the opaque vector commitment bound to this opening.
 	Commitment VectorCommitment
-	Value      [scalarSize]byte
-	Index      uint8
+	// Value is the canonical little-endian evaluation to check.
+	Value [scalarSize]byte
+	// Index selects one of the 256 vector positions.
+	Index uint8
 }
 
 // AggregateOpeningBinding binds one package-owned proof statement into the
@@ -149,7 +168,8 @@ type AggregateVerifierQuery struct {
 type AggregateOpeningBinding [32]byte
 
 // AggregateOpeningEngine owns the fixed profile's IPA settings. Construction
-// is explicit; the engine is immutable and safe for concurrent operations.
+// is explicit; calls share one bounded gate. Configuration is retained, but
+// pinned dependency globals are not isolated per engine and must stay unchanged.
 type AggregateOpeningEngine struct {
 	backend           aggregateOpeningBackend
 	limits            AggregateOpeningLimits
@@ -682,6 +702,9 @@ func (engine *AggregateOpeningEngine) validate() error {
 	return nil
 }
 
+// acquire reserves at most one admitted operation. Queue accounting ends on
+// admission or cancellation; the returned release must cover the entire backend
+// call, since returning early cannot stop dependency-owned workers.
 func (gate *aggregateOpeningGate) acquire(ctx context.Context) (func(), error) {
 	select {
 	case gate.active <- struct{}{}:

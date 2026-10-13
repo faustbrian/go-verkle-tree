@@ -32,12 +32,19 @@ var (
 // ProofMaterialLimits bounds aggregate snapshot proof-material assembly. Every
 // field must be positive and no field denotes an unbounded resource.
 type ProofMaterialLimits struct {
-	MaxKeys            uint32
-	MaxStemPaths       uint32
-	MaxNodeReads       uint64
+	// MaxKeys bounds distinct requested keys.
+	MaxKeys uint32
+	// MaxStemPaths bounds retained terminal stem paths.
+	MaxStemPaths uint32
+	// MaxNodeReads bounds committed-node reads.
+	MaxNodeReads uint64
+	// MaxPathCommitments bounds extracted non-root records before deduplication.
 	MaxPathCommitments uint32
-	MaxPathBytes       uint64
-	MaxTemporaryBytes  uint64
+	// MaxPathBytes bounds extracted canonical path bytes before deduplication.
+	MaxPathBytes uint64
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
+	MaxTemporaryBytes uint64
 }
 
 func (limits ProofMaterialLimits) validate() error {
@@ -88,9 +95,12 @@ const (
 // ProofMaterialResourceError reports one rejected assembly bound without
 // disclosing keys, values, paths, or commitments.
 type ProofMaterialResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource ProofMaterialResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.

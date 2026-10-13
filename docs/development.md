@@ -38,7 +38,7 @@ checksums in [`specification/sources.json`](../specification/sources.json) are
 part of those verification contracts.
 
 Full conformance keeps its 20-minute limit; pinned Go/Rust interoperability
-keeps 30 minutes and requires Cargo, rustc, jq, Git, diff and shasum in addition
+keeps 30 minutes and requires Cargo, `rustc`, `jq`, Git, `diff` and `shasum` in addition
 to Go. The benchmark operation retains 100ms/20m. These checks concern the fixed
 research profile; they do not resolve the accepted cryptographic limitations
 or establish production suitability. [SECURITY.md](../SECURITY.md) remains the

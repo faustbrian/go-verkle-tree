@@ -102,7 +102,10 @@ func (claim Claim) validate() error {
 // exceed 65,536. Zero fields are invalid and no field denotes an unbounded
 // resource.
 type ClaimLimits struct {
-	MaxClaims         uint32
+	// MaxClaims bounds distinct membership and absence claims.
+	MaxClaims uint32
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
 	MaxTemporaryBytes uint64
 }
 
@@ -131,9 +134,12 @@ const (
 // ClaimResourceError reports one rejected claim-set bound without disclosing
 // keys or values.
 type ClaimResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource ClaimResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.

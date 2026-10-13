@@ -1,5 +1,3 @@
-// Package leafvector defines the research profile v0's canonical field inputs
-// for stems and fixed-size leaf values. It does not construct commitments.
 package leafvector
 
 const (
@@ -31,11 +29,16 @@ const (
 
 // ValueOpening identifies the two field inputs for one suffix.
 type ValueOpening struct {
-	Half      Half
-	LowIndex  byte
+	// Half selects the C1 or C2 suffix commitment.
+	Half Half
+	// LowIndex selects the marked low-half scalar position.
+	LowIndex byte
+	// HighIndex selects the high-half scalar position immediately after LowIndex.
 	HighIndex byte
-	Low       Scalar
-	High      Scalar
+	// Low is the low 128-bit value plus the presence marker for a present value.
+	Low Scalar
+	// High is the high 128-bit value without a presence marker.
+	High Scalar
 }
 
 // EncodePresent returns the canonical inputs for a present fixed-size value.

@@ -110,11 +110,11 @@ of this flow and is compiled and run by the Go example test gate.
 - Snapshots and transitions are immutable and profile-bound.
 - Set, delete, encoding, reconstruction, proof, storage, recovery, retention,
   and pruning work is explicitly bounded.
-- Caller-owned storage writes are atomic and authenticated against published
-  roots.
+- Storage publication requires adapter-asserted atomicity, durability and
+  exact previous-root comparison; the adapter implements those guarantees.
 - Membership and non-membership proofs bind the selected package profile.
-- The implementation rebuilds complete tree state for maintained stateful
-  updates and does not provide concrete storage adapters.
+- Stateful updates retain complete immutable tree state while reusing unchanged
+  commitments and applying bounded scalar deltas. No concrete adapter is provided.
 - The package cannot restore missing or corrupt published state.
 
 ## Documentation

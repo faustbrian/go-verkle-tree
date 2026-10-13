@@ -52,7 +52,9 @@ const (
 // zero so callers can accept an explicit empty root without permitting point
 // decoding. MaxRootBytes must be positive.
 type RootLimits struct {
-	MaxRootBytes    uint32
+	// MaxRootBytes bounds the complete untrusted root container.
+	MaxRootBytes uint32
+	// MaxPointDecodes bounds strict group-point decoding.
 	MaxPointDecodes uint32
 }
 
@@ -78,9 +80,12 @@ const (
 // RootResourceError reports one rejected root-decoding bound without
 // disclosing the root payload.
 type RootResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource RootResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.

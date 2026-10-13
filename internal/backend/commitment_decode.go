@@ -26,8 +26,10 @@ var (
 // decoding; MaxCommitmentBytes must be positive. No field denotes an unbounded
 // resource.
 type VectorCommitmentDecodingLimits struct {
+	// MaxCommitmentBytes bounds the untrusted canonical commitment bytes.
 	MaxCommitmentBytes uint32
-	MaxPointDecodes    uint32
+	// MaxPointDecodes bounds strict group-point decoding.
+	MaxPointDecodes uint32
 }
 
 func (limits VectorCommitmentDecodingLimits) validate() error {
@@ -53,9 +55,12 @@ const (
 // VectorCommitmentDecodingResourceError reports one rejected decoder bound
 // without disclosing the commitment payload.
 type VectorCommitmentDecodingResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource VectorCommitmentDecodingResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.

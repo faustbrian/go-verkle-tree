@@ -46,8 +46,12 @@ var (
 // commitments do not consume point decodes. Every field except
 // MaxPointDecodes must be positive; no field denotes an unbounded resource.
 type StorageDecodingLimits struct {
-	MaxNodeBytes      uint64
-	MaxPointDecodes   uint32
+	// MaxNodeBytes bounds each canonical persisted node encoding.
+	MaxNodeBytes uint64
+	// MaxPointDecodes bounds strict group-point decoding.
+	MaxPointDecodes uint32
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
 	MaxTemporaryBytes uint64
 }
 
@@ -75,9 +79,12 @@ const (
 
 // StorageDecodingResourceError reports one rejected node-decoding budget.
 type StorageDecodingResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource StorageDecodingResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.
@@ -108,8 +115,10 @@ const (
 
 // StorageChild is one owned internal-node edge.
 type StorageChild struct {
+	// Index selects the internal-node child edge.
 	Index byte
-	ID    StorageNodeID
+	// ID is the child node content address.
+	ID StorageNodeID
 }
 
 // DecodedStorageNode is one immutable, strictly decoded canonical node. Its

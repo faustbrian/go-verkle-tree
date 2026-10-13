@@ -33,7 +33,10 @@ var (
 // AggregateVerifierQueryLimits bounds deterministic verifier-query
 // reconstruction. Every field must be positive and no field is unbounded.
 type AggregateVerifierQueryLimits struct {
-	MaxQueries        uint32
+	// MaxQueries bounds aggregate opening queries.
+	MaxQueries uint32
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
 	MaxTemporaryBytes uint64
 }
 
@@ -62,9 +65,12 @@ const (
 // AggregateVerifierQueryResourceError reports one rejected resource without
 // disclosing claims, values, commitments, or paths.
 type AggregateVerifierQueryResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource AggregateVerifierQueryResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.
@@ -86,8 +92,11 @@ func (err *AggregateVerifierQueryResourceError) Unwrap() error {
 
 // AggregateVerifierQuery binds one canonical path to one public opening.
 type AggregateVerifierQuery struct {
-	Path    [maxProofPathLength]byte
-	Length  uint8
+	// Path stores a canonical path prefix; unused bytes are zero.
+	Path [maxProofPathLength]byte
+	// Length is the number of significant bytes in Path.
+	Length uint8
+	// Opening binds this path to its aggregate opening.
 	Opening backend.AggregateVerifierQuery
 }
 

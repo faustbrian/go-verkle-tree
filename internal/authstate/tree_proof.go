@@ -228,12 +228,19 @@ func (value PathCommitment) validate() error {
 // TreeProofLimits bounds canonical unverified proof construction. Every field
 // must be positive and no field denotes an unbounded resource.
 type TreeProofLimits struct {
-	MaxClaims          uint32
-	MaxStemPaths       uint32
+	// MaxClaims bounds distinct membership and absence claims.
+	MaxClaims uint32
+	// MaxStemPaths bounds retained terminal stem paths.
+	MaxStemPaths uint32
+	// MaxPathCommitments bounds retained non-root path commitments.
 	MaxPathCommitments uint32
+	// MaxPathDerivations bounds canonical topology derivations.
 	MaxPathDerivations uint32
-	MaxPathBytes       uint64
-	MaxTemporaryBytes  uint64
+	// MaxPathBytes bounds canonical path bytes.
+	MaxPathBytes uint64
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
+	MaxTemporaryBytes uint64
 }
 
 func (limits TreeProofLimits) validate() error {
@@ -283,9 +290,12 @@ const (
 // TreeProofResourceError reports one rejected proof-container bound without
 // disclosing keys, values, paths, commitments, or proof bytes.
 type TreeProofResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource TreeProofResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.

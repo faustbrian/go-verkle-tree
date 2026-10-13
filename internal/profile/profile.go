@@ -1,5 +1,3 @@
-// Package profile owns the exact package-defined profile descriptor without
-// creating an import cycle between the public facade and internal machinery.
 package profile
 
 import "errors"

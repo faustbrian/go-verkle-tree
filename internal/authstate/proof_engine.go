@@ -24,10 +24,14 @@ var (
 // ProofGenerationLimits binds every bounded stage of deterministic proof
 // generation. No stage inherits an implicit or unbounded limit.
 type ProofGenerationLimits struct {
-	Material        ProofMaterialLimits
-	ProverQueries   committedtree.AggregateProverQueryLimits
+	// Material bounds snapshot claim and path-material assembly.
+	Material ProofMaterialLimits
+	// ProverQueries bounds extraction of complete private vectors.
+	ProverQueries committedtree.AggregateProverQueryLimits
+	// VerifierQueries bounds independent reconstruction of public evaluations.
 	VerifierQueries AggregateVerifierQueryLimits
-	TreeProof       TreeProofLimits
+	// TreeProof bounds canonical immutable proof-container construction.
+	TreeProof TreeProofLimits
 }
 
 func (limits ProofGenerationLimits) validate() error {
@@ -43,6 +47,7 @@ func (limits ProofGenerationLimits) validate() error {
 
 // ProofVerificationLimits bounds verifier-side transcript reconstruction.
 type ProofVerificationLimits struct {
+	// VerifierQueries bounds independent reconstruction of public evaluations.
 	VerifierQueries AggregateVerifierQueryLimits
 }
 
@@ -467,6 +472,9 @@ func (engine *ProofEngine) Verify(
 	return nil
 }
 
+// Bind root, exact ordered claims and reconstructed openings, including path
+// identity, into the transcript. The nonzero backend anchor ensures the binding
+// remains relevant when all requested evaluations are zero.
 func proofStatementBinding(
 	ctx context.Context,
 	root backend.Root,

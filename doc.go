@@ -1,29 +1,32 @@
-// Package verkletree provides a stable v1 API for an explicitly profiled,
-// storage-independent Verkle tree.
+// Package verkletree provides an experimental, storage-independent authenticated
+// key/value tree for the package-owned verkletree-bandersnatch-ipa-256-v0 profile.
+// It is not production-ready and must not protect production integrity or
+// confidentiality. Stable v1 API and canonical research encodings do not imply
+// cryptographic soundness, a production audit, constant-time behavior, or
+// Ethereum protocol compatibility; see SECURITY.md and docs/backend-audit.md.
 //
-// The package exposes one package-owned research profile v0, immutable
-// snapshots and roots, canonical whole-snapshot bytes, canonical atomic
-// updates, and bounded aggregate membership and non-membership proofs. Every
-// expensive operation requires a
-// context and explicit resource limits. Snapshots can produce canonical
-// content-addressed node batches for capability-checked atomic publication and
-// reconstruct snapshots from capability-checked isolated reads after verifying
-// every reachable node, root, and content address. A bounded audit can compare
-// the complete canonical node inventory with all verified current and retained
-// roots without mutating storage. A separate capability-checked operation can
-// atomically replace the retained-publication set and prune only nodes outside
-// the current and desired retained roots. Bounded recovery preserves every
-// verified publication while atomically pruning node-only debris left by an
-// interrupted unpublished write. Canonical stateless witnesses can
-// verify authenticated Set operations on present, missing, or different stem
-// paths and Delete operations that are absent, leave a stem non-empty, or
-// remove stems and canonically collapse authenticated unary paths, then
-// independently derive and match the claimed post-state root. Restoration of
-// missing or corrupt published state and concrete storage adapters remain
-// unavailable.
+// Keys and values are fixed 32-byte arrays. A present all-zero value differs
+// from absence; Delete removes a key. Snapshots, roots, proofs, witnesses and
+// operation results retain immutable state. Constructors copy caller data;
+// callers must not mutate borrowed slices while a call is reading them.
+// Canonical decoding and container construction admit representations, not
+// trusted statements: use ProofEngine.VerifyForKeys and
+// StatelessEngine.ApplyForRoot with application-trusted roots when authorizing
+// reads or transitions. Lower-level verification accepts the embedded root.
 //
-// The exported API is stable within v1 and exposes research profile v0 to
-// evaluate a pinned commitment backend and complete tree semantics. Profile
-// conformance does not imply production suitability, external audit, or
-// Ethereum protocol compatibility.
+// Expensive operations require explicit finite budgets and contexts. Scratch
+// accounting is not a total process-memory cap. Proof operations serialize
+// entry to the dependency per engine; queue waiting observes cancellation,
+// but an admitted backend call cannot be interrupted. Independently constructed
+// engines have independent gates. Pinned dependency globals remain authoritative
+// and must not be mutated by callers; immutable facade values do not isolate
+// cryptographic configuration from such mutation.
+//
+// Caller-owned storage adapters assert and implement atomicity, durability,
+// compare-and-swap publication, isolated reads and maintenance. The package
+// validates those declarations and verifies canonical nodes and reachable roots,
+// but cannot enforce the adapter's persistence guarantees. Audit reports are
+// not deletion authority; maintenance revalidates a fresh view and submits an
+// atomic request. Recovery prunes unpublished node-only debris, not missing or
+// corrupt published state. No concrete storage adapter is provided.
 package verkletree

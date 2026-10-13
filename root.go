@@ -26,6 +26,8 @@ type Root struct {
 }
 
 // DecodeRoot validates and defensively owns one exact root encoding.
+// Validity identifies a canonical profile-bound representation, not a trusted
+// application root or proof of possession of its state.
 func DecodeRoot(
 	ctx context.Context,
 	encoded []byte,

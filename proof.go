@@ -31,7 +31,7 @@ type OpeningLimits struct {
 	MaxMSMTerms uint64
 	// MaxTemporaryBytes bounds conservatively accounted scratch memory.
 	MaxTemporaryBytes uint64
-	// MaxWorkers bounds dependency-owned proof workers.
+	// MaxWorkers must cover runtime.NumCPU, not set the dependency worker count.
 	MaxWorkers uint32
 	// MaxQueuedOperations bounds calls waiting for the engine's single
 	// dependency-proof slot. Zero rejects rather than queues concurrent calls.
@@ -285,15 +285,18 @@ func (claim Claim) Value() (Value, bool, error) {
 	return claim.value, true, nil
 }
 
-// Proof is one immutable canonical aggregate tree proof. Its zero value
+// Proof is one immutable canonical aggregate tree proof. Canonical admission
+// does not authenticate its claims; verification is explicit. Its zero value
 // rejects use.
 type Proof struct {
 	value authstate.TreeProof
 	valid bool
 }
 
-// ProofEngine owns immutable fixed-profile aggregate-opening settings and is
-// safe for concurrent proof generation and verification.
+// ProofEngine owns fixed-profile aggregate-opening settings and is safe for
+// concurrent proof generation and verification while dependency globals remain
+// unchanged. Copies share one bounded operation gate. Waiting is cancellable;
+// an admitted dependency call is not. Separate engines have separate gates.
 type ProofEngine struct {
 	value   *authstate.ProofEngine
 	profile Profile
@@ -301,6 +304,8 @@ type ProofEngine struct {
 }
 
 // NewProofEngine explicitly initializes the fixed profile's proof backend.
+// Setup is preflighted but cannot be interrupted inside the dependency;
+// cancellation is checked again after it returns.
 func NewProofEngine(
 	ctx context.Context,
 	profile Profile,
@@ -441,7 +446,9 @@ func (engine ProofEngine) ProveUpdates(
 	return Proof{value: value, valid: true}, nil
 }
 
-// Verify independently reconstructs and verifies every proof opening.
+// Verify independently reconstructs and verifies every opening against the
+// root and claims embedded in proof. It does not establish that the embedded
+// root or key set is the one the application trusts; use VerifyForKeys for that.
 func (engine ProofEngine) Verify(
 	ctx context.Context,
 	proof Proof,

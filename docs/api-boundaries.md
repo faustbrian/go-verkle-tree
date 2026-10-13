@@ -202,8 +202,9 @@ setting the all-zero value, and deletion of an absent key is a deterministic
 no-op. Snapshot copies support concurrent reads and independent updates because
 retained entries, trees, and the reusable builder are immutable.
 
-This boundary rebuilds the complete tree for each accepted public batch. It is
-not an incremental commitment update or witness operation. Public snapshots
+This boundary retains complete immutable tree state for each accepted public
+batch, reuses unchanged commitments, and applies bounded scalar deltas to changed
+vectors. It is not the separate stateless witness operation. Public snapshots
 and transitions expose the canonical profile-bound root container for their
 exact roots; `Snapshot.Commit` separately delegates one complete atomic
 node/root publication to a capability-checked caller store.

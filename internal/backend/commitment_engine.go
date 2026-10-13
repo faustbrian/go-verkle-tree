@@ -46,18 +46,26 @@ type Vector [VectorWidth][scalarSize]byte
 // VectorUpdate replaces one authenticated canonical scalar at a fixed vector
 // position. Callers must authenticate Old before applying the update.
 type VectorUpdate struct {
+	// Index selects one of the 256 vector positions.
 	Index uint8
-	Old   [scalarSize]byte
-	New   [scalarSize]byte
+	// Old is the canonical old scalar; the caller must authenticate it first.
+	Old [scalarSize]byte
+	// New is the replacement canonical scalar.
+	New [scalarSize]byte
 }
 
 // CommitmentLimits bounds setup and commitment work. Zero values are invalid
 // and no field denotes an unbounded resource.
 type CommitmentLimits struct {
+	// MaxGeneratorDerivations bounds fixed-profile generator derivations.
 	MaxGeneratorDerivations uint32
-	MaxScalarDecodes        uint32
-	MaxMSMTerms             uint32
-	MaxTemporaryBytes       uint64
+	// MaxScalarDecodes bounds canonical scalar decoding.
+	MaxScalarDecodes uint32
+	// MaxMSMTerms bounds scalar-multiplication terms under the operation accounting.
+	MaxMSMTerms uint32
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
+	MaxTemporaryBytes uint64
 }
 
 func (limits CommitmentLimits) validate() error {
@@ -91,9 +99,12 @@ const (
 // CommitmentResourceError reports a configured commitment bound and rejected
 // value without disclosing vector contents.
 type CommitmentResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource CommitmentResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.
@@ -207,6 +218,8 @@ func newCommitmentEngineFromGenerators(
 	return engine, nil
 }
 
+// The digest binds the ordered canonical generator bytes to the pinned research
+// corpus; agreement is not independent setup provenance or a soundness proof.
 func validateGeneratorSet(generators []banderwagon.Element) error {
 	if len(generators) != VectorWidth {
 		return errGeneratorMismatch
@@ -412,8 +425,8 @@ func (value VectorCommitment) IsIdentity() (bool, error) {
 	return value.value.element.Equal(&identity), nil
 }
 
-// Bytes returns the canonical non-identity commitment encoding. Until the
-// profile freezes an empty-root container, identity serialization fails.
+// Bytes returns the canonical non-identity commitment encoding. Identity
+// serialization fails here; Root represents an empty tree with a kind tag.
 func (value VectorCommitment) Bytes() ([commitmentSize]byte, error) {
 	identity, err := value.IsIdentity()
 	if err != nil {

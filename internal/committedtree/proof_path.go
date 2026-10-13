@@ -42,26 +42,38 @@ const (
 
 // ProofPathCommitment binds one non-root path to its immutable commitment.
 type ProofPathCommitment struct {
-	Path       [32]byte
-	Length     uint8
+	// Path stores a canonical path prefix; unused bytes are zero.
+	Path [32]byte
+	// Length is the number of significant bytes in Path.
+	Length uint8
+	// Commitment is the immutable non-root commitment at this path.
 	Commitment backend.VectorCommitment
 }
 
 // ProofPath is caller-owned topology and commitment material for one key. It
 // does not contain or establish a cryptographic opening.
 type ProofPath struct {
-	Kind         ProofPathKind
-	Depth        uint8
+	// Kind classifies the terminal stem-path outcome.
+	Kind ProofPathKind
+	// Depth is the number of consumed path bytes at termination.
+	Depth uint8
+	// ExistingStem is the encountered stem for a different-stem path; otherwise zero.
 	ExistingStem [31]byte
-	Commitments  []ProofPathCommitment
+	// Commitments contains owned non-root path commitments; it is not an opening proof.
+	Commitments []ProofPathCommitment
 }
 
 // ProofPathLimits bounds immutable proof-material extraction. Every field must
 // be positive and no field denotes an unbounded resource.
 type ProofPathLimits struct {
-	MaxNodeReads      uint32
-	MaxCommitments    uint32
-	MaxPathBytes      uint64
+	// MaxNodeReads bounds committed-node reads.
+	MaxNodeReads uint32
+	// MaxCommitments bounds returned non-root path commitments.
+	MaxCommitments uint32
+	// MaxPathBytes bounds canonical path bytes.
+	MaxPathBytes uint64
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
 	MaxTemporaryBytes uint64
 }
 
@@ -99,9 +111,12 @@ const (
 // ProofPathResourceError reports one rejected extraction bound without
 // disclosing a key, path, value, or commitment.
 type ProofPathResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource ProofPathResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.

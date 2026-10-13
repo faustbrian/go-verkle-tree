@@ -39,9 +39,14 @@ var (
 // AggregateProverQueryLimits bounds deterministic opening-query extraction.
 // Every field must be positive and no field denotes an unbounded resource.
 type AggregateProverQueryLimits struct {
-	MaxKeys           uint32
-	MaxQueries        uint32
-	MaxNodeReads      uint64
+	// MaxKeys bounds distinct requested keys.
+	MaxKeys uint32
+	// MaxQueries bounds aggregate opening queries.
+	MaxQueries uint32
+	// MaxNodeReads bounds committed-node reads.
+	MaxNodeReads uint64
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
 	MaxTemporaryBytes uint64
 }
 
@@ -84,9 +89,12 @@ const (
 // AggregateProverQueryResourceError reports one rejected bound without
 // disclosing keys, values, vectors, or commitments.
 type AggregateProverQueryResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource AggregateProverQueryResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.
@@ -109,8 +117,11 @@ func (err *AggregateProverQueryResourceError) Unwrap() error {
 // opening. Path is empty for the root. The returned query set owns every
 // immutable vector referenced by Opening.
 type AggregateProverQuery struct {
-	Path    [32]byte
-	Length  uint8
+	// Path stores a canonical path prefix; unused bytes are zero.
+	Path [32]byte
+	// Length is the number of significant bytes in Path.
+	Length uint8
+	// Opening binds this path to its aggregate opening.
 	Opening backend.AggregateProverQuery
 }
 

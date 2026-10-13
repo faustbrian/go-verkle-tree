@@ -62,7 +62,10 @@ var (
 
 // StatelessWitnessLimits bounds construction of one immutable update witness.
 type StatelessWitnessLimits struct {
-	MaxUpdates        uint32
+	// MaxUpdates bounds operations in the canonical update batch.
+	MaxUpdates uint32
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
 	MaxTemporaryBytes uint64
 }
 
@@ -78,8 +81,12 @@ func (limits StatelessWitnessLimits) validate() error {
 
 // StatelessWitnessEncodingLimits bounds canonical witness serialization.
 type StatelessWitnessEncodingLimits struct {
-	MaxWitnessBytes   uint64
-	MaxProofBytes     uint64
+	// MaxWitnessBytes bounds the complete canonical witness container.
+	MaxWitnessBytes uint64
+	// MaxProofBytes bounds the complete canonical proof bytes.
+	MaxProofBytes uint64
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
 	MaxTemporaryBytes uint64
 }
 
@@ -99,11 +106,18 @@ func (limits StatelessWitnessEncodingLimits) validate() error {
 // post-root point-decode limit must equal one. Proof limits separately bound
 // every embedded proof resource.
 type StatelessWitnessDecodingLimits struct {
-	MaxWitnessBytes         uint64
-	MaxUpdates              uint32
+	// MaxWitnessBytes bounds the complete canonical witness container.
+	MaxWitnessBytes uint64
+	// MaxUpdates bounds operations in the canonical update batch.
+	MaxUpdates uint32
+	// MaxPostRootPointDecodes must equal one for admission of the embedded
+	// post-state root.
 	MaxPostRootPointDecodes uint32
-	MaxTemporaryBytes       uint64
-	Proof                   TreeProofDecodingLimits
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
+	MaxTemporaryBytes uint64
+	// Proof independently bounds the embedded pre-state proof decoder.
+	Proof TreeProofDecodingLimits
 }
 
 func (limits StatelessWitnessDecodingLimits) validate() error {
@@ -137,9 +151,12 @@ const (
 // StatelessWitnessResourceError reports one rejected witness budget without
 // disclosing keys, values, roots, proofs, or witness bytes.
 type StatelessWitnessResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource StatelessWitnessResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.
@@ -638,6 +655,9 @@ func validateStatelessWitnessClaims(
 	return nil
 }
 
+// For a deletion stem with no Set, a remaining authenticated member proves it
+// survives. Otherwise, full suffix and ancestor-child probes justify emptying
+// the stem and collapsing unary paths; omitted material is not absence.
 func statelessWitnessCompleteDeletionStem(
 	ctx context.Context,
 	claims []Claim,

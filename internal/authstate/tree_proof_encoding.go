@@ -66,7 +66,10 @@ var (
 // TreeProofEncodingLimits bounds canonical tree-proof serialization. Every
 // field must be positive and no field denotes an unbounded resource.
 type TreeProofEncodingLimits struct {
-	MaxProofBytes     uint64
+	// MaxProofBytes bounds the complete canonical proof bytes.
+	MaxProofBytes uint64
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
 	MaxTemporaryBytes uint64
 }
 
@@ -75,15 +78,25 @@ type TreeProofEncodingLimits struct {
 // before cryptographic decoding; every other field must be positive. No field
 // denotes an unbounded resource.
 type TreeProofDecodingLimits struct {
-	MaxProofBytes      uint64
-	MaxClaims          uint32
-	MaxStemPaths       uint32
+	// MaxProofBytes bounds the complete canonical proof bytes.
+	MaxProofBytes uint64
+	// MaxClaims bounds distinct membership and absence claims.
+	MaxClaims uint32
+	// MaxStemPaths bounds retained terminal stem paths.
+	MaxStemPaths uint32
+	// MaxPathCommitments bounds retained non-root path commitments.
 	MaxPathCommitments uint32
+	// MaxPathDerivations bounds canonical topology derivations.
 	MaxPathDerivations uint32
-	MaxPathBytes       uint64
-	MaxPointDecodes    uint32
-	MaxScalarDecodes   uint32
-	MaxTemporaryBytes  uint64
+	// MaxPathBytes bounds canonical path bytes.
+	MaxPathBytes uint64
+	// MaxPointDecodes bounds strict group-point decoding.
+	MaxPointDecodes uint32
+	// MaxScalarDecodes bounds canonical scalar decoding.
+	MaxScalarDecodes uint32
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
+	MaxTemporaryBytes uint64
 }
 
 func (limits TreeProofDecodingLimits) validate() error {
@@ -131,9 +144,12 @@ const (
 // TreeProofEncodingResourceError reports one rejected serialization bound
 // without disclosing keys, values, paths, commitments, or proof bytes.
 type TreeProofEncodingResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource TreeProofEncodingResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.
@@ -192,9 +208,12 @@ const (
 // TreeProofDecodingResourceError reports one rejected decoder bound without
 // disclosing proof contents.
 type TreeProofDecodingResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource TreeProofDecodingResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.

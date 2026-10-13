@@ -46,17 +46,25 @@ const (
 // Result is the deterministic path outcome for one queried stem. Existing is
 // set for present and different-stem outcomes and zero for a missing child.
 type Result struct {
-	Match    Match
-	Depth    uint8
+	// Match classifies the lookup as present, missing child, or different stem.
+	Match Match
+	// Depth is the number of consumed path bytes at termination.
+	Depth uint8
+	// Existing is the encountered stem, or zero for a missing child.
 	Existing Stem
 }
 
 // Limits bounds every allocation-amplifying layout operation. Zero values are
 // invalid and no field denotes an unbounded resource.
 type Limits struct {
-	MaxStems          uint32
-	MaxNodes          uint32
-	MaxEdges          uint32
+	// MaxStems bounds distinct 31-byte stems.
+	MaxStems uint32
+	// MaxNodes bounds logical nodes.
+	MaxNodes uint32
+	// MaxEdges bounds retained internal-node child edges.
+	MaxEdges uint32
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
 	MaxTemporaryBytes uint64
 }
 

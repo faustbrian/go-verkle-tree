@@ -53,10 +53,16 @@ var (
 // StorageEncodingLimits bounds canonical node encoding and content hashing.
 // Every field must be positive and no field denotes an unbounded resource.
 type StorageEncodingLimits struct {
-	MaxNodes          uint32
-	MaxNodeBytes      uint64
-	MaxEncodedBytes   uint64
-	MaxHashes         uint32
+	// MaxNodes bounds logical nodes.
+	MaxNodes uint32
+	// MaxNodeBytes bounds each canonical persisted node encoding.
+	MaxNodeBytes uint64
+	// MaxEncodedBytes bounds aggregate canonical persisted-node bytes.
+	MaxEncodedBytes uint64
+	// MaxHashes bounds stored-node content-address calculations.
+	MaxHashes uint32
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
 	MaxTemporaryBytes uint64
 }
 
@@ -97,9 +103,12 @@ const (
 
 // StorageEncodingResourceError reports one rejected storage-encoding bound.
 type StorageEncodingResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource StorageEncodingResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.

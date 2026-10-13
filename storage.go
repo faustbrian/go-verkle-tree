@@ -23,7 +23,8 @@ func (id NodeID) Bytes() [NodeIDSize]byte {
 }
 
 // StoreCapabilities is a bit set of independently asserted store guarantees.
-// Unknown bits are ignored by this package.
+// Unknown bits are ignored by this package. Required bits are declarations by
+// the adapter, not evidence that its I/O, durability or atomicity is correct.
 type StoreCapabilities uint8
 
 const (
@@ -346,7 +347,9 @@ func (limits StorageLimits) validate() error {
 // atomically make the complete set durable before publishing the snapshot
 // root. previous is copied when non-nil and is the required currently
 // published root; nil requires that no root is currently published. Failure
-// preserves the immutable snapshot.
+// preserves the immutable snapshot. A callback error does not establish whether
+// the adapter published the request; resolving an ambiguous I/O outcome remains
+// the adapter/application responsibility. This package does not retry the write.
 func (snapshot Snapshot) Commit(
 	ctx context.Context,
 	store NodeStore,

@@ -42,8 +42,11 @@ type OpeningProof struct {
 // zero to reject all proofs before scalar decoding; the other fields must be
 // positive. No field denotes an unbounded resource.
 type OpeningProofLimits struct {
-	MaxProofBytes    uint32
-	MaxPointDecodes  uint32
+	// MaxProofBytes bounds the complete canonical proof bytes.
+	MaxProofBytes uint32
+	// MaxPointDecodes bounds strict group-point decoding.
+	MaxPointDecodes uint32
+	// MaxScalarDecodes bounds canonical scalar decoding.
 	MaxScalarDecodes uint32
 }
 
@@ -73,9 +76,12 @@ const (
 // OpeningProofResourceError reports one rejected proof-decoding bound without
 // disclosing proof contents.
 type OpeningProofResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource OpeningProofResource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 // Error implements error.

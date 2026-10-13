@@ -30,8 +30,11 @@ const (
 
 // ResourceError reports a configured state-model bound and rejected value.
 type ResourceError struct {
-	Kind   ResourceKind
-	Limit  uint64
+	// Kind identifies the rejected budget dimension.
+	Kind ResourceKind
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
 	Actual uint64
 }
 

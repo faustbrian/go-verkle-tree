@@ -1,5 +1,3 @@
-// Package authstate binds immutable key/value snapshots to research profile v0
-// Verkle commitments. It remains an internal profile-v0 construction boundary.
 package authstate
 
 import (
@@ -115,8 +113,12 @@ func (update Update) validate() error {
 // Limits bounds authenticated-state allocation work. Zero fields are invalid
 // and no field denotes an unbounded resource.
 type Limits struct {
-	MaxEntries        uint32
-	MaxBatchUpdates   uint32
+	// MaxEntries bounds retained present key/value entries.
+	MaxEntries uint32
+	// MaxBatchUpdates bounds operations in one atomic batch.
+	MaxBatchUpdates uint32
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
 	MaxTemporaryBytes uint64
 }
 
@@ -148,9 +150,12 @@ const (
 
 // ResourceError reports a rejected resource without disclosing keys or values.
 type ResourceError struct {
+	// Resource identifies the rejected budget dimension.
 	Resource Resource
-	Limit    uint64
-	Actual   uint64
+	// Limit is the configured maximum for this resource.
+	Limit uint64
+	// Actual is the count or byte estimate rejected by admission.
+	Actual uint64
 }
 
 type treeBuilder interface {

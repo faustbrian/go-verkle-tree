@@ -4,6 +4,13 @@ All notable changes to `verkle-tree` will be documented in this file.
 
 ## Unreleased
 
+### Documentation
+
+- Clarify canonical admission versus trusted-root verification, copied and
+  borrowed data, per-engine proof admission and non-interruptible backend work,
+  resource accounting, and caller-owned storage guarantees. Preserve the
+  experimental, non-production cryptographic status and unchanged formats.
+
 ## 1.1.1 - 2026-10-10
 
 ### Fixed

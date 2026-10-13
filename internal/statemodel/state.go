@@ -67,8 +67,12 @@ func (update Update) validate() error {
 // Limits bounds every allocation-amplifying operation in the reference model.
 // Zero values are invalid and no field means unbounded.
 type Limits struct {
-	MaxBatchUpdates   uint32
-	MaxEntries        uint32
+	// MaxBatchUpdates bounds operations in one atomic batch.
+	MaxBatchUpdates uint32
+	// MaxEntries bounds retained present key/value entries.
+	MaxEntries uint32
+	// MaxTemporaryBytes bounds conservatively accounted scratch bytes, not total
+	// process memory.
 	MaxTemporaryBytes uint64
 }
 
