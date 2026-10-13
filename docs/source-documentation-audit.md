@@ -250,3 +250,12 @@ sessions' exact three caches, helpers and outputs were removed with absence
 verified. Ordinary complete-diff review found no remaining material
 documentation findings. The changed-current full-file secret scan passed; final
 added-content and staged scans are reported in the local delivery handoff.
+
+## Objective Enforcement
+
+The checksum-pinned public Tools v2.4.0 verifier now supplies
+`make source-docs-check` as a prerequisite of the existing local and CI Make
+routes. Ordinary shared CI selects strict source-documentation checking and
+requires its result. Native prerequisites, operation budgets, security and
+release controls are retained. Hosted exact-head evidence is recorded by the
+coordination ledger; configuration alone does not establish green delivery.
