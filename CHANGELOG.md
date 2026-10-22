@@ -11,6 +11,12 @@ All notable changes to `verkle-tree` will be documented in this file.
   resource accounting, and caller-owned storage guarantees. Preserve the
   experimental, non-production cryptographic status and unchanged formats.
 
+## 1.2.0 - 2026-10-22
+
+### Changed
+
+- Publish the current source and documentation with a fresh immutable tag.
+
 ## 1.1.1 - 2026-10-10
 
 ### Fixed
