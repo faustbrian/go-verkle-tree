@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-07",
+  "reviewed_at": "2026-11-26",
   "review_interval_days": 30,
   "authorities": [
     {
@@ -15,7 +15,7 @@
       "id": "verkle-profile-releases",
       "kind": "releases",
       "url": "https://github.com/faustbrian/go-verkle-tree/releases.atom",
-      "sha256": "581c5f6751f81cac654efb6cf382b4ecc5aa8f071175d850ab47fa3b00b1611d",
+      "sha256": "45957e0445877fe35fd27f92db5c56fbb69c7f6128613b92b810fe4a7814a975",
       "specifications": ["verkletree-bandersnatch-ipa-256-v0 package-owned research profile v0"]
     },
     {
@@ -61,7 +61,7 @@
       "id": "ethereum-eips-changes",
       "kind": "releases",
       "url": "https://github.com/ethereum/EIPs/commits/master.atom",
-      "sha256": "6f0df23c841da07833e3d3370d172f0884110ef0d566d9c1a23e60d3f8cbe5a9",
+      "sha256": "95d701e10d3512b61d775fb7976602ba9be321f8252d3b6fb1d9f0980ae35a89",
       "specifications": ["Ethereum Verkle EIPs 4762, 6800, 7612, and 7748 at c55786f4242e5324afd14c6bca890a369a771d7f (research only; not implemented)"]
     }
   ]
